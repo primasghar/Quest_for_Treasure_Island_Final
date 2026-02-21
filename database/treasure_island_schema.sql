@@ -1,42 +1,39 @@
 
-create table game_airports(
-      id int not null auto_increment,
-      airport_id int ,
-	  primary key (id),
-      foreign key (airport_id) references airport(ident)
+  CREATE TABLE IF NOT EXISTS game_airports(
+      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      airport_id VARCHAR(40) NOT NULL,
+      FOREIGN KEY (airport_id) REFERENCES airport(ident)
+  );
+
+ CREATE TABLE player(
+      id INT NOT NULL auto_increment,
+      name varchar(40) NULL,
+	  PRIMARY KEY (id)
   )
 
-create table player(
-      id int not null auto_increment,
-      name varchar(40) null,
-	  primary key (id)
+ CREATE TABLE progress(
+      id INT NOT NULL auto_increment,
+      player_id INT,
+      current_level INT,
+      game_score INT,
+      carbon_footprint INT,
+	  PRIMARY KEY (id),
+      FOREIGN KEY (player_id) REFERENCES player(id),
+      FOREIGN KEY (current_level) REFERENCES game_airports(id)
   )
 
-create table progress(
-      id int not null auto_increment,
-      player_id int,
-      current_stage int,
-      game_score int,
-      carbon_footprint int,
-	  primary key (id),
-      foreign key (player_id) references player(id)
-  )
-
-create table games(
-      id int not null auto_increment,
+ CREATE TABLE games(
+      id INT NOT NULL auto_increment,
       game_name varchar(40),
-      game_airports_id int,
-      difficulty_level int,
-	  primary key (id),
-      foreign key (game_airports_id) references game_airports(id)
+      difficulty_level INT,
+	  PRIMARY KEY (id),
   )
 
-create table quizlet(
-      id int not null auto_increment,
-      question varchar(255)
-      correct_answer varchar(40),
-      answer_choices varchar(255),
-      difficulty_level int,
-	  primary key (id)
+ CREATE TABLE quizlet(
+      id INT NOT NULL auto_increment,
+      question text,
+      correct_answer text,
+      difficulty_level INT,
+	  PRIMARY KEY (id)
   )
   
