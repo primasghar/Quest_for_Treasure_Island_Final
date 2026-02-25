@@ -30,13 +30,8 @@ def rock_paper_scissors_game():
     player_won = False
 
     while player_won == False and trial < 3:
-
         trial += 1
-        print(f"{player_won} == false: {trial}")
-
         computer_choice = random.choice(options_list)
-
-        print(f"computer_choice: {computer_choice}")
 
         player_picked = input("").upper()
         print(f"player_picked: {player_picked}")
