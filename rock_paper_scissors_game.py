@@ -13,18 +13,13 @@ def rock_paper_scissors_game(player_name):
     options_list = ["ROCK", "PAPER", "SCISSORS"]
 
     computer_choice = random.choice(options_list)
+    # print(f"computer_choice: {computer_choice}")
 
-    print(f"computer_choice: {computer_choice}")
-
-    trial = 0
     player_won = False
+    trial = 0
 
-    while player_won == False and trial < 3:
-        trial += 1
-        print(f"trial: {trial}")
-
+    while not player_won  and trial < 3:
         player_picked = input("Enter your choice: ").upper()
-
         player_choice = player_picked
 
         if player_picked == "R":
@@ -35,11 +30,13 @@ def rock_paper_scissors_game(player_name):
             player_choice = "SCISSORS"
         else:
             print("Please enter a valid input")
+            # The game won't start until the user enters a valid input.
 
-        print(f"player_choice: {player_choice}")
+        # print(f"print player_choice: {player_choice}")
 
         if player_choice == "ROCK" or player_choice == "PAPER" or player_choice == "SCISSORS":
-
+            trial += 1
+            # print(f"trial: {trial}")
             if player_choice == "ROCK" and computer_choice == "SCISSORS":
                 player_won = True
 
@@ -63,9 +60,9 @@ def rock_paper_scissors_game(player_name):
                 player_won = False
                 if trial <= 2:
                     print("Please try again")
+
             elif computer_choice == player_choice:
                 player_won = False
-                print("Its a draw")
                 if trial <= 2:
                     print("Please try again")
 

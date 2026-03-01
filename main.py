@@ -2,7 +2,7 @@ import rock_paper_scissors_game
 
 print("Quest for Treasure Island")
 
-player_name = input("Please enter your game name: \n").upper()
+player_name = input("Please enter your game name: ").upper()
 
 game_score = 0
 carbon_footprint = 0
