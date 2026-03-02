@@ -11,7 +11,7 @@ connection = mariadb.connect(
          )
 
 def fetch_game_airports():
-    sql = f"SELECT * FROM game_airports;"
+    sql = f"SELECT * FROM game_airports ORDER BY id;"
     # print(sql)
     cursor = connection.cursor()
     cursor.execute(sql)
@@ -20,16 +20,27 @@ def fetch_game_airports():
     #     for row in result:
     return result
 
-# all_airports = fetch_game_airports()
-# print(all_airports)
+all_airports = fetch_game_airports()
+print(all_airports)
 
 
 def add_player(player):
     sql = f"INSERT INTO player (name) VALUES (%s);"
-    print(sql)
+    # print(sql)
     cursor = connection.cursor()
     cursor.execute(sql, (player,))
     resultant_id = cursor.lastrowid
     print(resultant_id)
     return resultant_id
+
+
+def initial_player_progress(player_id):
+    sql = f"INSERT INTO progress (player_id) VALUES (%s);"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql, (player_id,))
+    resultant_id = cursor.lastrowid
+    print(resultant_id)
+    return resultant_id
+
 

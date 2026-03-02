@@ -1,8 +1,15 @@
 from games import rock_paper_scissors
+import query_functions
 
 print("Quest for Treasure Island")
 
 player_name = input("Please enter your game name: ").upper()
+
+player_Id = query_functions.add_player(player_name)
+
+if player_Id:
+    query_functions.initial_player_progress(player_Id)
+
 
 game_score = 0
 carbon_footprint = 0
