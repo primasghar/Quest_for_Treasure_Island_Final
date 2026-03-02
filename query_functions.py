@@ -20,9 +20,16 @@ def fetch_game_airports():
     #     for row in result:
     return result
 
-all_airports = fetch_game_airports()
+# all_airports = fetch_game_airports()
+# print(all_airports)
 
-print(all_airports)
 
-
+def add_player(player):
+    sql = f"INSERT INTO player (name) VALUES (%s);"
+    print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql, (player,))
+    resultant_id = cursor.lastrowid
+    print(resultant_id)
+    return resultant_id
 
