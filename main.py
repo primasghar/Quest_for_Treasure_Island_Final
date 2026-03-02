@@ -1,4 +1,4 @@
-import rock_paper_scissors_game
+from games import rock_paper_scissors
 
 print("Quest for Treasure Island")
 
@@ -13,5 +13,5 @@ print(f"Welcome! To the Quest of a Treasure Island.")
 print(f" Adventurer: {player_name}\n Current location: {current_airport}\n Game level: {current_level}\n Game score: {game_score}\n Carbon footprints: {carbon_footprint}\n ")
 
 
-rock_paper_scissors_game.rock_paper_scissors_game(player_name)
+rock_paper_scissors.rock_paper_scissors_game(player_name)
 

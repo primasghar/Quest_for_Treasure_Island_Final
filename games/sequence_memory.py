@@ -1,6 +1,6 @@
 import string
 import random
-import sys, time
+import time
 
 def sequence_memory_game():
 
