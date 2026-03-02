@@ -10,5 +10,19 @@ connection = mariadb.connect(
          autocommit=True
          )
 
+def fetch_game_airports():
+    sql = f"SELECT * FROM game_airports;"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    # if cursor.rowcount > 0:
+    #     for row in result:
+    return result
+
+all_airports = fetch_game_airports()
+
+print(all_airports)
+
 
 
