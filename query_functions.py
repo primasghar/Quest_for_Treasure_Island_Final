@@ -21,7 +21,7 @@ def fetch_game_airports():
     return result
 
 all_airports = fetch_game_airports()
-print(all_airports)
+# print(all_airports)
 
 
 def add_player(player):
@@ -42,5 +42,13 @@ def initial_player_progress(player_id):
     resultant_id = cursor.lastrowid
     print(resultant_id)
     return resultant_id
+
+def fetch_quiz_questions(level):
+    sql = f"SELECT * FROM quizlet WHERE difficulty_level = {level};"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return result
 
 
