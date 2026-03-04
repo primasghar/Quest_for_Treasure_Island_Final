@@ -16,8 +16,6 @@ def fetch_game_airports():
     cursor = connection.cursor()
     cursor.execute(sql)
     result = cursor.fetchall()
-    # if cursor.rowcount > 0:
-    #     for row in result:
     return result
 
 all_airports = fetch_game_airports()
@@ -30,7 +28,7 @@ def add_player(player):
     cursor = connection.cursor()
     cursor.execute(sql, (player,))
     resultant_id = cursor.lastrowid
-    print(resultant_id)
+    # print(resultant_id)
     return resultant_id
 
 
@@ -40,15 +38,47 @@ def initial_player_progress(player_id):
     cursor = connection.cursor()
     cursor.execute(sql, (player_id,))
     resultant_id = cursor.lastrowid
-    print(resultant_id)
+    # print(resultant_id)
     return resultant_id
 
-def fetch_quiz_questions(level):
-    sql = f"SELECT * FROM quizlet WHERE difficulty_level = {level};"
+def fetch_player_progress(gamerid):
+    sql = f"SELECT * FROM progress WHERE player_id = %s;"
     # print(sql)
     cursor = connection.cursor()
-    cursor.execute(sql)
+    cursor.execute(sql, (gamerid,))
+    result = cursor.fetchone()
+    # print(result)
+    return result
+
+
+def fetch_quiz_questions(level):
+    sql = f"SELECT * FROM quizlet WHERE difficulty_level = %s;"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql,(level,))
     result = cursor.fetchall()
     return result
 
+
+def fetch_game_airport_icao(current_level):
+    sql = f"SELECT airport_id FROM game_airports WHERE id = %s;"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql, (current_level,))
+    result = cursor.fetchone()
+    return result
+
+def fetch_airport_info(icao):
+    sql = f"SELECT iso_country, ident, name, latitude_deg, longitude_deg FROM airport WHERE ident = %s"
+    cursor = connection.cursor()
+    cursor.execute(sql, (icao,))
+    result = cursor.fetchone()
+    return result
+
+def fetch_airport_country(iso_country):
+    sql = f"SELECT name FROM country WHERE iso_country = %s"
+    cursor = connection.cursor()
+    cursor.execute(sql, (iso_country,))
+    result = cursor.fetchone()
+    return result
 
