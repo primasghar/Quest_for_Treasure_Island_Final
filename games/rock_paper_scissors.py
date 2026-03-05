@@ -5,9 +5,9 @@ import random
 # Paper covers Rock
 # Scissors cuts Paper
 
-def rock_paper_scissors_game(player_name):
+def rock_paper_scissors_game(name):
     print(f"""Game: Rock Paper Scissors
-        {player_name} you will have three opportunities to win the game and go to your next airport destination.
+        {name} you will have three opportunities to win the game and go to your next airport destination.
         Please select one option: `R´ for Rock, `P´ for Paper and `S´ for Scissor\n""")
 
     options_list = ["ROCK", "PAPER", "SCISSORS"]
@@ -68,8 +68,13 @@ def rock_paper_scissors_game(player_name):
 
 
     if player_won:
+
         print("Congratulations! You won.")
+        return True
     else:
         print("You lost.")
+        return False
+
+
 
 

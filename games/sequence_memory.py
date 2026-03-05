@@ -2,14 +2,19 @@ import string
 import random
 import time
 
-def sequence_memory_game():
+def sequence_memory_game(name):
 
-    letters_and_numbers = string.ascii_uppercase
+    print(f"""Game: Sequence Memory
+          {name} you will have three opportunities to win the game and go to your next airport destination.
+          A random sequence of alphabets will be displayed for 8 seconds, after that you will have to type the sequence. Good Luck!!! \n""")
+
+
+    letters = string.ascii_uppercase
     # print(letters_and_numbers)
 
     sequence_size = 8
     delimiter = ""
-    random_sequence = delimiter.join((random.choices(letters_and_numbers, k=sequence_size)))
+    random_sequence = delimiter.join((random.choices(letters, k=sequence_size)))
 
     print(random_sequence, end='')
     time.sleep(8)
@@ -27,8 +32,7 @@ def sequence_memory_game():
     if user_entered_sequence == random_sequence:
         print("Congratulations! You did it")
         print(f"Your sequence: {user_entered_sequence} matched {random_sequence}")
+        return True
     else:
         print(f"Sorry! Your sequence: {user_entered_sequence} does not match {random_sequence}. You have lost")
-
-
-sequence_memory_game()
+        return False
