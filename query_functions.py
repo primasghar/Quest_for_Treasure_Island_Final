@@ -32,7 +32,7 @@ def add_player(player):
     return resultant_id
 
 
-def initial_player_progress(player_id):
+def player_progress_id(player_id):
     sql = f"INSERT INTO progress (player_id) VALUES (%s);"
     # print(sql)
     cursor = connection.cursor()
@@ -79,6 +79,13 @@ def fetch_airport_country(iso_country):
     sql = f"SELECT name FROM country WHERE iso_country = %s"
     cursor = connection.cursor()
     cursor.execute(sql, (iso_country,))
+    result = cursor.fetchone()
+    return result
+
+def update_progress(level, score, carbon_fp, player_id):
+    sql = f"UPDATE progress SET current_level = %s, game_score = %s, carbon_footprint = %s WHERE player_id = %s"
+    cursor = connection.cursor()
+    cursor.execute(sql, (level, score, carbon_fp, player_id))
     result = cursor.fetchone()
     return result
 
