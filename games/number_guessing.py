@@ -1,10 +1,10 @@
 import random
 
-def flip_the_coin_game():
+def guess_the_number_game():
 
-        print("""Game: Flip The Coin
+        print("""Game: Guess the Number
         You will have 3 opportunities to win the game and go to the your next airport destination.
-        Please select one option HEADS OR TAILS.\n""")
+        Please select one number 0 to 10\n""")
 
         trails = 0
 
@@ -12,8 +12,9 @@ def flip_the_coin_game():
 
         while not player_won and trails < 3:
             user_choice = input("Enter your choice: ").capitalize()
-            computer_choice = random.choice(["Heads", "Tails"])
+            computer_choice = random.randint(0, 10)
 
+            print(f"computer choice is {computer_choice}")
             trails += 1
 
             if user_choice == computer_choice:
@@ -24,4 +25,5 @@ def flip_the_coin_game():
         else:
             print("Sorry, you lost the game!")
 
-flip_the_coin_game()
+guess_the_number_game()
+
