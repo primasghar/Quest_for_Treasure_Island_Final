@@ -7,8 +7,9 @@ import random
 
 def rock_paper_scissors_game(name):
     print(f"""Game name: Rock Paper Scissors
-        {name} you will have three opportunities to win the game and go to your next airport destination.
-        Please select one option: `R´ for Rock, `P´ for Paper and `S´ for Scissor\n""")
+        {name} you have three attempts to win the game and go to your next airport destination.
+        Draw is not counted as an attempt.
+        Please select one option: ( Rock [R], Paper[P] or Scissor [S]\n""")
 
     player_won = False
     attempt = 1
@@ -34,7 +35,7 @@ def rock_paper_scissors_game(name):
             # The game won't start until the user enters a valid input.
 
         if player_choice == "ROCK" or player_choice == "PAPER" or player_choice == "SCISSORS":
-            print(f"\nAttempt no: {attempt}")
+            print(f"Attempt no: {attempt}")
 
             if player_choice == "ROCK" and computer_choice == "SCISSORS":
                 player_won = True
@@ -76,10 +77,10 @@ def rock_paper_scissors_game(name):
 
     if player_won:
 
-        print("Congratulations! You have won the game.")
+        print("\nCongratulations! You have won the game.")
         return True
     else:
-        print("Sorry! You have lost the game.")
+        print("\nSorry! You have lost the game.")
         return False
 
 
