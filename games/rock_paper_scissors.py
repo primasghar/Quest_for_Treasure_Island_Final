@@ -6,74 +6,82 @@ import random
 # Scissors cuts Paper
 
 def rock_paper_scissors_game(name):
-    print(f"""Game: Rock Paper Scissors
+    print(f"""Game name: Rock Paper Scissors
         {name} you will have three opportunities to win the game and go to your next airport destination.
         Please select one option: `R´ for Rock, `P´ for Paper and `S´ for Scissor\n""")
 
-    options_list = ["ROCK", "PAPER", "SCISSORS"]
-
-    computer_choice = random.choice(options_list)
-    # print(f"computer_choice: {computer_choice}")
-
     player_won = False
-    trial = 0
+    attempt = 1
 
-    while not player_won  and trial < 3:
+    while not player_won and attempt  <= 3:
+
+        options_list = ["ROCK", "PAPER", "SCISSORS"]
+
+        computer_choice = random.choice(options_list)
+        # print(f"computer_choice: {computer_choice}")
+
         player_picked = input("Enter your choice: ").upper()
         player_choice = player_picked
 
-        if player_picked == "R":
+        if player_picked == "R" or player_picked == "ROCK":
             player_choice = "ROCK"
-        elif player_picked == "P":
+        elif player_picked == "P" or player_picked == "PAPER":
             player_choice = "PAPER"
-        elif player_picked == "S":
+        elif player_picked == "S" or player_picked == "SCISSORS":
             player_choice = "SCISSORS"
         else:
             print("Please enter a valid input")
             # The game won't start until the user enters a valid input.
 
-        # print(f"print player_choice: {player_choice}")
-
         if player_choice == "ROCK" or player_choice == "PAPER" or player_choice == "SCISSORS":
-            trial += 1
-            # print(f"trial: {trial}")
+            print(f"\nAttempt no: {attempt}")
+
             if player_choice == "ROCK" and computer_choice == "SCISSORS":
                 player_won = True
+                print(f"You choose {player_choice} and computer choose {computer_choice}. You won!")
 
             elif player_choice == "PAPER" and computer_choice == "ROCK":
                 player_won = True
+                print(f"You choose {player_choice} and computer choose {computer_choice}. You won!")
 
             elif player_choice == "SCISSORS" and computer_choice == "PAPER":
                 player_won = True
+                print(f"You choose {player_choice} and computer choose {computer_choice}. You won!")
 
             elif computer_choice == "ROCK" and player_choice == "SCISSORS":
                 player_won = False
-                if trial < 2:
-                    print("Please try again")
+                attempt  += 1
+                print(f"You choose {player_choice} and computer choose {computer_choice}. You lost!")
+                if attempt  < 3:
+                    print("Please try again\n")
 
             elif computer_choice == "PAPER" and player_choice == "ROCK":
                 player_won = False
-                if trial <= 2:
-                    print("Please try again")
+                attempt  += 1
+                print(f"You choose {player_choice} and computer choose {computer_choice}. You lost!")
+                if attempt  < 3:
+                    print("Please try again.\n")
 
             elif computer_choice == "SCISSORS" and player_choice == "PAPER":
                 player_won = False
-                if trial <= 2:
-                    print("Please try again")
+                attempt  += 1
+                print(f"You choose {player_choice} and computer choose {computer_choice}. You lost!")
+                if attempt  < 3:
+                    print("Please try again.\n")
 
-            elif computer_choice == player_choice:
-                player_won = False
-                if trial <= 2:
-                    print("Please try again")
+            if computer_choice == player_choice:
+                print(f"You choose {player_choice} and computer choose {computer_choice}.")
+                print("It's a DRAW. Please try again.\n")
 
 
     if player_won:
 
-        print("Congratulations! You won.")
+        print("Congratulations! You have won the game.")
         return True
     else:
-        print("You lost.")
+        print("Sorry! You have lost the game.")
         return False
+
 
 
 
