@@ -70,6 +70,7 @@ def fetch_game_airport_icao(current_level):
 
 def fetch_airport_info(icao):
     sql = f"SELECT iso_country, ident, name, latitude_deg, longitude_deg FROM airport WHERE ident = %s"
+    # print(sql)
     cursor = connection.cursor()
     cursor.execute(sql, (icao,))
     result = cursor.fetchone()
@@ -77,6 +78,7 @@ def fetch_airport_info(icao):
 
 def fetch_airport_country(iso_country):
     sql = f"SELECT name FROM country WHERE iso_country = %s"
+    # print(sql)
     cursor = connection.cursor()
     cursor.execute(sql, (iso_country,))
     result = cursor.fetchone()
@@ -84,8 +86,9 @@ def fetch_airport_country(iso_country):
 
 def update_progress(level, score, carbon_fp, player_id):
     sql = f"UPDATE progress SET current_level = %s, game_score = %s, carbon_footprint = %s WHERE player_id = %s"
+    # print(sql)
     cursor = connection.cursor()
-    cursor.execute(sql, (level, score, carbon_fp, player_id))
-    result = cursor.fetchone()
-    return result
+    cursor.execute(sql, (level, score, carbon_fp, player_id,))
+    # if cursor.rowcount==1:
+    #     print("Player progress updated")
 
