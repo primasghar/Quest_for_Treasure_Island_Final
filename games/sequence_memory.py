@@ -6,28 +6,29 @@ def sequence_memory_game(name):
 
     print(f"""Game: Sequence Memory
           {name} you will have three opportunities to win the game and go to your next airport destination.
-          A random sequence of alphabets will be displayed for 8 seconds, after that you will have to type the sequence. Good Luck!!! \n""")
-
-
-    letters = string.ascii_uppercase
-    # print(letters_and_numbers)
-
-    sequence_size = 8
-    delimiter = ""
-    random_sequence = delimiter.join((random.choices(letters, k=sequence_size)))
-
-    print(random_sequence, end='')
-    time.sleep(8)
-    print(8 * '\b' + "Please enter the sequence")
+          A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence. Good Luck!!! \n""")
 
     trial = 0
     user_entered_sequence = ""
+    random_sequence = ""
 
-    while user_entered_sequence != random_sequence and trial < 3:
+    while (random_sequence == "" or user_entered_sequence != random_sequence) and trial < 3:
         trial += 1
-        user_entered_sequence = input("Enter sequence: ")
-        # print(f"trial: {trial}")
+        print(f"Attempt no: {trial}")
 
+        letters = string.ascii_uppercase
+        sequence_size = 8
+        delimiter = ""
+
+        user_permission = input("Press enter to see the sequence. Display time is 8 seconds: ")
+        if user_permission == "":
+
+            random_sequence = delimiter.join((random.choices(letters, k=sequence_size)))
+            print(random_sequence, end='')
+            time.sleep(8)
+            print(8 * '\b' + "Please enter the sequence")
+
+        user_entered_sequence = input("Enter sequence: ")
 
     if user_entered_sequence == random_sequence:
         print("Congratulations! You did it")
