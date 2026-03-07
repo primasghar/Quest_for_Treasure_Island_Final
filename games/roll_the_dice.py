@@ -40,5 +40,3 @@ def roll_the_dice_game(name):
     else:
         print("\nSorry, You lost the game!")
         return win
-
-roll_the_dice_game("Prim")
