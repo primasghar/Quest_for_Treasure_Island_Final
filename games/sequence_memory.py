@@ -8,13 +8,13 @@ def sequence_memory_game(name):
           {name} you will have three opportunities to win the game and go to your next airport destination.
           A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence. Good Luck!!! \n""")
 
-    trial = 0
+    attempt = 0
     user_entered_sequence = ""
     random_sequence = ""
 
-    while (random_sequence == "" or user_entered_sequence != random_sequence) and trial < 3:
-        trial += 1
-        print(f"Attempt no: {trial}")
+    while (random_sequence == "" or user_entered_sequence != random_sequence) and attempt < 3:
+        attempt += 1
+        print(f"Attempt no: {attempt}")
 
         letters = string.ascii_uppercase
         sequence_size = 8
