@@ -6,10 +6,10 @@ import random
 # Scissors cuts Paper
 
 def rock_paper_scissors_game(name):
-    print(f"""Game name: Rock Paper Scissors
-        {name} you have three attempts to win the game and go to your next airport destination.
-        Draw is not counted as an attempt.
-        Please select one option: ( Rock [R], Paper[P] or Scissor [S]\n""")
+    print(f"""Game name: ROCK PAPER SCISSORS
+           {name}! You will have three opportunities to win the game and go to your next airport destination.
+           'Draw' is not counted as a loss.
+           Please select one option: (Rock [R], Paper[P] or Scissor [S]\n""")
 
     player_won = False
     attempt = 1
@@ -54,34 +54,34 @@ def rock_paper_scissors_game(name):
                 attempt  += 1
                 print(f"You choose {player_choice} and computer choose {computer_choice}. You lost!")
                 if attempt  < 3:
-                    print("Please try again\n")
+                    print("Please try again!\n")
 
             elif computer_choice == "PAPER" and player_choice == "ROCK":
                 player_won = False
                 attempt  += 1
                 print(f"You choose {player_choice} and computer choose {computer_choice}. You lost!")
                 if attempt  < 3:
-                    print("Please try again.\n")
+                    print("Please try again!\n")
 
             elif computer_choice == "SCISSORS" and player_choice == "PAPER":
                 player_won = False
                 attempt  += 1
                 print(f"You choose {player_choice} and computer choose {computer_choice}. You lost!")
                 if attempt  < 3:
-                    print("Please try again.\n")
+                    print("Please try again!\n")
 
             if computer_choice == player_choice:
-                print(f"You choose {player_choice} and computer choose {computer_choice}.")
-                print("It's a DRAW. Please try again.\n")
+                print(f"You choose {player_choice} and computer choose {computer_choice}. It's a DRAW.")
+                print("Please try again!\n")
 
 
     if player_won:
 
         print("\nCongratulations! You have won the game.")
-        return True
+        return player_won
     else:
         print("\nSorry! You have lost the game.")
-        return False
+        return player_won
 
 
 

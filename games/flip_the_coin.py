@@ -2,9 +2,9 @@ import random
 
 def flip_the_coin_game(name):
 
-        print(f"""Game: Flip The Coin
-        {name}You will have three opportunities to win the game and go to the your next airport destination.
-        Please select one option HEADS [h] OR TAILS[t].\n""")
+        print(f"""Game name: FLIP THE COIN
+           {name}! You will have three opportunities to win the game and go to your next airport destination.
+           Please select one option: (HEADS [h] or TAILS[t]).\n""")
 
         attempt = 0
         player_won = False
@@ -14,7 +14,7 @@ def flip_the_coin_game(name):
             print(f"\nAttempt no: {attempt}")
 
             computer_choice = random.choice(["HEADS", "TAILS"])
-            print(f"result: {computer_choice}")
+            # print(f"result: {computer_choice}")
 
             random_adjectives = random.choice(["amazing", "incredible","awesome", "impressive", "accurate" ])
 
@@ -28,7 +28,7 @@ def flip_the_coin_game(name):
             else:
                 print("Please enter a valid input")
 
-            print(f"player-choice: {player_choice}")
+            # print(f"player-choice: {player_choice}")
 
             if player_choice == "HEADS" or player_choice == "TAILS":
 
@@ -37,6 +37,7 @@ def flip_the_coin_game(name):
                     print(f"{player_choice}, What an {random_adjectives} guess.")
 
                 elif player_choice != computer_choice :
+                    print(f"{player_choice} is not a correct guess.")
                     if attempt <=2:
                         print("Please try again!")
 

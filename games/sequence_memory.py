@@ -4,9 +4,10 @@ import time
 
 def sequence_memory_game(name):
 
-    print(f"""Game: Sequence Memory
-          {name} you will have three opportunities to win the game and go to your next airport destination.
-          A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence. Good Luck!!! \n""")
+    print(f"""Game name: SEQUENCE MEMORY GAME
+           {name}! You will have three opportunities to win the game and go to your next airport destination.
+           A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence. 
+           Good Luck!!! \n""")
 
     attempt = 0
     user_entered_sequence = ""
