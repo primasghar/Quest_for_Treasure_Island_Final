@@ -1,19 +1,25 @@
 import random
 
-print("You have 3 chances to roll the dice.\n")
+def roll_the_dice_game(name):
+    print(f"""Game name: ROLL THE DICE
+           {name}! You will have three opportunities to win the game and go to your next airport destination.
+           Please press enter key to roll the dice and try your luck to get a 6.\n""")
+    win = False
 
-win = False
+    for i in range(3):
 
-for i in range(3):
-    input(f"Press Enter to roll dice ({i+1}/3)... ")
+        input(f"Press Enter: ")
+        print(f"Attempt no: {i+1}")
 
-    roll = random.randint(1, 6)
-    print(f"You rolled: {roll}\n")
+        roll = random.randint(1, 6)
+        print(f"You rolled: {roll}\n")
 
-    if roll == 6:
-        win = True
+        if roll == 6:
+            win = True
 
-if win:
-    print("You got a 6! You WIN!")
-else:
-    print("No 6 this time. Sorry! you lose the game!")
+    if win:
+        print("\nCongratulations! You won the game!")
+    else:
+        print("\nSorry, you lost the game!")
+
+roll_the_dice_game("Prim")
