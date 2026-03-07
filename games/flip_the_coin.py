@@ -1,27 +1,50 @@
 import random
 
-def flip_the_coin_game():
+def flip_the_coin_game(name):
 
-        print("""Game: Flip The Coin
-        You will have 3 opportunities to win the game and go to the your next airport destination.
-        Please select one option HEADS OR TAILS.\n""")
+        print(f"""Game: Flip The Coin
+        {name}You will have three opportunities to win the game and go to the your next airport destination.
+        Please select one option HEADS [h] OR TAILS[t].\n""")
 
-        trails = 0
-
+        attempt = 0
         player_won = False
 
-        while not player_won and trails < 3:
-            user_choice = input("Enter your choice: ").capitalize()
-            computer_choice = random.choice(["Heads", "Tails"])
+        while not player_won and attempt < 3:
+            attempt += 1
+            print(f"\nAttempt no: {attempt}")
 
-            trails += 1
+            computer_choice = random.choice(["HEADS", "TAILS"])
+            print(f"result: {computer_choice}")
 
-            if user_choice == computer_choice:
-                player_won = True
+            random_adjectives = random.choice(["amazing", "incredible","awesome", "impressive", "accurate" ])
+
+            player_picked = input("Enter your choice: ").capitalize()
+            player_choice = ""
+
+            if player_picked == "H" or player_picked == "HEADS":
+                player_choice = "HEADS"
+            elif player_picked == "T" or player_picked == "TAILS":
+                player_choice = "TAILS"
+            else:
+                print("Please enter a valid input")
+
+            print(f"player-choice: {player_choice}")
+
+            if player_choice == "HEADS" or player_choice == "TAILS":
+
+                if player_choice == computer_choice:
+                    player_won = True
+                    print(f"{player_choice}, What an {random_adjectives} guess.")
+
+                elif player_choice != computer_choice :
+                    if attempt <=2:
+                        print("Please try again!")
+
 
         if player_won:
-            print("Congratulations! You won the game!")
+            print("\nCongratulations! You won the game!")
+            return player_won
         else:
-            print("Sorry, you lost the game!")
+            print("\nSorry, you lost the game!")
+            return player_won
 
-flip_the_coin_game()
