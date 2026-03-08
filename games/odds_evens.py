@@ -16,9 +16,9 @@ def play_game(name):
         your_choice = input("Odd [o] or Even [e]: ").upper()
         choice = your_choice
 
-        if your_choice == "e" or your_choice == "EVEN":
+        if your_choice == "E" or your_choice == "EVEN":
             choice = "EVEN"
-        elif your_choice == "o" or your_choice == "ODD":
+        elif your_choice == "O" or your_choice == "ODD":
             choice = "ODD"
         else:
             print("Please enter a valid input")
