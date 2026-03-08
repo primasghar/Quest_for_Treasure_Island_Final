@@ -52,7 +52,7 @@ def fetch_player_progress_query(gamerid):
 
 
 def fetch_quiz_questions_query(level):
-    sql = f"SELECT * FROM quizlet WHERE difficulty_level = %s;"
+    sql = f"SELECT * FROM quizlet WHERE difficulty_level = %s ORDER BY id;"
     # print(sql)
     cursor = connection.cursor()
     cursor.execute(sql,(level,))
