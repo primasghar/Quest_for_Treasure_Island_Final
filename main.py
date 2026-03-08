@@ -27,11 +27,17 @@ def update_board(level, points, cfp, player_Id):
 
 
 def display_board():
+    progress = fetch_player_progress_query(player_Id)
+
+    # Global Variables
+    level = progress[2]
+    score = progress[3]
+    c_footprint = player_progress_data[4]
     print(f"""
     Adventurer: {player_name}
-    Level: {current_level}
-    Game points: {game_score}
-    Carbon footprints: {carbon_footprint}\n""")
+    Level: {level}
+    Game points: {score}
+    Carbon footprints: {c_footprint}\n""")
 
 
 def play_again_or_not():
