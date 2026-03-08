@@ -1,6 +1,10 @@
+from geopy import distance
 from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
-                             fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query, update_progress_query, delete_player_and_progress_query)
+                             fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query,
+                             update_progress_query, delete_player_and_progress_query)
+
+# -----------------------------------FUNCTIONS--------------------------------------------------------------------------
 
 def airport_data(level):
     icao_code = fetch_game_airport_icao_query(level)
@@ -17,23 +21,34 @@ def airport_and_country(level):
     name_of_airport_and_country = next_destination[2], next_destination[5]
     return name_of_airport_and_country
 
+def distance_between_airports(prev, current):
+    airport_a = airport_data(prev)
+    airport_b = airport_data(current)
+    return distance.distance((airport_a[3], airport_a[4]),
+                             (airport_b[3], airport_b[4])).km
+
+def calc_c_emission_between_airports(prev_level, current_level):
+    avg_co2_per_km = 150
+    travelled_distance = int(distance_between_airports(prev_level, current_level))
+    average_carbon_emission = travelled_distance * avg_co2_per_km
+    return average_carbon_emission
 
 def update_board():
     progress = fetch_player_progress_query(player_Id)
 
-    # Global Variables
     level = progress[2] + 1
-    score = progress[3] + level
-    carbon_fp = progress[4] + 1000
+    score = progress[3] + (level * 1000)
+
+    carbon_emission = calc_c_emission_between_airports(progress[2], level)
+    carbon_fp = progress[4] + carbon_emission
 
     update_progress_query(level, score, carbon_fp, player_Id)
 
 def deduct_points():
     progress = fetch_player_progress_query(player_Id)
 
-    # Global Variables
     level = progress[2]
-    score = progress[3] - 200
+    score = progress[3] - 500
     carbon_fp = progress[4]
 
     update_progress_query(level, score, carbon_fp, player_Id)
@@ -41,7 +56,6 @@ def deduct_points():
 def display_board():
     progress = fetch_player_progress_query(player_Id)
 
-    # Global Variables
     level = progress[2]
     score = progress[3]
     c_footprint = progress[4]
@@ -49,7 +63,7 @@ def display_board():
     Adventurer: {player_name}
     Level: {level}
     Game points: {score}
-    Carbon footprints: {c_footprint}\n""")
+    Carbon emissions: {c_footprint}g\n""")
 
 
 def play_again_or_not(current_points):
@@ -74,8 +88,7 @@ def exit_game():
     print("Game exiting...")
     delete_player_and_progress_query()
 
-
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------MAIN GAME--------------------------------------------------------------------------
 
 def play_stage():
     progress = fetch_player_progress_query(player_Id)
@@ -114,8 +127,6 @@ def play_stage():
     print(f"You are flying to the next airport")
     return False
 
-
-
 # GAME START
 
 print("Quest for Treasure Island")
@@ -131,7 +142,7 @@ if player_Id:
 
 player_progress_data = fetch_player_progress_query(player_Id)
 
-print(f"Welcome, {player_name}! To the Quest for a Treasure Island!")
+print(f"Welcome {player_name}! To the Quest for a Treasure Island!")
 
 # ---------------------------------------------------------------------------------------------------------------------
 game_over =  False
