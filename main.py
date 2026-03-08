@@ -29,6 +29,32 @@ def display_board(player_name, current_level, game_score, carbon_footprint ):
     Game points: {game_score}
     Carbon footprints: {carbon_footprint}\n""")
 
+
+def play_again_or_not(game_score, game, player_name):
+    print("\nIf you want to play the game again? It will cost you 200 game points. Please enter Yes [y] to play again.")
+    print("If you want to quit. Please enter Quit [q]\n")
+    play_again = input("Yes[y] or Quit[q])").upper()
+
+    while play_again == "Y" or play_again == "YES":
+        if game_score >= 200:
+            game_score = game_score - 200
+
+            update_progress(current_level, game_score, carbon_footprint, player_Id)
+
+            game(player_name)
+
+            display_board(player_name, current_level, game_score, carbon_footprint)
+            print(f"\nDo you want to play again or quit")
+            play_again = input("Yes[y] or Quit[q])").upper()
+        elif game_score < 200:
+            print("Sorry, you don't have enough game points to pay for the game")
+            print("You can start a new game. Game exiting...!")
+            delete_player_and_progress()
+            break
+    else:
+        print("Game exiting...")
+        delete_player_and_progress()
+
 # ---------------------------------------------------------------------------------------------------------------------
 # GAME START
 
@@ -71,15 +97,7 @@ if current_level == 1:
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 
     if not result:
-        print("If you want to play the game again? It will cost you 200 game points. Please enter Yes [y]")
-        print("If you want to quit. Please enter Quit [q]\n")
-        play_again = input("Yes[y] or Quit[q])").upper()
-
-        if play_again == "Y" or play_again == "YES":
-            flip_the_coin.flip_the_coin_game(player_name)
-        else:
-            print("Game exited!")
-            delete_player_and_progress()
+        play_again_or_not(game_score, flip_the_coin.flip_the_coin_game, player_name)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -98,6 +116,9 @@ if current_level == 2:
         current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
+
+    if not result:
+        play_again_or_not(game_score, rock_paper_scissors.rock_paper_scissors_game, player_name)
 # ----------------------------------------------------------------------------------------------------------------------
 
 if current_level == 3:
@@ -114,6 +135,9 @@ if current_level == 3:
         current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
+
+    if not result:
+        play_again_or_not(game_score, roll_the_dice.roll_the_dice_game, player_name)
 # ----------------------------------------------------------------------------------------------------------------------
 
 if current_level == 4:
@@ -131,6 +155,9 @@ if current_level == 4:
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 
+    if not result:
+        play_again_or_not(game_score, odds_evens.odds_and_evens_game, player_name)
+
 # ----------------------------------------------------------------------------------------------------------------------
 if current_level == 5:
     print(f"\nWelcome to your fifth destination '{current_airport}'.")
@@ -146,6 +173,9 @@ if current_level == 5:
         current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
+
+    if not result:
+        play_again_or_not(game_score, number_guessing.guess_the_number_game, player_name)
 # ----------------------------------------------------------------------------------------------------------------------
 if current_level == 6:
     print(f"\nWelcome to your sixth destination '{current_airport}'.")
@@ -161,5 +191,8 @@ if current_level == 6:
         current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
+
+    if not result:
+        play_again_or_not(game_score, sequence_memory.sequence_memory_game, player_name)
 
 #clear the player and its progress. if player quits or loose
