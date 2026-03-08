@@ -1,6 +1,6 @@
 import random
 
-def roll_the_dice_game(name):
+def play_game(name):
     print(f"""Game name: ROLL THE DICE
            {name}! You will have three opportunities to win the game and go to your next airport destination.
            In each attempt you will roll the dice three times by pressing "Enter" button. The sum of three rolls 
@@ -8,26 +8,23 @@ def roll_the_dice_game(name):
            So! what are you waiting for, let's keep it rolling.\n""")
 
     win = False
-    lucky_number = 12
+    target = 12
     attempt = 0
 
     while win != True and attempt < 3:
         attempt += 1
         print(f"\nAttempt no: {attempt}\n")
-        roll_list = []
-
+        total_of_rolls = 0
 
         for i in range(1,4):
             input(f"Press Enter: ")
 
-            roll = random.randint(1, 10)
+            roll = random.randint(1, 6)
 
             print(f"You rolled: {roll}\n")
-            roll_list.append(roll)
+            total_of_rolls = total_of_rolls + roll
 
-        total_of_rolls = sum(roll_list)
-
-        if total_of_rolls == lucky_number:
+        if total_of_rolls >= target:
             print(f"You sum of your rolls is {total_of_rolls} which is equal to 12. You won!")
             win = True
         else:
