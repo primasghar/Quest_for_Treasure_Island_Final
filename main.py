@@ -41,9 +41,9 @@ def display_board():
 
 
 def play_again_or_not():
-    print("\nIf you want to play the game again? It will cost you 200 game points. Please enter Yes [y] to play again.")
+    print("\nIf you want to play the game again? It will cost you 200 game points. Please enter to play again.")
     print("If you want to quit. Please enter Quit [q]\n")
-    play_again = input("Yes[y] or Quit[q])").upper()
+    play_again = input("Press enter or type Quit[q])").upper()
 
     if play_again == "Q" or play_again == "QUIT":
         exit_game()
