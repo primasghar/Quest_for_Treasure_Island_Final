@@ -2,7 +2,7 @@ import string
 import random
 import time
 
-def sequence_memory_game(name):
+def play_game(name):
 
     print(f"""Game name: SEQUENCE MEMORY GAME
            {name}! You will have three opportunities to win the game and go to your next airport destination.

@@ -1,6 +1,6 @@
 import random
 
-def guess_the_number_game(name):
+def play_game(name):
 
     print(f"""Game name: GUESS THE NUMBER
                        {name}! You will have three opportunities to win the game and go to your next airport destination.

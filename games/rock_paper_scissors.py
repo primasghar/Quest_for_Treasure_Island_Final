@@ -5,7 +5,7 @@ import random
 # Paper covers Rock
 # Scissors cuts Paper
 
-def rock_paper_scissors_game(name):
+def play_game(name):
     print(f"""Game name: ROCK PAPER SCISSORS
            {name}! You will have three opportunities to win the game and go to your next airport destination.
            'Draw' is not counted as a loss.

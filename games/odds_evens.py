@@ -1,6 +1,6 @@
 import random
 
-def odds_and_evens_game(name):
+def play_game(name):
     print(f"""Game name: ODDS and EVENS
            {name}! You will have three opportunities to win the game and go to your next airport destination.
            At first you will enter your choice "EVEN" or "ODD". Then you will enter any number of your choice (1-10). 

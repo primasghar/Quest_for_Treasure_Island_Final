@@ -1,6 +1,6 @@
 import random
 
-def flip_the_coin_game(name):
+def play_game(name):
 
         print(f"""Game name: FLIP THE COIN
            {name}! You will have three opportunities to win the game and go to your next airport destination.
@@ -14,7 +14,7 @@ def flip_the_coin_game(name):
             print(f"\nAttempt no: {attempt}")
 
             computer_choice = random.choice(["HEADS", "TAILS"])
-            # print(f"result: {computer_choice}")
+            print(f"result: {computer_choice}")
 
             random_adjectives = random.choice(["amazing", "incredible","awesome", "impressive", "accurate" ])
 
