@@ -66,6 +66,7 @@ if current_level == 1:
         current_level = 2
         game_score += 1000
         carbon_footprint += 1000
+        current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
        # print('-' * width)
@@ -82,6 +83,7 @@ if current_level == 2:
         current_level = 3
         game_score += 2000
         carbon_footprint += 1000
+        current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 # ----------------------------------------------------------------------------------------------------------------------
@@ -97,6 +99,7 @@ if current_level == 3:
         current_level = 4
         game_score += 3000
         carbon_footprint += 1000
+        current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 # ----------------------------------------------------------------------------------------------------------------------
@@ -112,6 +115,7 @@ if current_level == 4:
         current_level = 5
         game_score += 4000
         carbon_footprint += 1000
+        current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 
@@ -127,6 +131,7 @@ if current_level == 5:
         current_level = 6
         game_score += 5000
         carbon_footprint += 1000
+        current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 # ----------------------------------------------------------------------------------------------------------------------
@@ -141,6 +146,7 @@ if current_level == 6:
         current_level = 7
         game_score += 6000
         carbon_footprint += 1000
+        current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
 
