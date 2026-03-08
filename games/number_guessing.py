@@ -1,29 +1,40 @@
 import random
 
-def guess_the_number_game():
+def guess_the_number_game(name):
 
-        print("""Game: Guess the Number
-        You will have 3 opportunities to win the game and go to the your next airport destination.
-        Please select one number 0 to 10\n""")
+    print(f"""Game name: GUESS THE NUMBER
+                       {name}! You will have three opportunities to win the game and go to your next airport destination.
+                       Please select number from 1-10 """)
 
-        trails = 0
+    attempt = 1
+    player_won = False
 
-        player_won = False
+    while not player_won and attempt <= 3:
 
-        while not player_won and trails < 3:
-            user_choice = input("Enter your choice: ").capitalize()
+        print(f"\nAttempt no: {attempt}\n")
+
+        user_choice = int(input("Enter your choice: "))
+
+        if 0 < user_choice <= 10:
             computer_choice = random.randint(0, 10)
-
-            print(f"computer choice is {computer_choice}")
-            trails += 1
+            # print(f"computer choice is {computer_choice}")
 
             if user_choice == computer_choice:
+                print(f"Your chosen number{user_choice} matches the computer's choice {computer_choice}. You won!")
                 player_won = True
-
-        if player_won:
-            print("Congratulations! You won the game!")
+            else:
+                player_won = False
+                attempt += 1
+                print(f"Your chosen number {user_choice} does not match the computer's choice {computer_choice}. You lost!")
         else:
-            print("Sorry, you lost the game!")
+            player_won = False
+            print("Please enter number from 1-10.")
 
-guess_the_number_game()
+    if player_won:
+        print("Congratulations! You won the game!")
+        return player_won
+    else:
+        print("Sorry, you lost the game!")
+        return player_won
+
 

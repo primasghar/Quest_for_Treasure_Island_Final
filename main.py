@@ -1,4 +1,4 @@
-from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, sequence_memory
+from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory
 from query_functions import (add_player, player_progress_id, fetch_player_progress,
                              fetch_game_airport_icao, fetch_airport_info, fetch_airport_country, update_progress)
 
@@ -121,11 +121,25 @@ if current_level == 5:
 
     display_board(player_name, current_level, game_score, carbon_footprint)
 
-    result = sequence_memory.sequence_memory_game(player_name)
+    result = number_guessing.guess_the_number_game(player_name)
 
     if result:
         current_level = 6
         game_score += 5000
+        carbon_footprint += 1000
+
+        update_progress(current_level, game_score, carbon_footprint, player_Id)
+# ----------------------------------------------------------------------------------------------------------------------
+if current_level == 6:
+    print(f"\nWelcome to your sixth destination '{current_airport}'.")
+
+    display_board(player_name, current_level, game_score, carbon_footprint)
+
+    result = sequence_memory.sequence_memory_game(player_name)
+
+    if result:
+        current_level = 7
+        game_score += 6000
         carbon_footprint += 1000
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
