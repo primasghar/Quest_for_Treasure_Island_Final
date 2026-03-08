@@ -1,6 +1,6 @@
 from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory
 from query_functions import (add_player, player_progress_id, fetch_player_progress,
-                             fetch_game_airport_icao, fetch_airport_info, fetch_airport_country, update_progress)
+                             fetch_game_airport_icao, fetch_airport_info, fetch_airport_country, update_progress, delete_player_and_progress)
 
 def airport_data(level):
     icao_code = fetch_game_airport_icao(level)
@@ -69,7 +69,19 @@ if current_level == 1:
         current_airport = airport_and_country(current_level)
 
         update_progress(current_level, game_score, carbon_footprint, player_Id)
-       # print('-' * width)
+
+    if not result:
+        print("If you want to play the game again? It will cost you 200 game points. Please enter Yes [y]")
+        print("If you want to quit. Please enter Quit [q]\n")
+        play_again = input("Yes[y] or Quit[q])").upper()
+
+        if play_again == "Y" or play_again == "YES":
+            flip_the_coin.flip_the_coin_game(player_name)
+        else:
+            print("Game exited!")
+            delete_player_and_progress()
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 
 if current_level == 2:

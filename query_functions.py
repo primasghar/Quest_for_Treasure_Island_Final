@@ -92,3 +92,13 @@ def update_progress(level, score, carbon_fp, player_id):
     # if cursor.rowcount==1:
     #     print("Player progress updated")
 
+def delete_player_and_progress():
+    sql = "DELETE FROM progress"
+    cursor = connection.cursor()
+    cursor.execute(sql,)
+
+    sql = "DELETE FROM player"
+    cursor = connection.cursor()
+    cursor.execute(sql, )
+
+
