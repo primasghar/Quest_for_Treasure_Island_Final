@@ -52,12 +52,16 @@ def display_board():
     Carbon footprints: {c_footprint}\n""")
 
 
-def play_again_or_not():
-    print("\nIf you want to play the game again? It will cost you 200 game points. Please enter to play again.")
-    print("If you want to quit. Please enter Quit [q]\n")
-    play_again = input("Press enter or type Quit[q])").upper()
+def play_again_or_not(current_points):
+    if current_points == 0:
+        print(f"Sorry you don't have enough game points to continue")
+        print(f"You can start a new game")
+    else:
+        print("\nIf you want to play the game again? It will cost you 200 game points. Please enter to play again.")
+        print("If you want to quit. Please enter Quit [q]\n")
+        play_again = input("Press enter or type Quit[q])").upper()
 
-    if play_again == "Q" or play_again == "QUIT":
+    if current_points == 0 or play_again == "Q" or play_again == "QUIT":
         exit_game()
         return True
 
@@ -74,37 +78,38 @@ def exit_game():
 # ---------------------------------------------------------------------------------------------------------------------
 
 def play_stage():
-    current_progress = fetch_player_progress_query(player_Id)
-    current_stage = current_progress[2]
+    progress = fetch_player_progress_query(player_Id)
+    level = progress[2]
+    current_points = progress[3]
 
-    print(f"\nYour current destination is '{airport_and_country(current_stage)}'.")
+    print(f"\nYour current destination is '{airport_and_country(level)}'.")
     display_board()
 
     game_result = False
 
-    if current_stage == 1:
+    if level == 1:
         game_result = flip_the_coin.play_game(player_name)
 
-    if current_stage == 2:
+    if level == 2:
         game_result = rock_paper_scissors.play_game(player_name)
 
-    if current_stage == 3:
+    if level == 3:
         game_result = roll_the_dice.play_game(player_name)
 
-    if current_stage == 4:
+    if level == 4:
         game_result = odds_evens.play_game(player_name)
 
-    if current_stage == 5:
+    if level == 5:
         game_result = number_guessing.play_game(player_name)
 
-    if current_stage == 6:
+    if level == 6:
         game_result = sequence_memory.play_game(player_name)
 
     if game_result:
         update_board()
 
     if not game_result:
-        return play_again_or_not()
+        return play_again_or_not(current_points)
 
     print(f"You are flying to the next airport")
     return False
