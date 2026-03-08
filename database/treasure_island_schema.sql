@@ -22,13 +22,6 @@
       FOREIGN KEY (current_level) REFERENCES game_airports(id)
   )
 
- CREATE TABLE IF NOT EXISTS games(
-      id INT NOT NULL auto_increment,
-      game_name varchar(40),
-      difficulty_level INT,
-	  PRIMARY KEY (id),
-  )
-
  CREATE TABLE IF NOT EXISTS quizlet(
       id INT NOT NULL auto_increment,
       question text,

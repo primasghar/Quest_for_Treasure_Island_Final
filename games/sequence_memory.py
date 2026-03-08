@@ -32,9 +32,11 @@ def play_game(name):
         user_entered_sequence = input("Enter sequence: ")
 
     if user_entered_sequence == random_sequence:
-        print("Congratulations! You did it")
+        print("\nCongratulations! You did it")
         print(f"Your sequence: {user_entered_sequence} matched {random_sequence}")
         return True
     else:
-        print(f"Sorry! Your sequence: {user_entered_sequence} does not match {random_sequence}. You have lost")
+        print(f"\nSorry! Your sequence: {user_entered_sequence} does not match {random_sequence}. You have lost")
         return False
+
+
