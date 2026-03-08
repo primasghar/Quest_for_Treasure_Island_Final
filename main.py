@@ -18,13 +18,25 @@ def airport_and_country(level):
     return name_of_airport_and_country
 
 
-def update_board(level, points, cfp, player_Id):
-    print(f"You are flying to the next airport")
-    score = game_score + points
-    carbon_fp = carbon_footprint + cfp
+def update_board():
+    progress = fetch_player_progress_query(player_Id)
+
+    # Global Variables
+    level = progress[2] + 1
+    score = progress[3] + level
+    carbon_fp = progress[4] + 1000
 
     update_progress_query(level, score, carbon_fp, player_Id)
 
+def deduct_points():
+    progress = fetch_player_progress_query(player_Id)
+
+    # Global Variables
+    level = progress[2]
+    score = progress[3] - 200
+    carbon_fp = progress[4]
+
+    update_progress_query(level, score, carbon_fp, player_Id)
 
 def display_board():
     progress = fetch_player_progress_query(player_Id)
@@ -32,7 +44,7 @@ def display_board():
     # Global Variables
     level = progress[2]
     score = progress[3]
-    c_footprint = player_progress_data[4]
+    c_footprint = progress[4]
     print(f"""
     Adventurer: {player_name}
     Level: {level}
@@ -49,6 +61,7 @@ def play_again_or_not():
         exit_game()
         return True
 
+    deduct_points()
     return False
 
 
@@ -88,11 +101,12 @@ def play_stage():
         game_result = sequence_memory.play_game(player_name)
 
     if game_result:
-        update_board(current_stage + 1, current_stage * 1000, 0, player_Id)
+        update_board()
 
     if not game_result:
         return play_again_or_not()
 
+    print(f"You are flying to the next airport")
     return False
 
 
@@ -111,14 +125,6 @@ if player_Id:
     player_progress_id_query(player_Id)
 
 player_progress_data = fetch_player_progress_query(player_Id)
-
-# Global Variables
-current_level = player_progress_data[2]
-game_score = player_progress_data[3]
-carbon_footprint = player_progress_data[4]
-current_airport = airport_and_country(current_level)
-
-
 
 print(f"Welcome, {player_name}! To the Quest for a Treasure Island!")
 
