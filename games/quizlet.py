@@ -1,3 +1,4 @@
+import random
 import query_functions
 
 def play_game(name):
@@ -9,19 +10,24 @@ def play_game(name):
 
     attempt = 0
     player_won = False
-    question_no = 0
+    already_asked = []
 
-    while not player_won and attempt < 3:
+    while not  player_won and attempt < 3:
         attempt += 1
-        print(f"\nAttempt no: {attempt}\n")
+        print(f"\nAttempt no: {attempt}")
 
         question = ""
 
         enter_pressed = input("Press enter to display question: ")
 
         if enter_pressed == "":
-            question_no +=1
-            question = questions[question_no]
+            question = random.choice(questions)
+
+        if question[0] in already_asked:
+           break
+        else:
+            already_asked.append(question[0])
+            print(already_asked)
             print(f"{question[1]}")
 
         user_answer = input("Please type answer: ").upper()
@@ -39,7 +45,7 @@ def play_game(name):
         print("\nSorry, you lost the game!")
         return player_won
 
-play_game("Prim")
+
 
 
 
