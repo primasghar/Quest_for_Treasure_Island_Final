@@ -1,5 +1,5 @@
 from geopy import distance
-from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory
+from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
                              fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query,
                              update_progress_query, delete_player_and_progress_query)
@@ -117,6 +117,9 @@ def play_stage():
 
     if level == 6:
         game_result = sequence_memory.play_game(player_name)
+
+    if level == 7:
+        game_result = quizlet.play_game(player_name)
 
     if game_result:
         update_board()
