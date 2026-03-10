@@ -13,17 +13,17 @@ def play_game(name):
     while win == False and attempt <= 3:
         print(f"\nAttempt no: {attempt}\n")
 
-        your_choice = input("Odd [1] or Even [2]: ").upper()
+        your_choice = int(input("Odd [1] or Even [2]: "))
         choice = your_choice
 
         if your_choice == 1:
-            choice = "EVEN"
-        elif your_choice == 2:
             choice = "ODD"
+        elif your_choice == 2:
+            choice = "EVEN"
         else:
             print("Please enter a valid input")
 
-        if your_choice == "EVEN" or your_choice == "ODD":
+        if choice == "EVEN" or choice == "ODD":
 
             computer_choice = random.randint(1, 10)
             print(f"computer choice: {computer_choice}")
