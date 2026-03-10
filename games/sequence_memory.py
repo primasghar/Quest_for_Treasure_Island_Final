@@ -41,4 +41,3 @@ def play_game(name):
         print(f"\nSorry! Your sequence: {user_entered_sequence} does not match {random_sequence}. You have lost")
         return False
 
-play_game("Prim")

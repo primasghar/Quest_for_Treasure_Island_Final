@@ -6,9 +6,8 @@ def play_game(name):
            {name}! You will have three opportunities to win the game and go to your next airport destination.
            Please answer the give riddle correctly.""")
 
-    questions = query_functions.fetch_riddle_query()
+    riddles = query_functions.fetch_riddle_query()
 
-    print(questions)
     attempt = 0
     player_won = False
     already_asked = []
@@ -22,7 +21,7 @@ def play_game(name):
         enter_pressed = input("Press enter to display riddle: ")
 
         if enter_pressed == "":
-            riddle = random.choice(questions)
+            riddle = random.choice(riddles)
 
         if riddle[0] in already_asked:
            break

@@ -50,15 +50,6 @@ def fetch_player_progress_query(gamerid):
     # print(result)
     return result
 
-
-def fetch_quiz_questions_query(level):
-    sql = f"SELECT * FROM quizlet WHERE difficulty_level = %s ORDER BY id;"
-    # print(sql)
-    cursor = connection.cursor()
-    cursor.execute(sql,(level,))
-    result = cursor.fetchall()
-    return result
-
 def fetch_game_airport_icao_query(current_level):
     sql = f"SELECT airport_id FROM game_airports WHERE id = %s;"
     # print(sql)
@@ -99,5 +90,21 @@ def delete_player_and_progress_query():
     sql = "DELETE FROM player"
     cursor = connection.cursor()
     cursor.execute(sql, )
+
+def fetch_quiz_questions_query():
+    sql = f"SELECT * FROM quizlet ORDER BY id;"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql,)
+    result = cursor.fetchall()
+    return result
+
+def fetch_riddle_query():
+    sql = f"SELECT * FROM riddle ORDER BY id;"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql,)
+    result = cursor.fetchall()
+    return result
 
 
