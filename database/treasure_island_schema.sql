@@ -29,4 +29,12 @@
       difficulty_level INT,
 	  PRIMARY KEY (id)
   )
+
+  CREATE TABLE IF NOT EXISTS riddle(
+      id INT NOT NULL auto_increment,
+      riddle varchar(250),
+      correct_answer varchar(250),
+      difficulty_level INT,
+	  PRIMARY KEY (id)
+  )
   
