@@ -1,3 +1,4 @@
+import os
 from geopy import distance
 from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
@@ -5,6 +6,9 @@ from query_functions import (add_player_query, player_progress_id_query, fetch_p
                              update_progress_query, delete_player_and_progress_query)
 
 # -----------------------------------FUNCTIONS--------------------------------------------------------------------------
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 def airport_data(level):
     icao_code = fetch_game_airport_icao_query(level)
@@ -18,7 +22,7 @@ def airport_data(level):
 
 def airport_and_country(level):
     next_destination = airport_data(level)
-    name_of_airport_and_country = next_destination[2], next_destination[5]
+    name_of_airport_and_country = next_destination[2] + " " + next_destination[5]
     return name_of_airport_and_country
 
 def distance_between_airports(prev, current):
@@ -94,8 +98,8 @@ def play_stage():
     progress = fetch_player_progress_query(player_Id)
     level = progress[2]
     current_points = progress[3]
-
-    print(f"\nYour current destination is '{airport_and_country(level)}'.")
+    print(f"===== Welcome to the level {level} =====")
+    print(f"\nYour current destination is {airport_and_country(level)}.")
     display_board()
 
     game_result = False
@@ -123,11 +127,11 @@ def play_stage():
 
     if game_result:
         update_board()
+        cls()
 
     if not game_result:
         return play_again_or_not(current_points)
 
-    print(f"You are flying to the next airport")
     return False
 
 # GAME START
@@ -145,8 +149,9 @@ if player_Id:
 
 player_progress_data = fetch_player_progress_query(player_Id)
 
+print()
 print(f"Welcome {player_name}! To the Quest for a Treasure Island!")
-
+print()
 # ---------------------------------------------------------------------------------------------------------------------
 game_over =  False
 while not game_over:
