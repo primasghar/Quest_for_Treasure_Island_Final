@@ -6,7 +6,7 @@ def play_game(name):
            {name}! You will have three opportunities to win the game and go to your next airport destination.
            Please answer the give question correctly.""")
 
-    questions = query_functions.fetch_quiz_questions_query(1)
+    questions = query_functions.fetch_quiz_questions_query()
 
     attempt = 0
     player_won = False
@@ -16,7 +16,7 @@ def play_game(name):
         attempt += 1
         print(f"\nAttempt no: {attempt}")
 
-        question = ""
+        question = []
 
         enter_pressed = input("Press enter to display question: ")
 
