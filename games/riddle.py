@@ -33,7 +33,7 @@ def play_game(name):
 
         user_answer = input("Please type answer: ").upper()
 
-        if user_answer == riddle[2].upper():
+        if user_answer in riddle[2].upper():
             print("It is a correct answer")
             player_won = True
         elif user_answer != riddle[2]:
