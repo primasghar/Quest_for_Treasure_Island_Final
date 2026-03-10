@@ -1,10 +1,10 @@
 import random
-
+from colorama import Fore, Style
 def play_game(name):
-
-    print(f"""Game name: GUESS THE NUMBER
-            {name}! You will have three opportunities to win the game and go to your next airport destination.
-             Please select number from 1-10 """)
+    print("Game name: " + Fore.MAGENTA + "GUESS THE NUMBER")
+    print(Style.RESET_ALL)
+    print(f"{name}! You will have three opportunities to win the game and go to your next airport destination.")
+    print("Please select number from 1-10")
 
     attempt = 1
     player_won = False

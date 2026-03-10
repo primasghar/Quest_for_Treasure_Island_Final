@@ -1,10 +1,12 @@
 import random
+from colorama import Fore, Style
 
 def play_game(name):
-    print(f"""Game name: ODDS and EVENS
-           {name}! You will have three opportunities to win the game and go to your next airport destination.
-           At first you will enter your choice 1 for "EVEN" or 2 for "ODD". Then you will enter any number of your choice (1-10). 
-           Your entered number will be added to the computer's chosen number. If their sum matches your EVEN or ODD choice you will win.\n""")
+    print("Game name: " + Fore.MAGENTA + "ODDS and EVENS")
+    print(Style.RESET_ALL)
+    print(f"{name}! You will have three opportunities to win the game and go to your next airport destination.")
+    print("At first you will enter your choice 1 for 'EVEN' or 2 for 'ODD'. Then you will enter any number of your choice (1-10).")
+    print("Your entered number will be added to the computer's chosen number. If their sum matches your EVEN or ODD choice you will win.\n")
 
 
     win = False

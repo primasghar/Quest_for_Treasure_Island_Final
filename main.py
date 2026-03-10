@@ -1,5 +1,5 @@
 import os
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 from geopy import distance
 from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet, riddle
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
@@ -64,12 +64,12 @@ def display_board():
     level = progress[2]
     score = progress[3]
     c_footprint = progress[4]
-    print(f"""
+    print(Fore.BLUE + f"""
     Adventurer: {player_name}
     Level: {level}
     Game points: {score}
     Carbon emissions: {c_footprint}g\n""")
-
+    print(Style.RESET_ALL)
 
 def play_again_or_not(current_points):
     if current_points == 0:
@@ -101,7 +101,7 @@ def play_stage():
     current_points = progress[3]
     print(Fore.GREEN +f"===== Welcome to the level {level} =====")
     print(Style.RESET_ALL)
-    print(f"\nYour current destination is {Fore.MAGENTA + airport_and_country(level)}.")
+    print(f"\nYour current destination is {Fore.CYAN + airport_and_country(level)}.")
     print(Style.RESET_ALL)
     display_board()
 
@@ -136,8 +136,10 @@ def play_stage():
         cls()
 
     if game_result and level == 8:
+        print(Fore.GREEN)
         print(f"Congratulation you have completed the final level")
         print(f"You have found the person who will guide you to the tressure island")
+        print(Style.RESET_ALL)
         exit_game()
         return True
 

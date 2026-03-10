@@ -1,15 +1,16 @@
 import random
-
+from colorama import Fore, Style
 # Winning conditions
 # Rock smashes Scissors
 # Paper covers Rock
 # Scissors cuts Paper
 
 def play_game(name):
-    print(f"""Game name: ROCK PAPER SCISSORS
-           {name}! You will have three opportunities to win the game and go to your next airport destination.
-           'Draw' is not counted as a loss.
-           Please select one option: (Rock [R], Paper[P] or Scissor [S]\n""")
+    print("Game name: " + Fore.MAGENTA + "ROCK PAPER SCISSORS")
+    print(Style.RESET_ALL)
+    print(f"{name}! You will have three opportunities to win the game and go to your next airport destination.")
+    print("'Draw' is not counted as a loss.")
+    print("Please select one option: (Rock [R], Paper[P] or Scissor [S]\n")
 
     player_won = False
     attempt = 1

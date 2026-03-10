@@ -1,11 +1,13 @@
 import random
+from colorama import Fore, Style
 
 def play_game(name):
-    print(f"""Game name: ROLL THE DICE
-           {name}! You will have three opportunities to win the game and go to your next airport destination.
-           In each attempt you will roll the dice three times by pressing "Enter" button. The sum of three rolls 
-           will be added. If the sum is equal to 12. You will win.  
-           So! what are you waiting for, let's keep it rolling.\n""")
+    print("Game name: " + Fore.MAGENTA + "ROLL THE DICE")
+    print(Style.RESET_ALL)
+    print(f"{name}! You will have three opportunities to win the game and go to your next airport destination.")
+    print("In each attempt you will roll the dice three times by pressing 'Enter' button. The sum of three rolls")
+    print("will be added. If the sum is equal to 12. You will win. ")
+    print("So! what are you waiting for, let's keep it rolling.\n")
 
     win = False
     target = 12

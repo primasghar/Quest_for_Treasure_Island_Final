@@ -1,10 +1,12 @@
 import random
 import query_functions
+from colorama import Fore, Style
 
 def play_game(name):
-    print(f"""Game name: QUIZ
-           {name}! You will have three opportunities to win the game and go to your next airport destination.
-           Please answer the give question correctly.""")
+    print("Game name: " + Fore.MAGENTA + "QUIZ")
+    print(Style.RESET_ALL)
+    print(f"{name}! You will have three opportunities to win the game and go to your next airport destination.")
+    print("Please answer the give question correctly.")
 
     questions = query_functions.fetch_quiz_questions_query()
 
