@@ -3,7 +3,7 @@ import random
 def play_game(name):
     print(f"""Game name: ODDS and EVENS
            {name}! You will have three opportunities to win the game and go to your next airport destination.
-           At first you will enter your choice "EVEN" or "ODD". Then you will enter any number of your choice (1-10). 
+           At first you will enter your choice 1 for "EVEN" or 2 for "ODD". Then you will enter any number of your choice (1-10). 
            Your entered number will be added to the computer's chosen number. If their sum matches your EVEN or ODD choice you will win.\n""")
 
 
@@ -13,12 +13,12 @@ def play_game(name):
     while win == False and attempt <= 3:
         print(f"\nAttempt no: {attempt}\n")
 
-        your_choice = input("Odd [o] or Even [e]: ").upper()
+        your_choice = input("Odd [1] or Even [2]: ").upper()
         choice = your_choice
 
-        if your_choice == "E" or your_choice == "EVEN":
+        if your_choice == 1:
             choice = "EVEN"
-        elif your_choice == "O" or your_choice == "ODD":
+        elif your_choice == 2:
             choice = "ODD"
         else:
             print("Please enter a valid input")

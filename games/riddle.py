@@ -14,7 +14,7 @@ def play_game(name):
 
     while not  player_won and attempt < 3:
         attempt += 1
-        print(f"\nAttempt no: {attempt}")
+        print(f"\nAttempt no: {attempt}\n")
 
         riddle = []
 

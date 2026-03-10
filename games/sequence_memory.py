@@ -15,7 +15,7 @@ def play_game(name):
 
     while (random_sequence == "" or user_entered_sequence != random_sequence) and attempt < 3:
         attempt += 1
-        print(f"\nAttempt no: {attempt}")
+        print(f"\nAttempt no: {attempt}\n")
 
         letters = string.ascii_uppercase
         sequence_size = 8

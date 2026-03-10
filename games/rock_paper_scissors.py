@@ -35,7 +35,7 @@ def play_game(name):
             # The game won't start until the user enters a valid input.
 
         if player_choice == "ROCK" or player_choice == "PAPER" or player_choice == "SCISSORS":
-            print(f"Attempt no: {attempt}")
+            print(f"\nAttempt no: {attempt}\n")
 
             if player_choice == "ROCK" and computer_choice == "SCISSORS":
                 player_won = True
