@@ -25,8 +25,10 @@ def play_game(name):
         if user_permission == "":
 
             random_sequence = delimiter.join((random.choices(letters, k=sequence_size)))
-            print(random_sequence, end='')
+            print(random_sequence)
             time.sleep(8)
+
+            print("\033[A", end="\r") # Clear the code
             print(8 * '\b' + "Please enter the sequence")
 
         user_entered_sequence = input("Enter sequence: ")
@@ -39,4 +41,4 @@ def play_game(name):
         print(f"\nSorry! Your sequence: {user_entered_sequence} does not match {random_sequence}. You have lost")
         return False
 
-
+play_game("Prim")

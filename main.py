@@ -1,6 +1,6 @@
 import os
 from geopy import distance
-from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet
+from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet, riddle
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
                              fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query,
                              update_progress_query, delete_player_and_progress_query)
@@ -125,9 +125,18 @@ def play_stage():
     if level == 7:
         game_result = quizlet.play_game(player_name)
 
+    if level == 8:
+        game_result = riddle.play_game(player_name)
+
     if game_result:
         update_board()
         cls()
+
+    if game_result and level == 8:
+        print(f"Congratulation you have completed the final level")
+        print(f"You have found the person who will guide you to the tressure island")
+        exit_game()
+        return True
 
     if not game_result:
         return play_again_or_not(current_points)
