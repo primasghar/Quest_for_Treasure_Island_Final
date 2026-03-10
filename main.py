@@ -1,4 +1,5 @@
 import os
+from colorama import Fore, Back, Style
 from geopy import distance
 from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet, riddle
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
@@ -98,8 +99,10 @@ def play_stage():
     progress = fetch_player_progress_query(player_Id)
     level = progress[2]
     current_points = progress[3]
-    print(f"===== Welcome to the level {level} =====")
-    print(f"\nYour current destination is {airport_and_country(level)}.")
+    print(Fore.GREEN +f"===== Welcome to the level {level} =====")
+    print(Style.RESET_ALL)
+    print(f"\nYour current destination is {Fore.MAGENTA + airport_and_country(level)}.")
+    print(Style.RESET_ALL)
     display_board()
 
     game_result = False
@@ -145,8 +148,19 @@ def play_stage():
 
 # GAME START
 
-print("Quest for Treasure Island")
-
+print(Fore.GREEN)
+print("""\
+  ___                  _      __                                      
+ / _ \ _   _  ___  ___| |_   / _| ___  _ __                           
+| | | | | | |/ _ \/ __| __| | |_ / _ \| '__|                          
+| |_| | |_| |  __/\__ \ |_  |  _| (_) | |                             
+ \__\_\\__,_|\___||___/\__| |_|  \___/|_| ___     _                 _ 
+|_   _| __ ___  __ _ ___ _   _ _ __ ___  |_ _|___| | __ _ _ __   __| |
+  | || '__/ _ \/ _` / __| | | | '__/ _ \  | |/ __| |/ _` | '_ \ / _` |
+  | || | |  __/ (_| \__ \ |_| | | |  __/  | |\__ \ | (_| | | | | (_| |
+  |_||_|  \___|\__,_|___/\__,_|_|  \___| |___|___/_|\__,_|_| |_|\__,_|
+       """)
+print(Style.RESET_ALL)
 player_name = input("Please enter your game name: ").upper()
 
 # Adds player in "player" table return newly formed id (PK)
