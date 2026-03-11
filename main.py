@@ -5,6 +5,7 @@ from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, 
 from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
                              fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query,
                              update_progress_query, delete_player_and_progress_query)
+from utility_functions import title_info, game_over
 
 # -----------------------------------FUNCTIONS--------------------------------------------------------------------------
 
@@ -87,8 +88,6 @@ def play_again_or_not(current_points):
     deduct_points()
     return False
 
-
-
 def exit_game():
     print("Game exiting...")
     delete_player_and_progress_query()
@@ -136,18 +135,7 @@ def play_stage():
         cls()
 
     if game_result and level == 8:
-        print(Fore.GREEN)
-        print(f"Congratulation you have completed the final level")
-        print(f"You have found the person who will guide you to the tressure island")
-        print("""\
- ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ ██╗
-██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗██║
-██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝██║
-██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗╚═╝
-╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║██╗
- ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝
-        """)
-        print(Style.RESET_ALL)
+        game_over()
         exit_game()
         return True
 
@@ -158,23 +146,8 @@ def play_stage():
 
 # GAME START
 
-print(Fore.GREEN)
-print("""\
- ██████╗ ██╗   ██╗███████╗███████╗████████╗    ███████╗ ██████╗ ██████╗                                            
-██╔═══██╗██║   ██║██╔════╝██╔════╝╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗                                           
-██║   ██║██║   ██║█████╗  ███████╗   ██║       █████╗  ██║   ██║██████╔╝                                           
-██║▄▄ ██║██║   ██║██╔══╝  ╚════██║   ██║       ██╔══╝  ██║   ██║██╔══██╗                                           
-╚██████╔╝╚██████╔╝███████╗███████║   ██║       ██║     ╚██████╔╝██║  ██║                                           
- ╚══▀▀═╝  ╚═════╝ ╚══════╝╚══════╝   ╚═╝       ╚═╝      ╚═════╝ ╚═╝  ╚═╝                                           
-                                                                                                                   
-████████╗██████╗ ███████╗ █████╗ ███████╗██╗   ██╗██████╗ ███████╗    ██╗███████╗██╗      █████╗ ███╗   ██╗██████╗ 
-╚══██╔══╝██╔══██╗██╔════╝██╔══██╗██╔════╝██║   ██║██╔══██╗██╔════╝    ██║██╔════╝██║     ██╔══██╗████╗  ██║██╔══██╗
-   ██║   ██████╔╝█████╗  ███████║███████╗██║   ██║██████╔╝█████╗      ██║███████╗██║     ███████║██╔██╗ ██║██║  ██║
-   ██║   ██╔══██╗██╔══╝  ██╔══██║╚════██║██║   ██║██╔══██╗██╔══╝      ██║╚════██║██║     ██╔══██║██║╚██╗██║██║  ██║
-   ██║   ██║  ██║███████╗██║  ██║███████║╚██████╔╝██║  ██║███████╗    ██║███████║███████╗██║  ██║██║ ╚████║██████╔╝
-   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝    ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝                                                                                                                        
-       """)
-print(Style.RESET_ALL)
+title_info()
+
 player_name = input("Please enter your game name: ").upper()
 
 # Adds player in "player" table return newly formed id (PK)
