@@ -51,5 +51,4 @@ def play_game(name):
         print("\nSorry, you lost the game!")
         return matched
 
-play_game("Prim")
 

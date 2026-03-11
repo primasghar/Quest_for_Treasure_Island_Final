@@ -31,7 +31,9 @@ def play_game(name):
             already_asked.append(riddle[0])
             print(f"{riddle[1]}")
 
+        # print(f"Answer:{riddle[2]}")
         user_answer = input("Please type answer: ").upper()
+
 
         if user_answer in riddle[2].upper():
             print("It is a correct answer")
@@ -46,7 +48,5 @@ def play_game(name):
         print("\nSorry, you lost the game!")
         return player_won
 
-
-
-
+# play_game("p")
 
