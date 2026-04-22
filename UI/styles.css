@@ -1,0 +1,9 @@
+body {
+    background-image: url("images/mainphoto.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #f2f2f2;
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
