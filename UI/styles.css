@@ -1,9 +1,70 @@
+/*#005B75; hsl(193.33, 100%, 22.94%) bluish*/
+/*2f7778; hsl(180.82, 43.71%, 32.75%) greenish*/
+/*#f2f2f2; hsl(0, 0%, 94.9%) whitish*/
+
+
 body {
     background-image: url("images/mainphoto.jpg");
     background-repeat: no-repeat;
-    background-size: 100%;
-    background-color: #f2f2f2;
+    background-color: hsl(193.33, 100%, 22.94%);
     padding: 0;
     margin: 0;
     font-family: Roboto, sans-serif;
 }
+
+h1 {
+    font-size: 2.625rem;
+    text-align: center;
+    color: hsl(0, 0%, 94.9%);
+    padding: 1rem;
+}
+
+#mainDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(47, 119, 120, 0.2);
+    height: 80vh;
+    margin: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgb(47, 119, 120, 0.3);
+}
+
+.firstForm {
+    font-size: 1.5rem;
+    color: hsl(0, 0%, 94.9%);
+}
+
+#nameInput {
+    padding: 0.938rem 1.563rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 0.938rem;
+    box-shadow: 0 9px rgb(47, 119, 120);
+}
+
+#nameInput:focus{
+    color: hsl(0, 0%, 94.9%);
+    background-color: rgb(47, 119, 120, 0.3);
+    border-color: hsl(193.33, 100%, 22.94%);
+}
+
+.playButton {
+    padding: 0.938rem 1.563rem;
+    font-size: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: hsl(0, 0%, 94.9%);
+    background-color: hsl(193.33, 100%, 22.94%);
+    border: none;
+    border-radius: 0.938rem;
+    box-shadow: 0 9px rgb(47, 119, 120);
+}
+
+.playButton:hover{
+background-color: hsl(204, 100%, 22.94%);
+}
+
