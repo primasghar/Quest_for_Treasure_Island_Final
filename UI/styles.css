@@ -10,6 +10,7 @@
 
     --font-size24: 1.5rem;
     --font-size30: 1.8rem;
+    --font-size42: 2.625rem;
 }
 
 
@@ -47,6 +48,7 @@ h1 {
 #mainDisplay {
     height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
     background-image: url("images/mainPic.png");
     background-repeat: no-repeat;
@@ -97,4 +99,28 @@ h1 {
 .playButton:hover {
     background-color: var(--prussian-blue);
 }
+
+/*     Media Queries  */
+
+@media screen and (min-width: 769px) {
+    header {
+        flex-direction: row;
+        column-gap: 1rem;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: var(--font-size42);
+    }
+
+}
+
+@media screen and (min-width: 1440px) {
+    .nameForm {
+        width: 1216px;
+    }
+
+}
+
 
