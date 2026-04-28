@@ -1,12 +1,15 @@
 :root {
-    --dark-brown: rgb(35, 25, 16);  /* hsl(27, 36%, 10%) */
-    --white: rgb(255, 255, 255);    /* hsl(0, 0%, 100%) */
-    
-    --dark-teal: rgba(47, 119, 120, 0.2);  /* hsl(180.822, 43.713%, 32.745%) */
-    --teal: rgba(47, 119, 120);  /* hsl(180.822, 43.713%, 32.745%) */
-    
-    --prussian-blue: rgb(0, 70, 117);  /* hsl(204.103, 100%, 22.941%) */
-    --deep-sea: rgb(0, 91, 117);  /* hsl(193.33, 100%, 22.94%) */
+    --dark-brown: rgb(35, 25, 16); /* hsl(27, 36%, 10%) */
+    --white: rgb(255, 255, 255); /* hsl(0, 0%, 100%) */
+
+    --dark-teal: rgba(47, 119, 120, 0.2); /* hsl(180.822, 43.713%, 32.745%) */
+    --teal: rgba(47, 119, 120); /* hsl(180.822, 43.713%, 32.745%) */
+
+    --prussian-blue: rgb(0, 70, 117); /* hsl(204.103, 100%, 22.941%) */
+    --deep-sea: rgb(0, 91, 117); /* hsl(193.33, 100%, 22.94%) */
+
+    --font-size24: 1.5rem;
+    --font-size30: 1.8rem;
 }
 
 
@@ -15,69 +18,80 @@ body {
     background-color: var(--dark-brown);
     padding: 0;
     margin: 0;
-    font-family: "Cabin Sketch",Roboto, sans-serif;
+    font-family: "Cabin Sketch", Roboto, sans-serif;
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    padding: 1rem;
 }
 
 header {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.logoImg{
-    align-self: center;
-    height:120px;
+.logoImg {
+    width: 7.5rem;
+    height: auto;
 }
 
 h1 {
-    font-size: 2.625rem;
+    font-size: var(--font-size30);
     font-weight: 700;
     text-align: center;
-    padding: 1rem;
 }
 
 #mainDisplay {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
     background-image: url("images/mainPic.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.firstForm {
-    font-size: 1.5rem;
+.nameForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    width: 80%;
+    font-size: var(--font-size24);
     background-color: var(--dark-teal);
-    margin: 1rem;
     padding: 2rem;
     border-radius: 1rem;
     backdrop-filter: blur(10px);
-    border: 1px solid var(--teal);
 }
 
 #nameInput {
-    font-size: 1.5rem;
+    color: var(--white);
+    font-size: var(--font-size24);
     border: none;
-    border-radius: 0.938rem;
-    box-shadow: 0 9px var(--teal);
-    padding: 0.938rem 1.563rem;
+    border-radius: 1rem;
+    padding: 1rem;
 }
 
 #nameInput:focus {
     background-color: var(--teal);
-    border-color: var(--deep-sea);
+    border-color: 0 var(--deep-sea);
+    outline: none;
 }
 
 .playButton {
-    padding: 0.938rem 1.563rem;
-    font-size: 1.5rem;
+    align-self: flex-end;
+    color: var(--white);
+    font-size: var(--font-size24);
     text-align: center;
-    cursor: pointer;
+    padding: 1rem 1.5rem;
     outline: none;
     background-color: var(--deep-sea);
     border: none;
-    border-radius: 0.938rem;
+    border-radius: 1rem;
     box-shadow: 0 9px var(--teal);
+    cursor: pointer;
 }
 
 .playButton:hover {
