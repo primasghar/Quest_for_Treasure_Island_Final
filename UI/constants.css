@@ -7,6 +7,10 @@
 
     --prussian-blue: rgb(0, 70, 117); /* hsl(204.103, 100%, 22.941%) */
     --deep-sea: rgb(0, 91, 117); /* hsl(193.33, 100%, 22.94%) */
+    
+    --red: rgb(124, 13, 14);
+    --red-hue: rgb(188, 84, 75);
+    --maroon: rgb(144, 6, 3);
 
     --font-size20: 1.25rem;
     --font-size24: 1.5rem;

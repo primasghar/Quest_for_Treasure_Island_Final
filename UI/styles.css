@@ -1,6 +1,6 @@
 @import url("constants.css");
 
-body {
+html, body {
     color: var(--white);
     background-color: var(--dark-brown);
     padding: 0;
