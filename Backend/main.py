@@ -1,11 +1,12 @@
 import os
 from colorama import Fore, Style
 from geopy import distance
-from games import flip_the_coin,rock_paper_scissors, roll_the_dice, odds_evens, number_guessing,sequence_memory, quizlet, riddle
-from query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
-                             fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query,
-                             update_progress_query, delete_player_and_progress_query)
-from utility_functions import title_info, game_over
+from Backend.games import quizlet, sequence_memory, rock_paper_scissors, flip_the_coin, odds_evens, riddle, \
+    roll_the_dice, number_guessing
+from Backend.query_functions import (add_player_query, player_progress_id_query, fetch_player_progress_query,
+                                     fetch_game_airport_icao_query, fetch_airport_info_query, fetch_airport_country_query,
+                                     update_progress_query, delete_player_and_progress_query)
+from Backend.utility_functions import title_info, game_over
 
 # -----------------------------------FUNCTIONS--------------------------------------------------------------------------
 

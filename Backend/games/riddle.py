@@ -1,5 +1,5 @@
 import random
-import query_functions
+from Backend import query_functions
 from colorama import Fore, Style
 
 def play_game(name):
