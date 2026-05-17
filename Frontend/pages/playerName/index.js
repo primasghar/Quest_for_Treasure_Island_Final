@@ -1,9 +1,8 @@
 const form = document.querySelector(".nameForm");
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
     event.preventDefault();
     fetchNewPlayerData();
-    window.location.href = '../main/main.html'
 })
 
 const fetchNewPlayerData = async () => {
@@ -12,8 +11,8 @@ const fetchNewPlayerData = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/player/${nameInput}`)
         const newPlayerData = await response.json();
-        console.log(newPlayerData);
-        localStorage.setItem("playerDetails", JSON.stringify(newPlayerData) )
+        localStorage.setItem("playerDetails", JSON.stringify(newPlayerData) );
+        window.location.href ='../main/main.html';
 
     } catch (error) {
         console.log(error.message);

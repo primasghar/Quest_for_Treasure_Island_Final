@@ -55,7 +55,6 @@ h1 {
 }
 
 #nameInput {
-    color: var(--white);
     font-size: var(--font-size24);
     border: none;
     border-radius: 1rem;
@@ -63,7 +62,7 @@ h1 {
 }
 
 #nameInput:focus {
-    background-color: var(--teal);
+    background-color: 	#E5E4E2;
     border-color: 0 var(--deep-sea);
     outline: none;
 }
