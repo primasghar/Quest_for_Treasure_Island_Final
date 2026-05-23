@@ -78,6 +78,14 @@ h1 {
     border-radius: 1rem;
 }
 
+.scoreBoardList {
+    list-style: none;
+}
+
+.scoreBoardList > li {
+    margin-bottom: 0.5rem;
+}
+
 h2 {
 
 }
@@ -86,6 +94,10 @@ h2 {
     height: 80%;
     border-radius: 1rem;
     background-color: var(--white);
+}
+
+#selectOptions {
+    margin: 2rem;
 }
 
 .buttons {
@@ -119,7 +131,7 @@ h2 {
 }
 
 .quit:hover {
-   background-color: var(--red);
+    background-color: var(--red);
 }
 
 /*    Media Queries   */
@@ -157,8 +169,8 @@ h2 {
 }
 
 @media screen and (min-width: 1440px) {
-.partOne, .partTwo, .buttons {
-    width: 1216px;
-}
+    .partOne, .partTwo, .buttons {
+        width: 1216px;
+    }
 
 }
