@@ -13,6 +13,9 @@ const gameDiv = document.querySelector('.gameArea')
 
 if (newPlayer['level'] === 1) {
     document.querySelector('.gameNameHeading').innerText = "Flip the coin";
+    document.querySelector('.gameDescription').innerText = "You will have three opportunities to win the game " +
+        "and go to your next airport destination. Select HEADS or TAILS and click on the coin";
+
     // Creating select and its options
     let selectEl = document.createElement('Select');
     selectEl.id = "selectOptions";
@@ -39,18 +42,81 @@ if (newPlayer['level'] === 1) {
     // console.log(selectEl.options.length)
     // console.log(selectEl.value)
 
-    selectEl.addEventListener("change", () =>{
-        if (selectEl.value === "HEADS") {
-            console.log("HEADS");
-        }else if(selectEl.value === "TAILS"){
-            console.log("TAILS");
-        }else{
-            alert("choose option")
+    selectEl.addEventListener("change", () => {
+        if (selectEl.value === "HEADS" || selectEl.value === "TAILS") {
+            coin.addEventListener('click', flipCoin)
+        } else {
+            alert("Please choose from given option")
         }
     });
 
-    //Creating coin div, flip button (reset btn maybe)
-    let coinDiv = document.createElement('div');
-    gameDiv.appendChild(coinDiv);
+    //Creating coin container (H and T)
+    let coinContainer = document.createElement('div');
+    coinContainer.className = "coinContainer";
+    gameDiv.appendChild(coinContainer);
+    let coin = document.createElement('div');
+    coin.className = "coin";
+    coinContainer.appendChild(coin)
+    let heads = document.createElement('div');
+    heads.className = "heads";
+    heads.innerText = "H"
+    coin.appendChild(heads)
+    let tails = document.createElement('div');
+    tails.className = "tails";
+    tails.innerText = "T"
+    coin.appendChild(tails)
+
+    //Creating reset buttons
+    let resetButton = document.createElement('button');
+    resetButton.className = "resetButton";
+
+    //Creating Result Div
+    let result = document.createElement('div');
+    result.className = "result";
+    gameDiv.appendChild(result);
+
+    //Adding functionality
+
+    let isFlipping = false;
+
+    const flipCoin = () => {
+        if (isFlipping) return;
+
+        isFlipping = true;
+        result.textContent = '';
+
+        coin.classList.add('flipping');
+
+        // Generate random result (true = heads, false = tails)
+        let isHeads = Math.random() < 0.5;
+
+        setTimeout(function () {
+            showResult(isHeads);
+            coin.classList.remove('flipping');
+            isFlipping = false;
+        }, 2000);
+    }
+
+    // Function to show the result
+    const showResult = (isHeads) => {
+        let resultText;
+
+        if (isHeads) {
+            resultText = 'HEADS';
+            coin.style.transform = 'rotateY(0deg)';
+        } else {
+            resultText = 'TAILS';
+            coin.style.transform = 'rotateY(180deg)';
+        }
+
+        if (resultText === selectEl.value) {
+            result.textContent = 'Result: ' + resultText + '. You won! 🎉 '
+            coin.removeEventListener('click', flipCoin)
+        } else {
+            result.textContent = 'Result: ' + resultText + '. Sorry! You lost.'
+            coin.removeEventListener('click', flipCoin)
+        }
+
+    }
 
 }
