@@ -94,6 +94,10 @@ h1 {
     text-align: center;
 }
 
+.gameDescription{
+    color: black;
+}
+
 #selectOptions {
     margin: 2rem;
 }

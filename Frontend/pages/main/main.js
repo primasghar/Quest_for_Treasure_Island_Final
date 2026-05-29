@@ -14,7 +14,8 @@ const gameDiv = document.querySelector('.gameArea')
 if (newPlayer['level'] === 1) {
     document.querySelector('.gameNameHeading').innerText = "Flip the coin";
     document.querySelector('.gameDescription').innerText = "You will have three opportunities to win the game " +
-        "and go to your next airport destination. Select HEADS or TAILS and click on the coin";
+        "and go to your next airport destination. Select HEADS or TAILS and click on the coin to flip it.";
+      const result= document.querySelector('.result');
 
     // Creating select and its options
     let selectEl = document.createElement('Select');
@@ -38,9 +39,6 @@ if (newPlayer['level'] === 1) {
     let node2 = document.createTextNode("TAILS");
     opt2.appendChild(node2);
     selectEl.appendChild(opt2)
-
-    // console.log(selectEl.options.length)
-    // console.log(selectEl.value)
 
     selectEl.addEventListener("change", () => {
         if (selectEl.value === "HEADS" || selectEl.value === "TAILS") {
@@ -70,13 +68,7 @@ if (newPlayer['level'] === 1) {
     let resetButton = document.createElement('button');
     resetButton.className = "resetButton";
 
-    //Creating Result Div
-    let result = document.createElement('div');
-    result.className = "result";
-    gameDiv.appendChild(result);
-
     //Adding functionality
-
     let isFlipping = false;
 
     const flipCoin = () => {
