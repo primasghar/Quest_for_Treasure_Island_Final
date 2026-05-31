@@ -97,8 +97,11 @@ h1 {
     align-items: center;
 }
 
-.gameDescription{
+.gameDescription {
     color: black;
+    font-size: 1.3rem;
+    margin: 1.5rem;
+    text-align: left;
 }
 
 #selectOptions {
@@ -180,7 +183,15 @@ h1 {
 
 }
 
-/*flip the coin*/
+/*-----FLIP THE COIN-----*/
+
+#selectOptions {
+    font-family: inherit;
+    font-size: var(--font-size20);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+}
 
 .coinContainer {
     perspective: 1000px;

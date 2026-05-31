@@ -93,8 +93,8 @@ const flipCoin = () => {
 
 const levelOne = () => {
     document.querySelector('.gameNameHeading').innerText = "Flip the coin";
-    document.querySelector('.gameDescription').innerText = "You will have three opportunities to win the game " +
-        "and go to your next airport destination. Select HEADS or TAILS and click on the coin to flip it.";
+    document.querySelector('.gameDescription').innerText = "You have three opportunities to win this game " +
+        "and go to your next airport destination. Select HEADS or TAILS to flip the coin.";
 
     addSelectElement();
     addCoin();
