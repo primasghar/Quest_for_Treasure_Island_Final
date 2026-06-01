@@ -11,6 +11,7 @@ const addSelectElement = () => {
     // Creating select and its options
     selectEl = document.createElement('Select');
     selectEl.id = "selectOptions";
+    selectEl.label = "Player choice"
     gameDiv.appendChild(selectEl);
 
     let opt = document.createElement("option");
@@ -76,7 +77,8 @@ const flipCoin = () => {
                 coin.style.transform = 'rotateY(180deg)';
             }
 
-            result.textContent = `You chose: ${selectEl.value}. Coin flipped: ${resultText}. 
+            result.textContent = `You chose: ${selectEl.value}. 
+                                  Coin flipped: ${resultText}. 
             ${selectEl.value === resultText ? "You won!" : "You lost!"}`
 
             if (selectEl.value !== resultText) {
