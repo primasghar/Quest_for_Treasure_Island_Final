@@ -12,7 +12,8 @@ document.querySelector('.score').innerText = newPlayer['score'];
 const gameDiv = document.querySelector('.gameArea')
 
 if (newPlayer['level'] === 1) {
-    levelOne();
+    levelTwo();
 }
+
 
 
