@@ -11,12 +11,11 @@ const addSelectElement = () => {
     // Creating select and its options
     selectEl = document.createElement('Select');
     selectEl.id = "selectOptions";
-    selectEl.label = "Player choice"
     gameDiv.appendChild(selectEl);
 
     let opt = document.createElement("option");
     opt.setAttribute("value", "");
-    let node = document.createTextNode("--Please choose an option--");
+    let node = document.createTextNode("-- Player's choice --");
     opt.appendChild(node);
     selectEl.appendChild(opt)
 
