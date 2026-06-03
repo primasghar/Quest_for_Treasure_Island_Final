@@ -1,7 +1,7 @@
 let selectEl;
 let playerChoice;
 let computerChoice;
-let resultOutcome;
+let playerWon;
 let attempts = 0;
 
 const addSelectElement = () => {
@@ -38,34 +38,45 @@ const addSelectElement = () => {
 const runGame = () => {
     const options_list = ["ROCK", "PAPER", "SCISSORS"]
     const choiceNumber = Math.floor(Math.random() * 3);
-
     computerChoice = options_list[choiceNumber];
     playerChoice = selectEl.value;
+    console.log("player", playerChoice, "computer", computerChoice, attempts)
 
+
+    if (playerChoice === "ROCK" || playerChoice === "PAPER" || playerChoice === "SCISSORS") {
         if (playerChoice === "ROCK" && computerChoice === "SCISSORS" ||
             playerChoice === "PAPER" && computerChoice === "ROCK" ||
             playerChoice === "SCISSORS" && computerChoice === "PAPER") {
-            resultOutcome = "You have won"
+            playerWon = "Yes"
+
         } else if (computerChoice === "ROCK" && playerChoice === "SCISSORS" ||
             computerChoice === "PAPER" && playerChoice === "ROCK" ||
             computerChoice === "SCISSORS" && playerChoice === "PAPER") {
-            resultOutcome = "You have lost"
-            attempts += 1
+            playerWon = "No"
+
         } else if (computerChoice === playerChoice) {
-            resultOutcome = "It's a tie."
+            playerWon = "Tie"
+
         }
-
-        // if (attempts < 3){
-        // if (attempts < 3){
-        //     print("Please try again!\n")
-        // }
-
-    if(playerChoice === ""){
-        alert("Please choose from the given options")
-
+    } else {
+        alert("Please choose from given option")
     }
 
-    result.textContent = resultOutcome;
+    if (attempts < 3) {
+        if (playerWon === "No" || playerWon === "Tie") {
+            attempts += 1;
+            result.textContent = `You have lost. Please try again. Attempts: ${attempts}`
+
+        } else {
+            attempts = 3;
+            result.textContent = `Congrads! You won. Attempts: ${attempts}`
+            selectEl.disabled = true;
+        }
+    }
+
+    if (attempts === 3) {
+        selectEl.disabled = true;
+    }
 
 }
 
