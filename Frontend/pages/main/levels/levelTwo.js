@@ -3,6 +3,8 @@ let playerChoice;
 let computerChoice;
 let playerWon;
 let attempts = 0;
+let result = document.querySelector('.result')
+let trialCount = document.querySelector('.trials')
 
 const addSelectElement = () => {
     // Creating select and its options
@@ -65,11 +67,12 @@ const runGame = () => {
     if (attempts < 3) {
         if (playerWon === "No" || playerWon === "Tie") {
             attempts += 1;
-            result.textContent = `You have lost. Please try again. Attempts: ${attempts}`
+            result.textContent = `You have lost. ${attempts <= 2 ? "Please try again" : ""}`
+            trialCount.innerHTML = `(${attempts})`;
 
         } else {
             attempts = 3;
-            result.textContent = `Congrads! You won. Attempts: ${attempts}`
+            result.textContent = `Congrads! You won.`
             selectEl.disabled = true;
         }
     }
@@ -88,6 +91,4 @@ const levelTwo = () => {
     addSelectElement();
 
     selectEl.addEventListener("change", runGame);
-
-    result = document.querySelector('.result')
 }
