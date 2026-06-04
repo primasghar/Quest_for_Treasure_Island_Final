@@ -1,4 +1,5 @@
 let selectEl;
+let buttonEl;
 let playerChoice;
 let computerChoice;
 let playerWon;
@@ -19,6 +20,7 @@ const addSelectElement = () => {
     selectEl.appendChild(opt)
 
     let opt1 = document.createElement("option");
+    opt1.className = "opts"
     opt1.setAttribute("value", "ROCK");
     let node1 = document.createTextNode("ROCK");
     opt1.appendChild(node1);
@@ -37,12 +39,20 @@ const addSelectElement = () => {
     selectEl.appendChild(opt3)
 }
 
+const addButton = ()=>{
+    buttonEl = document.createElement("button")
+    buttonEl.className = "playBtn"
+    buttonEl.innerHTML = "Play"
+    gameDiv.appendChild(buttonEl)
+    
+}
+
 const runGame = () => {
     const options_list = ["ROCK", "PAPER", "SCISSORS"]
     const choiceNumber = Math.floor(Math.random() * 3);
+    
     computerChoice = options_list[choiceNumber];
     playerChoice = selectEl.value;
-    console.log("player", playerChoice, "computer", computerChoice, attempts)
 
 
     if (playerChoice === "ROCK" || playerChoice === "PAPER" || playerChoice === "SCISSORS") {
@@ -79,6 +89,7 @@ const runGame = () => {
 
     if (attempts === 3) {
         selectEl.disabled = true;
+        buttonEl.disabled = true;
     }
 
 }
@@ -89,6 +100,7 @@ const levelTwo = () => {
         "and go to your next airport destination. Select ROCK, PAPER, or SCISSORS.";
 
     addSelectElement();
+    addButton()
 
-    selectEl.addEventListener("change", runGame);
+    buttonEl.addEventListener("click", runGame);
 }
