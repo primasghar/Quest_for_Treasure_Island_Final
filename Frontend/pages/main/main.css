@@ -60,11 +60,36 @@ h1 {
     backdrop-filter: blur(10px);
 }
 
+.scoreBoardHeading {
+    margin: 1rem;
+    text-align: center;
+}
+
 .map, .scoreBoard {
+    font-family: inherit;
     background-color: var(--dark-teal);
     height: 40%;
     border-radius: 1rem;
-    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.scoreBoard {
+    font-size: var(--font-size24);
+    background-color: var(--dark-brown);
+}
+
+.table{
+    padding: 1rem;
+    text-align: left;
+}
+
+tr{
+    margin-bottom: 1rem;
+}
+
+.name, .level, .carbon, .score {
+    padding-left: 1rem;
 }
 
 .partTwo {
@@ -85,7 +110,6 @@ h1 {
 .scoreBoardList > li {
     margin-bottom: 0.5rem;
 }
-
 
 .gameArea {
     display: grid;
@@ -113,7 +137,7 @@ h1 {
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     align-self: center;
-}  
+}
 
 .playBtn {
     color: white;
