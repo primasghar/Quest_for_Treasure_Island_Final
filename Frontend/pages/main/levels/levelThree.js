@@ -47,19 +47,22 @@ const rollDice = () => {
 
 
         if (randomNumber1 + randomNumber2 + randomNumber3 === 12) {
-            result.innerHTML = `Congrads! You won! The sum of ${randomNumber1}, ${randomNumber2}, 
-            and ${randomNumber3} is ${sum}.`;
+            result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, 
+            and ${randomNumber3} is ${sum}. Congrads! You won! `;
             attempts += 3;
         } else {
-            result.innerHTML = `Sorry! You lost! The sum of ${randomNumber1}, ${randomNumber2}, 
+            result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, 
             and ${randomNumber3} is ${sum}. ${attempts < 2 ? "Try again!" : ""}`;
             attempts += 1;
+            trialCount.innerText = attempts
         }
 
         if (attempts === 3) {
             buttonEl.disabled = true
+            let gameLost = document.createElement('p').innerText = `You lost the game.`
+            result.append(gameLost)
         }
-    }, 2000);
+    }, 1000);
 }
 
 
@@ -84,6 +87,4 @@ const levelThree = () => {
     addButton()
 
     buttonEl.addEventListener('click', rollDice)
-
-
 }
