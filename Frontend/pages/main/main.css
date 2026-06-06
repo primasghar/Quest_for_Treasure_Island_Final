@@ -79,12 +79,12 @@ h1 {
     background-color: var(--dark-brown);
 }
 
-.table{
+.table {
     padding: 1rem;
     text-align: left;
 }
 
-tr{
+tr {
     margin-bottom: 1rem;
 }
 
@@ -121,7 +121,7 @@ tr{
     text-align: center;
 }
 
-.gameTitle{
+.gameTitle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -152,7 +152,7 @@ tr{
     font-size: var(--font-size24);
     font-weight: bolder;
     /*background-image: url("./../../images/tree1.jpg");*/
-    background-color: #b8860b ;
+    background-color: #b8860b;
     grid-column: 2/3;
     margin: 0.5rem;
     border: 2px solid #ffd700;
@@ -337,14 +337,27 @@ tr{
 }
 
 /*Roll the dice*/
-.diceImage{
+.diceImage {
     width: 4rem;
     margin-left: 1rem;
 }
 
-.targetValue{
+.targetValue {
     color: black;
     font-size: var(--font-size24);
     padding-top: 1rem;
+}
+
+.dices {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dice1, .dice2, .dice3 {
+    width: 4rem;
+    margin-bottom: 1rem;
 }
 
