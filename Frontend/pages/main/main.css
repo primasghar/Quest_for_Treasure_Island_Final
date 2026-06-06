@@ -121,6 +121,13 @@ tr{
     text-align: center;
 }
 
+.gameTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size42);
+}
+
 .gameDescription {
     grid-column: 1/3;
     color: black;
@@ -142,12 +149,13 @@ tr{
 .playBtn {
     color: white;
     text-shadow: black 1px 0 10px;
-    font-size: var(--font-size30);
+    font-size: var(--font-size24);
     font-weight: bolder;
-    background-image: url("./../../images/tree1.jpg");
+    /*background-image: url("./../../images/tree1.jpg");*/
+    background-color: #b8860b ;
     grid-column: 2/3;
     margin: 0.5rem;
-    border: 2px solid var(--dark-brown);
+    border: 2px solid #ffd700;
     border-radius: 0.5rem;
     width: 8rem;
     height: 2.563rem;
@@ -157,8 +165,8 @@ tr{
 }
 
 .playBtn:hover {
-    border: 4px solid var(--dark-brown);
-    text-shadow: black 5px 0 10px;
+    /*border: 2px solid var(--dark-brown);*/
+    /*text-shadow: black 5px 0 10px;*/
     -webkit-text-stroke: 0.5px white;
 }
 
@@ -326,5 +334,17 @@ tr{
 
 .resultHeading {
     margin: 0;
+}
+
+/*Roll the dice*/
+.diceImage{
+    width: 4rem;
+    margin-left: 1rem;
+}
+
+.targetValue{
+    color: black;
+    font-size: var(--font-size24);
+    padding-top: 1rem;
 }
 
