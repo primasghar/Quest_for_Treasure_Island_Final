@@ -76,7 +76,6 @@ h1 {
 
 .scoreBoard {
     font-size: var(--font-size24);
-    background-color: var(--dark-brown);
 }
 
 .table {
@@ -144,6 +143,9 @@ tr {
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     align-self: center;
+}
+
+.opts {
 }
 
 .playBtn {
@@ -365,8 +367,14 @@ tr {
 
 /*Even Odds */
 
-.selectionDiv{
+.selectionDiv {
     display: flex;
     justify-content: flex-end;
     margin-right: 1rem;
+}
+
+.computerChoice{
+    /*grid-column: 1/3;*/
+    color: black;
+    font-size: var(--font-size24);
 }

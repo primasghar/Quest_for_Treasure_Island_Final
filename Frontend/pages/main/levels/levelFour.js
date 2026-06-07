@@ -1,5 +1,12 @@
+let selectEl;
+let selectNoEl;
+let attempts = 0
 
-const addSelectEvenOdd = (selectionDiv) => {
+let result = document.querySelector('.result')
+let trialCount = document.querySelector('.trials')
+let playerWon = false
+
+const addEvenOddSelect = (selectionDiv) => {
     // Creating select and its options
     selectEl = document.createElement('Select');
     selectEl.id = "selectOptions";
@@ -7,7 +14,7 @@ const addSelectEvenOdd = (selectionDiv) => {
 
     let opt = document.createElement("option");
     opt.setAttribute("value", "");
-    let node = document.createTextNode("-- Even/Odd --");
+    let node = document.createTextNode(" Even/Odd ");
     opt.appendChild(node);
     selectEl.appendChild(opt)
 
@@ -26,17 +33,17 @@ const addSelectEvenOdd = (selectionDiv) => {
 
 }
 
-const addSelectNumbers = (selectionDiv) => {
+const addNumberSelect = (selectionDiv) => {
     // Creating select and its options
-    selectEl = document.createElement('Select');
-    selectEl.id = "selectOptions";
-    selectionDiv.appendChild(selectEl);
+    selectNoEl = document.createElement('Select');
+    selectNoEl.id = "selectOptions";
+    selectionDiv.appendChild(selectNoEl);
 
     let opt = document.createElement("option");
     opt.setAttribute("value", "");
-    let node = document.createTextNode("-- Number (1-10) --");
+    let node = document.createTextNode("Number (1-10)");
     opt.appendChild(node);
-    selectEl.appendChild(opt)
+    selectNoEl.appendChild(opt)
 
     for (let i = 1; i <= 10; i++) {
         let opt = document.createElement("option");
@@ -44,7 +51,7 @@ const addSelectNumbers = (selectionDiv) => {
         opt.setAttribute("value", `${i}`);
         let node = document.createTextNode(`${i}`);
         opt.appendChild(node);
-        selectEl.appendChild(opt)
+        selectNoEl.appendChild(opt)
     }
 
 }
@@ -58,8 +65,40 @@ const addButton = () => {
 
 }
 
-const evenOdd = ()=>{
+const runEvenOdd = () => {
+    setTimeout(() => {
+        let playerTarget = selectEl.value;
+        let playerSelectedNo = selectNoEl.value;
+        let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
+        let computerChoice = document.createElement('p')
+        computerChoice.className = "computerChoice"
+        computerChoice.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
+        gameDiv.appendChild(computerChoice)
+        let sumOfNos = +playerSelectedNo + +computerSelectedNo;
 
+
+        if (playerTarget === "EVEN" && sumOfNos % 2 === 0) {
+            result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.Congrads! You won! `;
+            attempts = 3
+            playerWon = true
+        } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
+            result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congrads! You won! `;
+            attempts = 3
+            playerWon = true
+        } else {
+            result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
+            ${attempts < 2 ? "Try again!" : ""}`
+            attempts += 1;
+            trialCount.innerText = attempts
+        }
+
+        if (attempts === 3 && playerWon === false) {
+            buttonEl.disabled = true
+            let gameLost = document.createElement('p').innerText = `You have lost the game.`
+            result.append(gameLost)
+        }
+
+    }, 1000)
 
 
 }
@@ -78,10 +117,10 @@ const levelFour = () => {
     selectionDiv.className = "selectionDiv"
     gameDiv.appendChild(selectionDiv)
 
-    addSelectEvenOdd(selectionDiv)
-    addSelectNumbers(selectionDiv)
+    addEvenOddSelect(selectionDiv)
+    addNumberSelect(selectionDiv)
 
     addButton()
 
-    buttonEl.addEventListener('click', evenOdd)
+    buttonEl.addEventListener('click', runEvenOdd)
 }
