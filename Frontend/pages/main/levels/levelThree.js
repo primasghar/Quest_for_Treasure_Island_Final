@@ -80,10 +80,12 @@ const levelThree = () => {
     document.querySelector('.gameDescription').innerText = "You have three opportunities to win this game " +
         "and go to your next airport destination. You will chose enter the target number and then roll the 3 dices three " +
         "by pressing the button. If the summ of three numbers is equal to the target no. You will win.";
+
     let targetNo = document.createElement('p');
     targetNo.className = "targetValue"
     targetNo.innerText = `Target Number: 12`;
     gameDiv.appendChild(targetNo)
+
     addButton()
 
     buttonEl.addEventListener('click', rollDice)

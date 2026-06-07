@@ -345,7 +345,9 @@ tr {
 .targetValue {
     color: black;
     font-size: var(--font-size24);
-    padding-top: 1rem;
+    padding-top: 0.6rem;
+    justify-self: flex-end;
+    margin-right: 1rem;
 }
 
 .dices {
