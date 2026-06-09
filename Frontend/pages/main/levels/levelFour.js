@@ -7,15 +7,24 @@ let trialCount = document.querySelector('.trials')
 let playerWon = false
 
 const addEvenOddSelect = (selectionDiv) => {
-    // Creating select and its options
-    selectEl = document.createElement('Select');
-    selectEl.setAttribute("label", "Target");
-    selectEl.id = "selectOptions";
-    selectionDiv.appendChild(selectEl);
+    let evenOddDiv = document.createElement('div')
+    evenOddDiv.className = "evenOddDiv"
+    selectionDiv.appendChild(evenOddDiv)
+
+    let EvenOddSelectLabelEl = document.createElement('label');
+    EvenOddSelectLabelEl.setAttribute("for", "selectTargetOpt");
+    EvenOddSelectLabelEl.className = "selectionLabel"
+    EvenOddSelectLabelEl.textContent = "Player's target: ";
+    EvenOddSelectLabelEl.style.color = "black";
+    evenOddDiv.appendChild(EvenOddSelectLabelEl)
+
+    selectEl = document.createElement('select');
+    selectEl.id = "selectTargetOpt";
+    evenOddDiv.appendChild(selectEl);
 
     let opt = document.createElement("option");
     opt.setAttribute("value", "");
-    let node = document.createTextNode(" Even/Odd ");
+    let node = document.createTextNode("--Even/Odd-- ");
     opt.appendChild(node);
     selectEl.appendChild(opt)
 
@@ -35,14 +44,25 @@ const addEvenOddSelect = (selectionDiv) => {
 }
 
 const addNumberSelect = (selectionDiv) => {
-    // Creating select and its options
-    selectNoEl = document.createElement('Select');
-    selectNoEl.id = "selectOptions";
-    selectionDiv.appendChild(selectNoEl);
+    let numberDiv = document.createElement('div')
+    numberDiv.className = "numberDiv"
+    selectionDiv.appendChild(numberDiv)
+
+
+    let numberLabelEl = document.createElement('label');
+    numberLabelEl.setAttribute("for", "selectNumberOpt");
+    numberLabelEl.className = "selectionLabel"
+    numberLabelEl.textContent = "Player's choice: ";
+    numberLabelEl.style.color = "black";
+    numberDiv.appendChild(numberLabelEl)
+
+    selectNoEl = document.createElement('select');
+    selectNoEl.id = "selectNumberOpt";
+    numberDiv.appendChild(selectNoEl);
 
     let opt = document.createElement("option");
     opt.setAttribute("value", "");
-    let node = document.createTextNode("Number (1-10)");
+    let node = document.createTextNode("--Number (1-10)--");
     opt.appendChild(node);
     selectNoEl.appendChild(opt)
 
@@ -79,7 +99,7 @@ const runEvenOdd = () => {
             let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
             let computerChoice = document.createElement('p')
             computerChoice.className = "computerChoice"
-            computerChoice.innerText = `Computer choice: ${computerSelectedNo.toString()} `
+            computerChoice.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
             gameDiv.appendChild(computerChoice)
             let sumOfNos = +playerSelectedNo + +computerSelectedNo;
 
