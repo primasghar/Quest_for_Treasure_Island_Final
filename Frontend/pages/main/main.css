@@ -114,6 +114,7 @@ tr {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
     min-height: 18.75rem;
     border-radius: 1rem;
     background-color: var(--white);
@@ -157,7 +158,7 @@ tr {
     background-color: #b8860b;
     grid-column: 2/3;
     margin: 0.5rem;
-    border: 2px solid #ffd700;
+    border: 2px solid #b8860b;
     border-radius: 0.5rem;
     width: 8rem;
     height: 2.563rem;
@@ -169,7 +170,8 @@ tr {
 .playBtn:hover {
     /*border: 2px solid var(--dark-brown);*/
     /*text-shadow: black 5px 0 10px;*/
-    -webkit-text-stroke: 0.5px white;
+    border: 2px solid #ffd700;
+    /*-webkit-text-stroke: 0.5px white;*/
 }
 
 .playBtn:disabled {
@@ -373,8 +375,11 @@ tr {
     margin-right: 1rem;
 }
 
-.computerChoice{
-    /*grid-column: 1/3;*/
+.playerTarget, .playerChoice, .computerChoice {
     color: black;
     font-size: var(--font-size24);
+}
+
+.playerTarget {
+    grid-column: 1/3;
 }

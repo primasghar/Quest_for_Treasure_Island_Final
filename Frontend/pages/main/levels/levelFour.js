@@ -9,6 +9,7 @@ let playerWon = false
 const addEvenOddSelect = (selectionDiv) => {
     // Creating select and its options
     selectEl = document.createElement('Select');
+    selectEl.setAttribute("label", "Target");
     selectEl.id = "selectOptions";
     selectionDiv.appendChild(selectEl);
 
@@ -30,6 +31,14 @@ const addEvenOddSelect = (selectionDiv) => {
     let node2 = document.createTextNode("ODD");
     opt2.appendChild(node2);
     selectEl.appendChild(opt2)
+
+}
+
+const displayPlayerTarget = () => {
+    let playerTarget = document.createElement('p')
+    playerTarget.className = "playerTarget"
+    playerTarget.innerText = `Player's Target choice: ${selectEl.value} `
+    gameDiv.appendChild(playerTarget)
 
 }
 
@@ -56,6 +65,13 @@ const addNumberSelect = (selectionDiv) => {
 
 }
 
+const displayPlayerNumber = () => {
+    let playerNumber = document.createElement('p')
+    playerNumber.className = "playerChoice"
+    playerNumber.innerText = `Player's choice: ${selectNoEl.value} `
+    gameDiv.appendChild(playerNumber)
+}
+
 
 const addButton = () => {
     buttonEl = document.createElement("button")
@@ -65,14 +81,21 @@ const addButton = () => {
 
 }
 
+
 const runEvenOdd = () => {
-    setTimeout(() => {
+    if (selectEl.value === "" ) {
+        alert('Please select EVEN or ODD')
+    } else if (selectNoEl.value === "") {
+        alert('Please select a Number')
+    }else{
+      setTimeout(() => {
         let playerTarget = selectEl.value;
         let playerSelectedNo = selectNoEl.value;
+
         let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
         let computerChoice = document.createElement('p')
         computerChoice.className = "computerChoice"
-        computerChoice.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
+        computerChoice.innerText = `Computer choice: ${computerSelectedNo.toString()} `
         gameDiv.appendChild(computerChoice)
         let sumOfNos = +playerSelectedNo + +computerSelectedNo;
 
@@ -99,6 +122,8 @@ const runEvenOdd = () => {
         }
 
     }, 1000)
+    }
+
 
 
 }
@@ -118,7 +143,11 @@ const levelFour = () => {
     gameDiv.appendChild(selectionDiv)
 
     addEvenOddSelect(selectionDiv)
+
     addNumberSelect(selectionDiv)
+
+    selectEl.addEventListener('change', displayPlayerTarget)
+    selectNoEl.addEventListener('change', displayPlayerNumber)
 
     addButton()
 
