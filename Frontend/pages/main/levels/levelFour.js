@@ -34,14 +34,6 @@ const addEvenOddSelect = (selectionDiv) => {
 
 }
 
-const displayPlayerTarget = () => {
-    let playerTarget = document.createElement('p')
-    playerTarget.className = "playerTarget"
-    playerTarget.innerText = `Player's Target choice: ${selectEl.value} `
-    gameDiv.appendChild(playerTarget)
-
-}
-
 const addNumberSelect = (selectionDiv) => {
     // Creating select and its options
     selectNoEl = document.createElement('Select');
@@ -65,66 +57,59 @@ const addNumberSelect = (selectionDiv) => {
 
 }
 
-const displayPlayerNumber = () => {
-    let playerNumber = document.createElement('p')
-    playerNumber.className = "playerChoice"
-    playerNumber.innerText = `Player's choice: ${selectNoEl.value} `
-    gameDiv.appendChild(playerNumber)
-}
-
-
+// Reusable button
 const addButton = () => {
     buttonEl = document.createElement("button")
     buttonEl.className = "playBtn"
     buttonEl.innerHTML = "Play"
     gameDiv.appendChild(buttonEl)
-
 }
 
 
 const runEvenOdd = () => {
-    if (selectEl.value === "" ) {
+    if (selectEl.value === "") {
         alert('Please select EVEN or ODD')
     } else if (selectNoEl.value === "") {
         alert('Please select a Number')
-    }else{
-      setTimeout(() => {
-        let playerTarget = selectEl.value;
-        let playerSelectedNo = selectNoEl.value;
+    } else {
+        setTimeout(() => {
+            let playerTarget = selectEl.value;
+            let playerSelectedNo = selectNoEl.value;
 
-        let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
-        let computerChoice = document.createElement('p')
-        computerChoice.className = "computerChoice"
-        computerChoice.innerText = `Computer choice: ${computerSelectedNo.toString()} `
-        gameDiv.appendChild(computerChoice)
-        let sumOfNos = +playerSelectedNo + +computerSelectedNo;
+            let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
+            let computerChoice = document.createElement('p')
+            computerChoice.className = "computerChoice"
+            computerChoice.innerText = `Computer choice: ${computerSelectedNo.toString()} `
+            gameDiv.appendChild(computerChoice)
+            let sumOfNos = +playerSelectedNo + +computerSelectedNo;
 
 
-        if (playerTarget === "EVEN" && sumOfNos % 2 === 0) {
-            result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.Congrads! You won! `;
-            attempts = 3
-            playerWon = true
-        } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
-            result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congrads! You won! `;
-            attempts = 3
-            playerWon = true
-        } else {
-            result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
-            ${attempts < 2 ? "Try again!" : ""}`
-            attempts += 1;
-            trialCount.innerText = attempts
-        }
+            if (playerTarget === "EVEN" && sumOfNos % 2 === 0) {
+                result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.Congrads! You won! `;
+                attempts = 3
+                playerWon = true
+            } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
+                result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congrads! You won! `;
+                attempts = 3
+                playerWon = true
+            } else {
+                attempts += 1;
+                result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
+            ${attempts <= 2 ? "Please try again" : ""}`
+                trialCount.innerText = attempts
+            }
 
-        if (attempts === 3 && playerWon === false) {
-            buttonEl.disabled = true
-            let gameLost = document.createElement('p').innerText = `You have lost the game.`
-            result.append(gameLost)
-        }
+            if (attempts === 3) {
+                buttonEl.disabled = true
+                if (playerWon === false) {
+                    let gameLost = document.createElement('p').innerText = `You have lost the game.`
+                    result.append(gameLost)
+                }
 
-    }, 1000)
+            }
+
+        }, 1000)
     }
-
-
 
 }
 
@@ -145,9 +130,6 @@ const levelFour = () => {
     addEvenOddSelect(selectionDiv)
 
     addNumberSelect(selectionDiv)
-
-    selectEl.addEventListener('change', displayPlayerTarget)
-    selectNoEl.addEventListener('change', displayPlayerNumber)
 
     addButton()
 
