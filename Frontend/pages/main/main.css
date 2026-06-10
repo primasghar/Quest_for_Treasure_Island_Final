@@ -399,3 +399,22 @@ tr {
 }
 
 /*Guess the Number*/
+
+.buttonDescription, .sequence {
+    color: black;
+    font-size: var(--font-size24);
+}
+
+/*Sequence Memory */
+
+#playerInput {
+    grid-column: 1/3;
+    grid-row: 3/4;
+    font-family: inherit;
+    font-size: var(--font-size20);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    width: 12.5rem;
+    justify-self: center;
+}
