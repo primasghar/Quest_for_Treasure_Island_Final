@@ -77,7 +77,6 @@ const addNumberSelect = (selectionDiv) => {
 
 }
 
-// Reusable button
 const addButton = () => {
     buttonEl = document.createElement("button")
     buttonEl.className = "playBtn"
