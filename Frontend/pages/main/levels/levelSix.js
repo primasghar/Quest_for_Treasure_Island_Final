@@ -1,8 +1,14 @@
 let playerInputSeq;
-let attempts = 0
+let seq;
+let randSequence;
+
+let btnEl;
+let submitSeqBtnEl;
 
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
+
+let attempts = 0
 let playerWon = false
 
 const generateRandomSequence = () => {
@@ -19,12 +25,20 @@ const generateRandomSequence = () => {
     return result;
 }
 
+const showSeqBtn = () => {
+    btnEl = document.createElement("button")
+    btnEl.className = "playBtn"
+    btnEl.innerHTML = "Play"
+    gameDiv.appendChild(btnEl)
+}
 
-const addButton = () => {
-    buttonEl = document.createElement("button")
-    buttonEl.className = "playBtn"
-    buttonEl.innerHTML = "Play"
-    gameDiv.appendChild(buttonEl)
+const submitSeqBtn = () => {
+    submitSeqBtnEl = document.createElement("button")
+    submitSeqBtnEl.className = "submitBtn"
+    submitSeqBtnEl.innerHTML = "Submit"
+    gameDiv.appendChild(submitSeqBtnEl)
+
+    submitSeqBtnEl.addEventListener("click", handleSubmitSequence);
 }
 
 const playerInput = () => {
@@ -32,41 +46,69 @@ const playerInput = () => {
     playerInputSeq.type = 'text';
     playerInputSeq.id = 'playerInput';
     playerInputSeq.placeholder = 'Enter sequence...';
-
     gameDiv.appendChild(playerInputSeq);
 }
 
-const handleShowSequence = () => {
-    // Randon sequence created
-
-    let seq = generateRandomSequence();
-    console.log("seq", seq)
-
-    //Sequence repeated/written by user in the input field
-    const randSequence = document.createElement('p')
+const seqEl = (seq) => {
+    randSequence = document.createElement('p')
     randSequence.innerText = seq;
     randSequence.className = "sequence"
     gameDiv.appendChild(randSequence)
+}
+
+const handleShowSequence = () => {
+    btnEl.disabled = true;
+    seq = generateRandomSequence();
+    console.log("seq", seq)
+
+    seqEl(seq)
 
     setTimeout(() => {
         randSequence.innerText = "";
-
         playerInput()
+        submitSeqBtn()
+
+
     }, 8000)
 
-    if (playerInputSeq.value === seq) {
-        result.textContent = `The player's number ${playerInput} and ${seq} matches.Congrads! You won! `;
+}
+
+const handleSubmitSequence = () => {
+    console.log("handle submit", playerInputSeq.value, seq)
+
+    const playerGuess = playerInputSeq.value.trim().toUpperCase();
+
+    if (playerGuess === seq) {
+        result.textContent = `Your sequence ${playerGuess} matches the sequence${seq}. Congrads! You won! `;
         attempts = 3
         playerWon = true
+        submitSeqBtnEl.disabled = true;
     } else {
         attempts += 1;
-        result.textContent = `The player's number ${playerInputSeq.value} and ${randSequence} does not match.
-            ${attempts <= 2 ? "Please try again" : ""}`
         trialCount.innerText = attempts
+
+        if (attempts <= 2) {
+            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again`
+            btnEl.disabled = false
+        } else {
+            submitSeqBtnEl.disabled = true;
+            btnEl.disabled = true
+            result.textContent = `Your sequence ${playerGuess} does not match ${seq}`
+        }
+
     }
 
+    if (attempts === 3) {
+        submitSeqBtnEl.disabled = true;
+        btnEl.disabled = true
+        if (playerWon === false) {
+            let gameLost = document.createElement('p').innerText = ` Game Over!.`
+            result.append(gameLost)
+        }
 
+    }
 }
+
 
 const levelSix = () => {
     let gameTitle = document.querySelector('.gameNameHeading')
@@ -82,7 +124,8 @@ const levelSix = () => {
     buttonDescription.className = "buttonDescription"
     gameDiv.appendChild(buttonDescription)
 
-    addButton()
+    showSeqBtn()
 
-    buttonEl.addEventListener("click", handleShowSequence);
+    btnEl.addEventListener("click", handleShowSequence);
+
 }
