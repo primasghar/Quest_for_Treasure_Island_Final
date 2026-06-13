@@ -81,7 +81,7 @@ const handleSubmitSequence = () => {
     const playerGuess = playerInputSeq.value.trim().toUpperCase();
 
     if (playerGuess === seq) {
-        result.textContent = `Your sequence ${playerGuess} matches the sequence${seq}. Congrads! You won! `;
+        result.textContent = `Your sequence ${playerGuess} matches ${seq}. Congratulations! You won! `;
         attempts = 3
         playerWon = true
     } else {
@@ -91,17 +91,16 @@ const handleSubmitSequence = () => {
         if (attempts <= 2) {
             result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again. Press Play button to see the new sequence. Good luck!`
             btnEl.disabled = false
+            playerInputSeq.value = ""
         } else {
             btnEl.disabled = true
-            result.textContent = `Your sequence ${playerGuess} does not match ${seq}`
+            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. `
         }
 
     }
 
     if (attempts === 3) {
-        submitSeqBtnEl.disabled = true;
         btnEl.disabled = true
-        submitSeqBtnEl.disabled = true;
         if (playerWon === false) {
             let gameLost = document.createElement('p').innerText = `Game Over!.`
             result.append(gameLost)
