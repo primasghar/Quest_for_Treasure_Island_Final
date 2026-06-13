@@ -51,7 +51,7 @@ const playerInput = () => {
 
 const seqEl = (seq) => {
     randSequence = document.createElement('p')
-    randSequence.innerText = seq;
+    randSequence.innerText = `Sequence No ${attempts + 1}:  ${seq}`;
     randSequence.className = "sequence"
     gameDiv.appendChild(randSequence)
 }
@@ -77,6 +77,7 @@ const handleShowSequence = () => {
 const handleSubmitSequence = () => {
     console.log("handle submit", playerInputSeq.value, seq)
     submitSeqBtnEl.disabled = true;
+    playerInputSeq.disabled = true;
 
     const playerGuess = playerInputSeq.value.trim().toUpperCase();
 
