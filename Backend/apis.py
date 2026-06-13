@@ -1,4 +1,6 @@
-from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query
+from http.client import responses
+
+from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, fetch_riddle_query
 from flask import Flask, Response
 from flask_cors import CORS
 import json
@@ -42,6 +44,14 @@ def player(text):
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
 
+
+@app.route('/riddles')
+def riddles():
+    all_riddles = fetch_riddle_query()
+    print(all_riddles)
+    response = all_riddles
+
+    return response
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=5000)

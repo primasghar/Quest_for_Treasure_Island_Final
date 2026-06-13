@@ -58,6 +58,7 @@ const seqEl = (seq) => {
 
 const handleShowSequence = () => {
     btnEl.disabled = true;
+
     seq = generateRandomSequence();
     console.log("seq", seq)
 
@@ -75,6 +76,7 @@ const handleShowSequence = () => {
 
 const handleSubmitSequence = () => {
     console.log("handle submit", playerInputSeq.value, seq)
+    submitSeqBtnEl.disabled = true;
 
     const playerGuess = playerInputSeq.value.trim().toUpperCase();
 
@@ -82,16 +84,14 @@ const handleSubmitSequence = () => {
         result.textContent = `Your sequence ${playerGuess} matches the sequence${seq}. Congrads! You won! `;
         attempts = 3
         playerWon = true
-        submitSeqBtnEl.disabled = true;
     } else {
         attempts += 1;
         trialCount.innerText = attempts
 
         if (attempts <= 2) {
-            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again`
+            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again. Press Play button to see the new sequence. Good luck!`
             btnEl.disabled = false
         } else {
-            submitSeqBtnEl.disabled = true;
             btnEl.disabled = true
             result.textContent = `Your sequence ${playerGuess} does not match ${seq}`
         }
@@ -101,8 +101,9 @@ const handleSubmitSequence = () => {
     if (attempts === 3) {
         submitSeqBtnEl.disabled = true;
         btnEl.disabled = true
+        submitSeqBtnEl.disabled = true;
         if (playerWon === false) {
-            let gameLost = document.createElement('p').innerText = ` Game Over!.`
+            let gameLost = document.createElement('p').innerText = `Game Over!.`
             result.append(gameLost)
         }
 

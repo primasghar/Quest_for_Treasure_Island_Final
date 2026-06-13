@@ -423,3 +423,11 @@ tr {
     grid-column: 2/3;
     grid-row: 3/4;
 }
+
+.submitBtn:disabled {
+    border: 1px solid #999999;
+    background-image: none;
+    background-color: #cccccc;
+    cursor: not-allowed;
+    text-shadow: none;
+}
