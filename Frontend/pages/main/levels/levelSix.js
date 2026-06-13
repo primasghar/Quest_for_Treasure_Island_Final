@@ -121,7 +121,7 @@ const levelSix = () => {
         "capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.";
 
     let buttonDescription = document.createElement('p')
-    buttonDescription.innerText = "Click button to see the sequence"
+    buttonDescription.innerText = "Click to see the Sequence"
     buttonDescription.className = "buttonDescription"
     gameDiv.appendChild(buttonDescription)
 
