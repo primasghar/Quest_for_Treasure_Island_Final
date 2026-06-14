@@ -74,6 +74,7 @@ const handleShowRiddle = () => {
 
     playerAnsInput.disabled = false;
     submitBtnEl.disabled = false;
+    btnEl.disabled = true;
 }
 
 // function  handling submitting of player's answer and showing results.
@@ -82,8 +83,9 @@ const handleSubmitRiddleAnswer = () => {
     let playerAnswered = playerAnsInput.value.trim().toUpperCase()
     let correctAnswer = chosenRiddle[2].toUpperCase()
 
-    btnEl.disabled = true;
+    // btnEl.disabled = true;
     submitBtnEl.disabled = true;
+    playerAnsInput.disabled = true;
 
     if (playerAnswered === correctAnswer) {
         result.textContent = `Your answered ${playerAnswered} which matches the correct answer ${correctAnswer}. Congratulations! You won! `;

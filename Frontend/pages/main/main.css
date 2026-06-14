@@ -150,7 +150,7 @@ tr {
 .opts {
 }
 
-.playBtn, .submitBtn, .sequenceBtn, .riddleBtn {
+.playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
     color: white;
     text-shadow: black 1px 0 10px;
     font-size: var(--font-size24);
@@ -407,7 +407,7 @@ tr {
 
 /*Sequence Memory */
 
-.sequenceBtn, .riddleBtn {
+.sequenceBtn, .riddleBtn, .questionBtn{
     width: 14rem;
     grid-column: 1/3;
     justify-self: center;
@@ -435,7 +435,7 @@ tr {
     grid-row: 4/5;
 }
 
-.submitBtn:disabled {
+.submitBtn:disabled, .riddleBtn:disabled  {
     border: 1px solid #999999;
     background-image: none;
     background-color: #cccccc;
@@ -446,10 +446,18 @@ tr {
 
 /* riddles */
 
-.riddle {
+.riddle, .question {
     grid-column: 1/3;
     grid-row: 3/4;
     font-size: var(--font-size20);
     font-family: inherit;
     color: black;
 }
+
+/*.riddleBtn:disabled{*/
+/*    border: 1px solid #999999;*/
+/*    background-image: none;*/
+/*    background-color: #cccccc;*/
+/*    cursor: not-allowed;*/
+/*    text-shadow: none;*/
+/*}*/
