@@ -27,8 +27,8 @@ const generateRandomSequence = () => {
 
 const showSeqBtn = () => {
     btnEl = document.createElement("button")
-    btnEl.className = "playBtn"
-    btnEl.innerHTML = "Play"
+    btnEl.className = "sequenceBtn"
+    btnEl.innerHTML = "Show Sequence"
     gameDiv.appendChild(btnEl)
 }
 
@@ -90,7 +90,7 @@ const handleSubmitSequence = () => {
         trialCount.innerText = attempts
 
         if (attempts <= 2) {
-            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again. Press Play button to see the new sequence. Good luck!`
+            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again. Press "Show Sequence" button to see the new sequence. Good luck!`
             btnEl.disabled = false
             playerInputSeq.value = ""
         } else {
@@ -120,10 +120,6 @@ const levelSix = () => {
         "You have three opportunities to win this game and go to your next airport destination. A random sequence of 8 " +
         "capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.";
 
-    let buttonDescription = document.createElement('p')
-    buttonDescription.innerText = "Click to see the Sequence"
-    buttonDescription.className = "buttonDescription"
-    gameDiv.appendChild(buttonDescription)
 
     showSeqBtn()
 
