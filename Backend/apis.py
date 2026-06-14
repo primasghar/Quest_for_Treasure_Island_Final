@@ -1,6 +1,7 @@
 from http.client import responses
 
-from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, fetch_riddle_query
+from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, fetch_riddle_query, \
+    fetch_quiz_questions_query
 from flask import Flask, Response
 from flask_cors import CORS
 import json
@@ -52,6 +53,16 @@ def riddles():
     response = all_riddles
 
     return response
+
+
+@app.route('/quiz/questions')
+def questions():
+    all_questions = fetch_quiz_questions_query()
+    print(all_questions)
+    response = all_questions
+
+    return response
+
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=5000)

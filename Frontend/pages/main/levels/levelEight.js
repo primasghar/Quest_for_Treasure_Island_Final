@@ -1,6 +1,6 @@
-let riddlesArray;
-let chosenRiddle;
-let riddle;
+let questionsArray;
+let chosenQuestion;
+let question;
 let playerAnsInput;
 let submitBtnEl;
 let result = document.querySelector('.result')
@@ -8,30 +8,30 @@ let trialCount = document.querySelector('.trials')
 let attempts = 0
 let playerWon = false
 
-//fetching all riddles from BE
-const fetchRiddles = async () => {
+//fetching all questions from BE
+const fetchQuizQuestions = async () => {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/riddles`)
+        const response = await fetch(`http://127.0.0.1:5000/quiz/questions`)
         return await response.json();
     } catch (error) {
         console.log(error.message);
     }
 };
 
-//Creating p element to display riddle text
+//Creating p element to display question text
 
-const riddleEl = () => {
-    riddle = document.createElement('p')
-    riddle.className = "riddle"
-    gameDiv.appendChild(riddle)
+const questionEl = () => {
+    question = document.createElement('p')
+    question.className = "question"
+    gameDiv.appendChild(question)
 }
 
-//Creating button element, that when clicked will display a riddle
+//Creating button element, that when clicked will display a question
 
-const showRiddleBtn = () => {
+const showQuestionBtn = () => {
     btnEl = document.createElement("button")
-    btnEl.className = "riddleBtn"
-    btnEl.innerHTML = "Show Riddle"
+    btnEl.className = "questionBtn"
+    btnEl.innerText = "Show Question"
     gameDiv.appendChild(btnEl)
 }
 
@@ -54,20 +54,20 @@ const playerAnswerEl = () => {
     gameDiv.appendChild(playerAnsInput);
 }
 
-// function  handling display of riddle text
+// function  handling display of question text
 
-const handleShowRiddle = () => {
-    let availableRiddles = [...riddlesArray]
-    let riddleText = "";
+const handleShowQuestion = () => {
+    let availableQuestions = [...questionsArray]
+    let questionText = "";
 
-    const randomIndex = Math.floor(Math.random() * availableRiddles.length);
+    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
 
-    chosenRiddle = availableRiddles.splice(randomIndex, 1)[0];
-    // console.log("riddle", chosenRiddle)
+    chosenQuestion = availableQuestions.splice(randomIndex, 1)[0];
+    console.log("question", chosenQuestion)
 
-    riddleText = chosenRiddle[1];
-    riddleEl()
-    riddle.innerText = riddleText
+    questionText = chosenQuestion[1];
+    questionEl()
+    question.innerText = questionText
 
     playerAnsInput.disabled = false;
     submitBtnEl.disabled = false;
@@ -76,9 +76,10 @@ const handleShowRiddle = () => {
 
 // function  handling submitting of player's answer and showing results.
 
-const handleSubmitRiddleAnswer = () => {
+const handleSubmitQuizAnswer = () => {
     let playerAnswered = playerAnsInput.value.trim().toUpperCase()
-    let correctAnswer = chosenRiddle[2].toUpperCase()
+    let correctAnswer = chosenQuestion[2].toUpperCase()
+
 
     submitBtnEl.disabled = true;
     playerAnsInput.disabled = true;
@@ -93,10 +94,10 @@ const handleSubmitRiddleAnswer = () => {
 
         if (attempts <= 2) {
             result.textContent = `Your answered ${playerAnswered}, which is incorrect. The correct answer is ${correctAnswer}. Please try again. 
-            Click "Show Riddle" button to see the new riddle. Good luck!`
+            Press "Show Question" button to see the new question. Good luck!`
             btnEl.disabled = false
             playerAnsInput.value = ""
-            riddle.innerText = ""
+            question.innerText = ""
         } else {
             btnEl.disabled = true
             result.textContent = `Your answer ${playerAnswered} does not match ${correctAnswer}. `
@@ -114,19 +115,19 @@ const handleSubmitRiddleAnswer = () => {
 }
 
 //Main Game function
-const levelSeven = async () => {
+const levelEight = async () => {
     let gameTitle = document.querySelector('.gameNameHeading')
-    gameTitle.innerText = "Riddles";
+    gameTitle.innerText = "Quiz";
     gameTitle.className = "gameTitle"
 
     document.querySelector('.gameDescription').innerText =
         "You have three opportunities to win this game and go to your next airport destination. " +
-        "Please click the button below and answer the riddle correctly.";
+        "Please click the button below and answer the question correctly.";
 
-    riddlesArray = await fetchRiddles()
+    questionsArray = await fetchQuizQuestions()
 
-    showRiddleBtn()
-    btnEl.addEventListener("click", handleShowRiddle);
+    showQuestionBtn()
+    btnEl.addEventListener("click", handleShowQuestion);
 
     playerAnswerEl()
     playerAnsInput.disabled = true;
@@ -134,6 +135,5 @@ const levelSeven = async () => {
     submitBtn()
     submitBtnEl.disabled = true;
 
-    submitBtnEl.addEventListener("click", handleSubmitRiddleAnswer)
-
+    submitBtnEl.addEventListener("click", handleSubmitQuizAnswer)
 }
