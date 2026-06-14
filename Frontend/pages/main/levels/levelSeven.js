@@ -1,5 +1,6 @@
 let riddlesArray;
 let chosenRiddle;
+let riddle;
 let playerAnsInput;
 
 let submitBtnEl;
@@ -22,10 +23,10 @@ const fetchRiddles = async () => {
 
 //Creating p element to display riddle text
 
-const riddleEl = (riddleText) => {
-    let riddle = document.createElement('p')
+const riddleEl = () => {
+    riddle = document.createElement('p')
     riddle.className = "riddle"
-    riddle.innerText = riddleText
+    // riddle.innerText = riddle
     gameDiv.appendChild(riddle)
 }
 
@@ -62,7 +63,7 @@ const playerAnswerEl = () => {
 // function  handling display of riddle text
 const handleShowRiddle = () => {
     let availableRiddles = [...riddlesArray]
-    let riddleText;
+    let riddleText = "";
 
     const randomIndex = Math.floor(Math.random() * availableRiddles.length);
 
@@ -70,8 +71,8 @@ const handleShowRiddle = () => {
     console.log("riddle", chosenRiddle)
 
     riddleText = chosenRiddle[1];
-
-    riddleEl(riddleText)
+    riddleEl()
+    riddle.innerText = riddleText
 
     playerAnsInput.disabled = false;
     submitBtnEl.disabled = false;
@@ -98,6 +99,8 @@ const handleSubmitRiddleAnswer = () => {
             Press "Show Riddle" button to see the new riddle. Good luck!`
             btnEl.disabled = false
             playerAnsInput.value = ""
+
+            riddle.innerText = ""
         } else {
             btnEl.disabled = true
             result.textContent = `Your answer ${playerAnswered} does not match ${correctAnswer}. `
