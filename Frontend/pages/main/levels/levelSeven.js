@@ -2,12 +2,9 @@ let riddlesArray;
 let chosenRiddle;
 let riddle;
 let playerAnsInput;
-
 let submitBtnEl;
-
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
-
 let attempts = 0
 let playerWon = false
 
@@ -61,6 +58,7 @@ const playerAnswerEl = () => {
 }
 
 // function  handling display of riddle text
+
 const handleShowRiddle = () => {
     let availableRiddles = [...riddlesArray]
     let riddleText = "";
@@ -79,6 +77,7 @@ const handleShowRiddle = () => {
 }
 
 // function  handling submitting of player's answer and showing results.
+
 const handleSubmitRiddleAnswer = () => {
     let playerAnswered = playerAnsInput.value.trim().toUpperCase()
     let correctAnswer = chosenRiddle[2].toUpperCase()
@@ -87,7 +86,7 @@ const handleSubmitRiddleAnswer = () => {
     submitBtnEl.disabled = true;
 
     if (playerAnswered === correctAnswer) {
-        result.textContent = `You answered correctly. Your answer ${playerAnswered} matches the correct answer ${correctAnswer}. Congratulations! You won! `;
+        result.textContent = `Your answered ${playerAnswered} which matches the correct answer ${correctAnswer}. Congratulations! You won! `;
         attempts = 3
         playerWon = true
     } else {
@@ -95,11 +94,10 @@ const handleSubmitRiddleAnswer = () => {
         trialCount.innerText = attempts
 
         if (attempts <= 2) {
-            result.textContent = `Your answer ${playerAnswered} is incorrect. The correct answer is ${correctAnswer}. Please try again. \n 
+            result.textContent = `Your answered ${playerAnswered}, which is incorrect. The correct answer is ${correctAnswer}. Please try again. 
             Press "Show Riddle" button to see the new riddle. Good luck!`
             btnEl.disabled = false
             playerAnsInput.value = ""
-
             riddle.innerText = ""
         } else {
             btnEl.disabled = true
@@ -117,7 +115,7 @@ const handleSubmitRiddleAnswer = () => {
     }
 }
 
-
+//Main Game function
 const levelSeven = async () => {
     let gameTitle = document.querySelector('.gameNameHeading')
     gameTitle.innerText = "Riddles";
@@ -128,7 +126,6 @@ const levelSeven = async () => {
         "Please click the button below and answer the riddle correctly.";
 
     riddlesArray = await fetchRiddles()
-    console.log(riddlesArray)
 
     showRiddleBtn()
     btnEl.addEventListener("click", handleShowRiddle);
