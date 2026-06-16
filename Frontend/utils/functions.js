@@ -1,11 +1,9 @@
-const createButtonElement = (buttonClass, buttonText)=>{
+export const createButtonElement = (buttonClass, buttonText)=>{
     const buttonElement = document.createElement("button")
     buttonElement.className = buttonClass
     buttonElement.innerHTML = buttonText
     return buttonElement;
 }
-
-export default  createButtonElement;
 
 // export const gameTitle = (gameName)=>{
 //     let gameTitle = document.querySelector('.gameNameHeading')

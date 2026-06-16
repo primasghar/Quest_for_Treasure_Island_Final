@@ -1,5 +1,4 @@
-import createButtonElement from '../../../utils/functions.js'
-
+import {createButtonElement} from '../../../utils/functions.js'
 
 let selectEl;
 let buttonEl;
@@ -42,12 +41,6 @@ const addSelectElement = (gameDiv) => {
     opt3.appendChild(node3);
     selectEl.appendChild(opt3)
 }
-
-// const addButton = ()=>{
-//     // buttonEl = document.createElement("button")
-//     // buttonEl.className = "playBtn"
-//     // buttonEl.innerHTML = "Play"
-// }
 
 const runGame = () => {
     const options_list = ["ROCK", "PAPER", "SCISSORS"]
@@ -100,8 +93,8 @@ const levelTwo = (gameDiv) => {
     document.querySelector('.gameNameHeading').innerText = "ROCK, PAPER, SCISSORS";
     document.querySelector('.gameDescription').innerText = "You have three opportunities to win this game " +
         "and go to your next airport destination. Select ROCK, PAPER, or SCISSORS.";
-    buttonEl= createButtonElement("playBtn", "Play")
 
+    buttonEl = createButtonElement("playBtn", "Play")
     buttonEl.addEventListener("click", runGame);
      addSelectElement(gameDiv);
      gameDiv.appendChild(buttonEl)
