@@ -1,7 +1,7 @@
 from http.client import responses
 
 from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, fetch_riddle_query, \
-    fetch_quiz_questions_query
+    fetch_quiz_questions_query, fetch_game_airports_query
 from flask import Flask, Response
 from flask_cors import CORS
 import json
@@ -60,6 +60,14 @@ def questions():
     all_questions = fetch_quiz_questions_query()
     print(all_questions)
     response = all_questions
+
+    return response
+
+@app.route('/airports/icao')
+def airports_icao():
+    game_airports = fetch_game_airports_query()
+    print(game_airports)
+    response = game_airports
 
     return response
 
