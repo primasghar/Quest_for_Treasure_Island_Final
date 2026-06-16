@@ -258,8 +258,8 @@ tr {
 
 .coinContainer {
     perspective: 1000px;
-    margin: 3rem 0;
-    height: 200px;
+    /*margin: 3rem 0;*/
+    /*height: 200px;*/
     display: flex;
     align-items: center;
     justify-content: center;

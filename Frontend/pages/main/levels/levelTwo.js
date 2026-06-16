@@ -1,13 +1,17 @@
+import createButtonElement from '../../../utils/functions.js'
+
+
 let selectEl;
 let buttonEl;
 let playerChoice;
 let computerChoice;
 let playerWon;
 let attempts = 0;
-let result = document.querySelector('.result')
-let trialCount = document.querySelector('.trials')
+let result = document.querySelector('.result');
+let trialCount = document.querySelector('.trials');
 
-const addSelectElement = () => {
+
+const addSelectElement = (gameDiv) => {
     // Creating select and its options
     selectEl = document.createElement('Select');
     selectEl.id = "selectOptions";
@@ -39,13 +43,11 @@ const addSelectElement = () => {
     selectEl.appendChild(opt3)
 }
 
-const addButton = ()=>{
-    buttonEl = document.createElement("button")
-    buttonEl.className = "playBtn"
-    buttonEl.innerHTML = "Play"
-    gameDiv.appendChild(buttonEl)
-    
-}
+// const addButton = ()=>{
+//     // buttonEl = document.createElement("button")
+//     // buttonEl.className = "playBtn"
+//     // buttonEl.innerHTML = "Play"
+// }
 
 const runGame = () => {
     const options_list = ["ROCK", "PAPER", "SCISSORS"]
@@ -94,13 +96,15 @@ const runGame = () => {
 
 }
 
-const levelTwo = () => {
+const levelTwo = (gameDiv) => {
     document.querySelector('.gameNameHeading').innerText = "ROCK, PAPER, SCISSORS";
     document.querySelector('.gameDescription').innerText = "You have three opportunities to win this game " +
         "and go to your next airport destination. Select ROCK, PAPER, or SCISSORS.";
-
-    addSelectElement();
-    addButton()
+    buttonEl= createButtonElement("playBtn", "Play")
 
     buttonEl.addEventListener("click", runGame);
+     addSelectElement(gameDiv);
+     gameDiv.appendChild(buttonEl)
 }
+
+export default levelTwo

@@ -104,3 +104,5 @@ const levelOne = () => {
 
     result = document.querySelector('.result')
 }
+
+export default levelOne;
