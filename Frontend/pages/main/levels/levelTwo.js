@@ -1,4 +1,4 @@
-import {createButtonElement, createSelectElement} from '../../../utils/functions.js'
+import {gameTitle, gameDescription, createSelectElement, createButtonElement} from '../../../utils/functions.js'
 
 let selectEl;
 let buttonEl;
@@ -73,9 +73,8 @@ const runGame = () => {
 }
 
 const levelTwo = (gameDiv) => {
-    document.querySelector('.gameNameHeading').innerText = "ROCK, PAPER, SCISSORS";
-    document.querySelector('.gameDescription').innerText = "You have three opportunities to win this game " +
-        "and go to your next airport destination.\r Select ROCK, PAPER, or SCISSORS.";
+    gameTitle("ROCK, PAPER, SCISSORS")
+    gameDescription("Select ROCK, PAPER, or SCISSORS.")
 
     selectEl = createSelectElement("selectOptions", optionsArray);
     gameDiv.appendChild(selectEl)
@@ -83,8 +82,6 @@ const levelTwo = (gameDiv) => {
     buttonEl = createButtonElement("playBtn", "Play")
     buttonEl.addEventListener("click", runGame);
     gameDiv.appendChild(buttonEl)
-
-
 }
 
 export default levelTwo

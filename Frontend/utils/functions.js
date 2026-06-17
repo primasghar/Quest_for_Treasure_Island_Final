@@ -27,11 +27,18 @@ export const createSelectElement = (selectId, optionsArray) => {
 };
 
 
-// export const gameTitle = (gameName)=>{
-//     let gameTitle = document.querySelector('.gameNameHeading')
-//     gameTitle.innerText = gameName;
-//     gameTitle.className = "gameTitle"
-// }
+export const gameTitle = (gameName) => {
+    let gameTitle = document.querySelector('.gameNameHeading')
+    gameTitle.innerText = gameName;
+    gameTitle.className = "gameTitle"
+}
+
+export const gameDescription = (describeGame) => {
+    let game = document.querySelector('.gameDescription')
+    game.innerText = `You have three opportunities to win this game and go to your next airport destination.\r ${describeGame}`;
+    game.className = "gameDescription"
+}
+
 //
 // export const generateRandomSequence = () => {
 //     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
