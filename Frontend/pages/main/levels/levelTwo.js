@@ -39,7 +39,7 @@ const runGame = () => {
             selectEl.disabled = true;
             buttonEl.disabled = true;
 
-            result.textContent = `Congrads! You win! 🎉🏆.`
+            result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. Congrads! You win! 🎉🏆.`
 
         } else if (computerChoice === "ROCK" && playerChoice === "SCISSORS" ||
             computerChoice === "PAPER" && playerChoice === "ROCK" ||
@@ -48,7 +48,7 @@ const runGame = () => {
             playerWon = "No"
 
             if (attempts < 3) {
-                result.textContent = `You lose! 😢. ${attempts <= 2 ? " Please try again!" : ""}`
+                result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r You lose! 😢. ${attempts <= 2 ? " Please try again!" : ""}`
             }
 
         } else if (computerChoice === playerChoice) {
@@ -56,7 +56,7 @@ const runGame = () => {
             playerWon = "Draw"
 
             if (attempts < 3) {
-                result.textContent = `It's a draw! 🤝. ${attempts <= 2 ? " Please try again!" : ""}`
+                result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r It's a draw! 🤝. ${attempts <= 2 ? " Please try again!" : ""}`
             }
 
         }
@@ -67,7 +67,7 @@ const runGame = () => {
     if (attempts === 3 && (playerWon === "No" || playerWon === "Draw")) {
         selectEl.disabled = true;
         buttonEl.disabled = true;
-        result.textContent = `You lose! 😢 GAME OVER!`
+        result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r You lose! 😢 GAME OVER!`
     }
 
 }
