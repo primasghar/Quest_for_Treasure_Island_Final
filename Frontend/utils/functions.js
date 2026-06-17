@@ -1,9 +1,31 @@
-export const createButtonElement = (buttonClass, buttonText)=>{
+export const createButtonElement = (buttonClass, buttonText) => {
     const buttonElement = document.createElement("button")
     buttonElement.className = buttonClass
     buttonElement.innerHTML = buttonText
     return buttonElement;
 }
+
+
+export const createSelectElement = (selectId, optionsArray) => {
+
+
+    const selectElement = document.createElement('select');
+    selectElement.id = selectId;
+
+    for (let i = 0; i < optionsArray.length; i++) {
+        let valueText = optionsArray[i].value
+        let optionText = optionsArray[i].nodeText
+
+        const option = document.createElement("option");
+        option.value = valueText;
+        option.textContent = optionText
+        selectElement.appendChild(option)
+    }
+
+    return selectElement;
+
+};
+
 
 // export const gameTitle = (gameName)=>{
 //     let gameTitle = document.querySelector('.gameNameHeading')

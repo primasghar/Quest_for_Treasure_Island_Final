@@ -144,10 +144,12 @@ tr {
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     margin: 0.5rem;
-    align-self: center;
+    /*align-self: center;*/
 }
 
-.opts {
+.selectLabel {
+    color: black;
+    font-size: 1.3rem;
 }
 
 .playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
