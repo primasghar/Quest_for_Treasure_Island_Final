@@ -7,8 +7,6 @@ export const createButtonElement = (buttonClass, buttonText) => {
 
 
 export const createSelectElement = (selectId, optionsArray) => {
-
-
     const selectElement = document.createElement('select');
     selectElement.id = selectId;
 
