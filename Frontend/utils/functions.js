@@ -15,6 +15,7 @@ export const createSelectElement = (selectId, optionsArray) => {
         let optionText = optionsArray[i].nodeText
 
         const option = document.createElement("option");
+        option.className = "opts"
         option.value = valueText;
         option.textContent = optionText
         selectElement.appendChild(option)
