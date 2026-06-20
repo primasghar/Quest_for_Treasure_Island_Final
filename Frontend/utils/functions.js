@@ -25,6 +25,27 @@ export const createSelectElement = (selectId, optionsArray) => {
 
 };
 
+export const createNumberSelect = (selectId, noArray) => {
+    const selectElement = document.createElement('select');
+    selectElement.id = selectId;
+
+    let opt = document.createElement("option");
+    opt.value = ""
+    opt.textContent = "--Number (1-10)--"
+    selectElement.appendChild(opt)
+
+    for (let i = 1; i <= noArray.length; i++) {
+        let opt = document.createElement("option");
+        opt.className = "opts"
+        opt.value = `${i}`
+        opt.textContent = `${i}`
+        selectElement.appendChild(opt)
+    }
+
+    return selectElement;
+
+}
+
 
 export const gameTitle = (gameName) => {
     let gameTitle = document.querySelector('.gameNameHeading')
