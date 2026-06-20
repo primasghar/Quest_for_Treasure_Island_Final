@@ -70,7 +70,7 @@ const levelFour = (gameDiv) => {
                 if (attempts === 3) {
                    playButton.disabled = true
                     if (playerWon === false) {
-                        let gameLost = document.createElement('p').innerText = `You have lost the game.`
+                        let gameLost = document.createElement('p').innerText = `You have lost the game.😢`
                         result.append(gameLost)
                     }
 

@@ -1,8 +1,8 @@
 // import levelOne from "./levels/levelOne.js";
 // import levelTwo from "./levels/levelTwo.js";
 // import levelThree from "./levels/levelThree.js"
-import levelFour from "./levels/levelFour.js"
-// import levelFive from "./levels/levelFive.js"
+// import levelFour from "./levels/levelFour.js"
+import levelFive from "./levels/levelFive.js"
 // import levelSix from "./levels/levelSix.js"
 // import levelSeven from "./levels/levelSeven.js"
 // import levelEight from "./levels/levelEight.js"
@@ -24,8 +24,8 @@ if (newPlayer['level'] === 1) {
     // levelOne(gameDiv);
     // // levelTwo(gameDiv);
     // levelThree(gameDiv);
-    levelFour(gameDiv);
-    // levelFive(gameDiv);
+    // levelFour(gameDiv);
+    levelFive(gameDiv);
     // levelSix(gameDiv);
     // levelSeven(gameDiv);
     // levelEight(gameDiv);

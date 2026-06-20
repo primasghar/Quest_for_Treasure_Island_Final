@@ -1,98 +1,76 @@
-let selectNoEl;
+import {
+    gameTitle,
+    gameDescription,
+    createNumberSelect,
+    createButtonElement
+} from '../../../utils/functions.js'
+
 let attempts = 0
+let playerWon = false
 
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
-let playerWon = false
 
-const addNumberSelect = () => {
 
-    let numberDiv = document.createElement('div')
-    numberDiv.className = "numberDiv"
-    gameDiv.appendChild(numberDiv)
+let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    let numberLabelEl = document.createElement('label');
-    numberLabelEl.setAttribute("for", "selectNumberOpt");
-    numberLabelEl.className = "selectionLabel"
-    numberLabelEl.textContent = "Player's choice: ";
-    numberLabelEl.style.color = "black";
-    numberDiv.appendChild(numberLabelEl)
+const levelFive = (gameDiv) => {
+    gameTitle("GUESS THE NUMBER")
+    gameDescription("Select the number, if it matches the computer's selection you will win.")
 
-    selectNoEl = document.createElement('select');
-    selectNoEl.id = "selectNumberOpt";
-    numberDiv.appendChild(selectNoEl);
+    let selectNoEl = createNumberSelect("selectOptions", optionsArray2)
+    gameDiv.appendChild(selectNoEl)
 
-    let opt = document.createElement("option");
-    opt.setAttribute("value", "");
-    let node = document.createTextNode("--Number (1-10)--");
-    opt.appendChild(node);
-    selectNoEl.appendChild(opt)
+    let selectNoBtnEl = createButtonElement("playBtn", "Play")
+    gameDiv.appendChild(selectNoBtnEl)
 
-    for (let i = 1; i <= 10; i++) {
-        let opt = document.createElement("option");
-        opt.className = "opts"
-        opt.setAttribute("value", `${i}`);
-        let node = document.createTextNode(`${i}`);
-        opt.appendChild(node);
-        selectNoEl.appendChild(opt)
-    }
+    const handleGuessNo = () => {
+        let playerSelectedNo = selectNoEl.value
 
-}
+        if (playerSelectedNo === "") {
+            alert('Please select a Number')
+            return;
+        }
 
-const addButton = () => {
-    buttonEl = document.createElement("button")
-    buttonEl.className = "playBtn"
-    buttonEl.innerHTML = "Play"
-    gameDiv.appendChild(buttonEl)
-}
+        selectNoBtnEl.disabled = true
 
-const handleGuessNo = () => {
-    if (selectNoEl.value === "") {
-        alert('Please select a Number')
-    } else {
+        let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
+
+        let computerChoiceElement = document.createElement('p')
+        computerChoiceElement.className = "computerChoice"
+        computerChoiceElement.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
+        gameDiv.appendChild(computerChoiceElement)
+
         setTimeout(() => {
-            let playerSelectedNo = selectNoEl.value;
-            let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
-
-            let computerChoice = document.createElement('p')
-            computerChoice.className = "computerChoice"
-            computerChoice.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
-            gameDiv.appendChild(computerChoice)
-
-            if (playerSelectedNo === computerSelectedNo) {
-                result.textContent = `The player's number ${playerSelectedNo} and ${computerSelectedNo} matches.Congrads! You won! `;
+            if (+playerSelectedNo === computerSelectedNo) {
+                result.textContent = `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}. Congratulations! You won! 🎉🏆 `;
                 attempts = 3
                 playerWon = true
             } else {
                 attempts += 1;
-                result.textContent = `The player's number ${playerSelectedNo} and ${computerSelectedNo} does not match.
-            ${attempts <= 2 ? "Please try again" : ""}`
                 trialCount.innerText = attempts
+                selectNoBtnEl.disabled = false
+                result.textContent = `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
+            ${attempts <= 2 ? "Please try again! 🔄" : ""}`
+                setTimeout(()=>{
+                    attempts < 3 ? computerChoiceElement.remove() : ""}, 2000)
             }
 
             if (attempts === 3) {
-                buttonEl.disabled = true
+                selectNoBtnEl.disabled = true
                 if (playerWon === false) {
-                    let gameLost = document.createElement('p').innerText = `You have lost the game.`
+                    let gameLost = document.createElement('p').innerText = `You have lost the game.😢`
                     result.append(gameLost)
                 }
 
             }
 
         }, 500)
+
     }
+
+
+    selectNoBtnEl.addEventListener('click', handleGuessNo)
 }
 
-const levelFive = () => {
-    let gameTitle = document.querySelector('.gameNameHeading')
-    gameTitle.innerText = "Guess the Number";
-    gameTitle.className = "gameTitle"
-
-    document.querySelector('.gameDescription').innerText =
-        "You have three opportunities to win this game and go to your next airport destination. Select the number, if it matches the computer's selection you will win.";
-
-    addNumberSelect()
-    addButton()
-
-    buttonEl.addEventListener('click', handleGuessNo)
-}
+export default levelFive
