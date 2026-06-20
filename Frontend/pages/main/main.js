@@ -1,6 +1,6 @@
-import levelOne from "./levels/levelOne.js";
+// import levelOne from "./levels/levelOne.js";
 // import levelTwo from "./levels/levelTwo.js";
-// import levelThree from "./levels/levelThree.js"
+import levelThree from "./levels/levelThree.js"
 // import levelFour from "./levels/levelFour.js"
 // import levelFive from "./levels/levelFive.js"
 // import levelSix from "./levels/levelSix.js"
@@ -21,9 +21,9 @@ document.querySelector('.score').innerText = newPlayer['score'];
 const gameDiv = document.querySelector('.gameArea')
 
 if (newPlayer['level'] === 1) {
-    levelOne(gameDiv);
+    // levelOne(gameDiv);
     // levelTwo(gameDiv);
-    // levelThree(gameDiv);
+    levelThree(gameDiv);
     // levelFour(gameDiv);
     // levelFive(gameDiv);
     // levelSix(gameDiv);

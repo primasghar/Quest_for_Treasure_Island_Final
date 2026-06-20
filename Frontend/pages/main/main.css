@@ -235,7 +235,7 @@ option:focus {
     border-radius: 0.5rem;
     width: 8rem;
     height: 2.563rem;
-    justify-self: center;
+    /*justify-self: center;*/
     cursor: pointer;
 }
 
