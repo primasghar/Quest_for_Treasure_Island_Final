@@ -1,14 +1,25 @@
+import {
+    gameTitle,
+    gameDescription,
+    createButtonElement, createInputElement
+} from '../../../utils/functions.js'
+
+
 let riddlesArray;
 let chosenRiddle;
 let riddle;
-let playerAnsInput;
+let showRiddleBtnEl;
+
+let playerAnsInputEl;
 let submitBtnEl;
+
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
+
 let attempts = 0
 let playerWon = false
 
-//fetching all riddles from BE
+//Fetching all riddles from BE
 const fetchRiddles = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/riddles`)
@@ -18,122 +29,77 @@ const fetchRiddles = async () => {
     }
 };
 
-//Creating p element to display riddle text
-
-const riddleEl = () => {
-    riddle = document.createElement('p')
-    riddle.className = "riddle"
-    gameDiv.appendChild(riddle)
-}
-
-//Creating button element, that when clicked will display a riddle
-
-const showRiddleBtn = () => {
-    btnEl = document.createElement("button")
-    btnEl.className = "riddleBtn"
-    btnEl.innerHTML = "Show Riddle"
-    gameDiv.appendChild(btnEl)
-}
-
-//Creating button element, that when clicked will submit player's ans and display result.
-
-const submitBtn = () => {
-    submitBtnEl = document.createElement("button")
-    submitBtnEl.className = "submitBtn"
-    submitBtnEl.innerHTML = "Submit"
-    gameDiv.appendChild(submitBtnEl)
-}
-
-// Creating input element, where user can write their answer
-
-const playerAnswerEl = () => {
-    playerAnsInput = document.createElement('input');
-    playerAnsInput.type = 'text';
-    playerAnsInput.id = 'playerInput';
-    playerAnsInput.placeholder = 'Enter sequence...';
-    gameDiv.appendChild(playerAnsInput);
-}
-
-// function  handling display of riddle text
-
-const handleShowRiddle = () => {
-    let availableRiddles = [...riddlesArray]
-    let riddleText = "";
-
-    const randomIndex = Math.floor(Math.random() * availableRiddles.length);
-
-    chosenRiddle = availableRiddles.splice(randomIndex, 1)[0];
-    // console.log("riddle", chosenRiddle)
-
-    riddleText = chosenRiddle[1];
-    riddleEl()
-    riddle.innerText = riddleText
-
-    playerAnsInput.disabled = false;
-    submitBtnEl.disabled = false;
-    btnEl.disabled = true;
-}
-
-// function  handling submitting of player's answer and showing results.
-
-const handleSubmitRiddleAnswer = () => {
-    let playerAnswered = playerAnsInput.value.trim().toUpperCase()
-    let correctAnswer = chosenRiddle[2].toUpperCase()
-
-    submitBtnEl.disabled = true;
-    playerAnsInput.disabled = true;
-
-    if (playerAnswered === correctAnswer) {
-        result.textContent = `Your answered ${playerAnswered} which matches the correct answer ${correctAnswer}. Congratulations! You won! `;
-        attempts = 3
-        playerWon = true
-    } else {
-        attempts += 1;
-        trialCount.innerText = attempts
-
-        if (attempts <= 2) {
-            result.textContent = `Your answered ${playerAnswered}, which is incorrect. The correct answer is ${correctAnswer}. Please try again. 
-            Click "Show Riddle" button to see the new riddle. Good luck!`
-            btnEl.disabled = false
-            playerAnsInput.value = ""
-            riddle.innerText = ""
-        } else {
-            btnEl.disabled = true
-            result.textContent = `Your answer ${playerAnswered} does not match ${correctAnswer}. `
-        }
-
-    }
-
-    if (attempts === 3) {
-        btnEl.disabled = true
-        if (playerWon === false) {
-            let gameLost = document.createElement('p').innerText = `Game Over!.`
-            result.append(gameLost)
-        }
-    }
-}
-
-//Main Game function
-const levelSeven = async () => {
-    let gameTitle = document.querySelector('.gameNameHeading')
-    gameTitle.innerText = "Riddles";
-    gameTitle.className = "gameTitle"
-
-    document.querySelector('.gameDescription').innerText =
-        "You have three opportunities to win this game and go to your next airport destination. " +
-        "Please click the button below and answer the riddle correctly.";
+const levelSeven = async (gameDiv) => {
+    gameTitle("RIDDLES")
+    gameDescription("Please click the button below and answer the riddle.")
 
     riddlesArray = await fetchRiddles()
 
-    showRiddleBtn()
-    btnEl.addEventListener("click", handleShowRiddle);
+    showRiddleBtnEl = createButtonElement("riddleBtn", "Show Riddle")
+    gameDiv.appendChild(showRiddleBtnEl)
 
-    playerAnswerEl()
-    playerAnsInput.disabled = true;
+    playerAnsInputEl = createInputElement("Enter the Answer here...")
+    gameDiv.appendChild(playerAnsInputEl)
+    playerAnsInputEl.disabled = true;
 
-    submitBtn()
-    submitBtnEl.disabled = true;
+    submitBtnEl = createButtonElement("submitBtn", "Submit")
+    gameDiv.appendChild(submitBtnEl)
+    // Function to show the riddle
+    const handleShowRiddle = () => {
+        let availableRiddles = [...riddlesArray]
+        let riddleText = "";
 
+        const randomIndex = Math.floor(Math.random() * availableRiddles.length);
+
+        chosenRiddle = availableRiddles.splice(randomIndex, 1)[0];
+        // console.log("riddle", chosenRiddle)
+
+        riddleText = chosenRiddle[1];
+        riddle = document.createElement('p')
+        riddle.className = "riddle"
+        riddle.innerText = riddleText
+        gameDiv.appendChild(riddle)
+
+        playerAnsInputEl.disabled = false;
+        submitBtnEl.disabled = false;
+        showRiddleBtnEl.disabled = true;
+    }
+
+    showRiddleBtnEl.addEventListener("click", handleShowRiddle);
+    // Function to submit the riddle answer, and display results.
+    const handleSubmitRiddleAnswer = () => {
+        let playerAnswer = playerAnsInputEl.value.trim().toUpperCase()
+        let correctAnswer = chosenRiddle[2].toUpperCase()
+
+        submitBtnEl.disabled = true;
+        playerAnsInputEl.disabled = true;
+
+        if (playerAnswer === correctAnswer) {
+            result.textContent = `"${playerAnswer}" is a correct answer. Congratulations! You won! 🎉🏆`;
+            attempts = 3
+            playerWon = true
+        } else {
+            attempts += 1;
+            trialCount.innerText = attempts
+
+            showRiddleBtnEl.disabled = false
+            playerAnsInputEl.value = ""
+            riddle.innerText = ""
+
+            result.textContent = `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
+            ${attempts <= 2 ? "Please try again! 🔄 Click 'Show Riddle' button to see the new riddle. Good luck!": "" }`
+        }
+
+        if (attempts === 3) {
+            showRiddleBtnEl.disabled = true
+            if (playerWon === false) {
+                let gameLost = document.createElement('p').innerText = `You have lost the game. 😢`
+                result.append(gameLost)
+            }
+        }
+    }
     submitBtnEl.addEventListener("click", handleSubmitRiddleAnswer)
-
+    submitBtnEl.disabled = true;
 }
+
+export default levelSeven

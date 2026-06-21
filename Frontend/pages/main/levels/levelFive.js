@@ -43,7 +43,8 @@ const levelFive = (gameDiv) => {
 
         setTimeout(() => {
             if (+playerSelectedNo === computerSelectedNo) {
-                result.textContent = `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}. Congratulations! You won! 🎉🏆 `;
+                result.textContent = `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}. 
+                Congratulations! You won! 🎉🏆 `;
                 attempts = 3
                 playerWon = true
             } else {
