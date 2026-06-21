@@ -38,7 +38,7 @@ const levelSeven = async (gameDiv) => {
     showRiddleBtnEl = createButtonElement("riddleBtn", "Show Riddle")
     gameDiv.appendChild(showRiddleBtnEl)
 
-    playerAnsInputEl = createInputElement("Enter the Answer here...")
+    playerAnsInputEl = createInputElement("Enter your answer...")
     gameDiv.appendChild(playerAnsInputEl)
     playerAnsInputEl.disabled = true;
 
@@ -87,7 +87,7 @@ const levelSeven = async (gameDiv) => {
             riddle.innerText = ""
 
             result.textContent = `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
-            ${attempts <= 2 ? "Please try again! 🔄 Click 'Show Riddle' button to see the new riddle. Good luck!": "" }`
+            ${attempts <= 2 ? `Please try again! 🔄 (${3 - attempts} attempts left) Good luck!`: "" }`
         }
 
         if (attempts === 3) {
