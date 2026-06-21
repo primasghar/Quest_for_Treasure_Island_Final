@@ -88,7 +88,7 @@ const levelSix = (gameDiv) => {
             gameDiv.appendChild(submitSeqBtnEl)
 
 
-        }, 800)
+        }, 8000)
 
     }
 

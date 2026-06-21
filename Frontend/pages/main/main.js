@@ -3,8 +3,8 @@
 // import levelThree from "./levels/levelThree.js"
 // import levelFour from "./levels/levelFour.js"
 // import levelFive from "./levels/levelFive.js"
-import levelSix from "./levels/levelSix.js"
-// import levelSeven from "./levels/levelSeven.js"
+// import levelSix from "./levels/levelSix.js"
+import levelSeven from "./levels/levelSeven.js"
 // import levelEight from "./levels/levelEight.js"
 
 let newPlayer = JSON.parse(localStorage.getItem('playerDetails'));
@@ -26,8 +26,8 @@ if (newPlayer['level'] === 1) {
     // levelThree(gameDiv);
     // levelFour(gameDiv);
     // levelFive(gameDiv);
-    levelSix(gameDiv);
-    // levelSeven(gameDiv);
+    // levelSix(gameDiv);
+    levelSeven(gameDiv);
     // levelEight(gameDiv);
 }
 

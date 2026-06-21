@@ -233,20 +233,22 @@ option:focus {
     margin: 0.5rem 3rem;
     border: 2px solid #b8860b;
     border-radius: 0.5rem;
-    width: 8rem;
+    width: 10rem;
     height: 2.563rem;
     /*justify-self: center;*/
     cursor: pointer;
 }
 
-.playBtn:hover,
-.playBtn:focus
-{
+.playBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover, .questionBtn:hover,
+.playBtn:focus, .submitBtn:focus, .sequenceBtn:focus, .riddleBtn:focus, .questionBtn:focus {
     border: 2px solid #ffd700;
 }
 
 .playBtn:disabled,
-.sequenceBtn:disabled{
+.sequenceBtn:disabled,
+.submitBtn:disabled,
+.riddleBtn:disabled,
+.questionBtn:disabled {
     border: 1px solid #999999;
     background-image: none;
     background-color: #cccccc;
