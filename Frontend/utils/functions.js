@@ -1,3 +1,16 @@
+export const gameTitle = (gameName) => {
+    let gameTitle = document.querySelector('.gameNameHeading')
+    gameTitle.innerText = gameName;
+    gameTitle.className = "gameTitle"
+}
+
+export const gameDescription = (describeGame) => {
+    let game = document.querySelector('.gameDescription')
+    game.innerText = `You have three opportunities to win this game and go to your next airport destination.\r ${describeGame}`;
+    game.className = "gameDescription"
+}
+
+
 export const createButtonElement = (buttonClass, buttonText) => {
     const buttonElement = document.createElement("button")
     buttonElement.className = buttonClass
@@ -46,30 +59,24 @@ export const createNumberSelect = (selectId, noArray) => {
 
 }
 
-
-export const gameTitle = (gameName) => {
-    let gameTitle = document.querySelector('.gameNameHeading')
-    gameTitle.innerText = gameName;
-    gameTitle.className = "gameTitle"
+export const createInputElement = (plcholder) => {
+    let inputElement = document.createElement('input');
+    inputElement.type = 'text';
+    inputElement.id = 'playerInput';
+    inputElement.placeholder = plcholder;
+    return inputElement;
 }
 
-export const gameDescription = (describeGame) => {
-    let game = document.querySelector('.gameDescription')
-    game.innerText = `You have three opportunities to win this game and go to your next airport destination.\r ${describeGame}`;
-    game.className = "gameDescription"
-}
+export const generateRandomSequence = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let result = '';
 
-//
-// export const generateRandomSequence = () => {
-//     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//     let result = '';
-//
-//     for (let i = 0; i < 8; i++) {
-//         // Pick a random index between 0 and 25
-//         const randomIndex = Math.floor(Math.random() * chars.length);
-//         // Append the character at that index to the result
-//         result += chars[randomIndex];
-//     }
-//
-//     return result;
-// }
+    for (let i = 0; i < 8; i++) {
+        // Pick a random index between 0 and 25
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        // Append the character at that index to the result
+        result += chars[randomIndex];
+    }
+
+    return result;
+}

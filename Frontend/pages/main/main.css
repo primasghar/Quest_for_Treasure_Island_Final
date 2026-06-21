@@ -245,7 +245,8 @@ option:focus {
     border: 2px solid #ffd700;
 }
 
-.playBtn:disabled {
+.playBtn:disabled,
+.sequenceBtn:disabled{
     border: 1px solid #999999;
     background-image: none;
     background-color: #cccccc;
