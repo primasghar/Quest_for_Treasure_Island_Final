@@ -1,4 +1,4 @@
-import {gameTitle, gameDescription, createSelectElement, createButtonElement} from '../../../utils/functions.js'
+import {gameTitle, gameDescription, createSelectElement, createButtonElement, updateScoreBoard} from '../../../utils/functions.js'
 
 let selectEl;
 let flipButtonEl;
@@ -63,6 +63,7 @@ const handleFlipCoin = () => {
             result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. You win! 🎉🏆`;
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
+
         } else if (attempts >= 3) {
             result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left! 🔄`;
             selectEl.disabled = true;

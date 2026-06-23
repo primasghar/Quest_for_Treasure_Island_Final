@@ -1,4 +1,4 @@
-// import levelOne from "./levels/levelOne.js";
+import levelOne from "./levels/levelOne.js";
 // import levelTwo from "./levels/levelTwo.js";
 // import levelThree from "./levels/levelThree.js"
 // import levelFour from "./levels/levelFour.js"
@@ -7,28 +7,35 @@
 // import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 
-let newPlayer = JSON.parse(localStorage.getItem('playerDetails'));
+let player = JSON.parse(localStorage.getItem('playerDetails'));
 
-console.log(newPlayer);
+console.log(player);
 
-document.querySelector('.name').innerText = newPlayer['name'];
-document.querySelector('.level').innerText = newPlayer['level'];
-document.querySelector('.carbon').innerText = newPlayer['carbonPrint'];
-document.querySelector('.score').innerText = newPlayer['score'];
+
+let playerName = player['name']
+let playerGameLevel = player['level']
+let playerCarbonFootPrints = player['carbonPrint']
+let playerScore = player['score']
+
+document.querySelector('.name').innerText = playerName;
+//UI nodes in score board that needs to be updated.
+document.querySelector('.level').innerText = playerGameLevel;
+document.querySelector('.carbon').innerText = playerCarbonFootPrints;
+document.querySelector('.score').innerText = playerScore;
 
 // localStorage.removeItem('playerDetails');
 
 const gameDiv = document.querySelector('.gameArea')
 
-if (newPlayer['level'] === 1) {
-    // levelOne(gameDiv);
-    // // levelTwo(gameDiv);
+if (playerGameLevel === 1) {
+    levelOne(gameDiv);
+    // levelTwo(gameDiv);
     // levelThree(gameDiv);
     // levelFour(gameDiv);
     // levelFive(gameDiv);
     // levelSix(gameDiv);
     // levelSeven(gameDiv);
-    levelEight(gameDiv);
+    // levelEight(gameDiv);
 }
 
 

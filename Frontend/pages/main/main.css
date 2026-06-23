@@ -264,7 +264,7 @@ option:focus {
     justify-content: space-between;
 }
 
-.quit, .playNext {
+.quit, .playNext, .playAgain {
     color: var(--white);
     font-size: var(--font-size20);
     text-align: center;
@@ -273,17 +273,26 @@ option:focus {
     background-color: var(--deep-sea);
     border: none;
     border-radius: 0.6rem;
-    box-shadow: 0 9px var(--teal);
+    box-shadow: 0 4px rgb(57, 144, 145);
     cursor: pointer;
 }
 
-.playNext:hover {
+.playAgain:hover {
     background-color: var(--prussian-blue);
+}
+
+.playNext {
+    background-color: #b8860b;
+    box-shadow: 0 4px #c9aa71;
+}
+
+.playNext:hover {
+    background-color: #b8860b;
 }
 
 .quit {
     background-color: var(--maroon);
-    box-shadow: 0 9px var(--red-hue);
+    box-shadow: 0 4px var(--red-hue);
 }
 
 .quit:hover {
