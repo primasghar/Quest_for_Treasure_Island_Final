@@ -1,8 +1,8 @@
 from http.client import responses
 
-from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, fetch_riddle_query, \
+from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query,update_progress_query, fetch_riddle_query, \
     fetch_quiz_questions_query, fetch_game_airports_query
-from flask import Flask, Response
+from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 import json
 
@@ -45,6 +45,54 @@ def player(text):
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
 
+@app.route('/progress/player_id')
+def progress(player_id):
+    try:
+        player_data = fetch_player_progress_query(player_id)
+        print(player_data)
+
+        response = {
+            "progressId": player_data[0],
+            "playerId": player_data[1],
+            "level": player_data[2],
+            "score": player_data[3],
+            "carbonPrint": player_data[4],
+        }
+
+        return response
+
+    except ValueError:
+        response = {
+            "message": "Invalid text",
+            "status": 400
+        }
+        json_response = json.dumps(response)
+        http_response = Response(response=json_response, status=400, mimetype="application/json")
+        return http_response
+
+
+@app.route('/update/progress', methods=["POST"])
+def update_progress():
+    data = request.get_json(silent=True)
+    print(data)
+    if not data:
+        return jsonify({"error": "Request body must be valid JSON"}), 400
+
+    missing = [f for f in ("playerID", "score", "carbon_fp", "player_id" ) if f not in data]
+    if missing:
+        return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
+
+    level = data["level"]
+    score = data["score"]
+    carbon_fp = data["carbon_fp"]
+    player_id = data["player_id"]
+
+    player_progress_update = update_progress_query(level, score, carbon_fp, player_id)
+    print(player_progress_update)
+
+    response = player_progress_update
+    return response
+
 
 @app.route('/riddles')
 def riddles():
@@ -62,6 +110,7 @@ def questions():
     response = all_questions
 
     return response
+
 
 @app.route('/airports/icao')
 def airports_icao():
