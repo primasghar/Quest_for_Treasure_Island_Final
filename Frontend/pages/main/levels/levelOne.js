@@ -1,4 +1,9 @@
-import {gameTitle, gameDescription, createSelectElement, createButtonElement, updateScoreBoard} from '../../../utils/functions.js'
+import {
+    gameTitle,
+    gameDescription,
+    createSelectElement,
+    createButtonElement,
+} from '../../../utils/functions.js'
 
 let selectEl;
 let flipButtonEl;
@@ -37,7 +42,7 @@ const addCoin = (gameDiv) => {
     coin.appendChild(tails)
 }
 
-const handleFlipCoin = () => {
+const handleFlipCoin = (onWin) => {
     const chosenOption = selectEl.value;
 
     if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
@@ -53,21 +58,22 @@ const handleFlipCoin = () => {
     result.textContent = '';
     coin.classList.add('flipping');
 
-    const isHeads = Math.random() < 0.5;
-
-    setTimeout(() => {
+    let isHeads = Math.random() < 0.5;
+    setTimeout(function () {
         resultText = isHeads ? 'HEADS' : 'TAILS';
         coin.style.transform = isHeads ? 'rotateY(0deg)' : 'rotateY(180deg)';
 
         if (chosenOption === resultText) {
-            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. You win! 🎉🏆`;
+            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. You won! 🎉🏆`;
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
+            onWin();
 
         } else if (attempts >= 3) {
             result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left! 🔄`;
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
+
         } else {
             result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. Try again! 🔄 (${3 - attempts} left)`;
         }
@@ -75,9 +81,11 @@ const handleFlipCoin = () => {
         coin.classList.remove('flipping');
         isFlipping = false;
     }, 2000);
+
 };
 
-const levelOne = (gameDiv) => {
+const levelOne = (gameDiv, onWin) => {
+
     gameTitle("FLIP THE COIN")
     gameDescription("Select HEADS or TAILS.")
 
@@ -85,7 +93,9 @@ const levelOne = (gameDiv) => {
     gameDiv.appendChild(selectEl)
 
     flipButtonEl = createButtonElement("playBtn", "FLIP")
-    flipButtonEl.addEventListener("click", handleFlipCoin)
+    flipButtonEl.addEventListener("click", () => {
+        handleFlipCoin(onWin)
+    })
     gameDiv.appendChild(flipButtonEl)
 
     addCoin(gameDiv);

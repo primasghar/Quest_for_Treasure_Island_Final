@@ -31,7 +31,7 @@ const fetchQuizQuestions = async () => {
 
 
 //Main Game function
-const levelEight = async (gameDiv) => {
+const levelEight = async (gameDiv, onWin) => {
     gameTitle("QUIZ")
     gameDescription("Click the button below to see the quiz question and answer it to win.")
 
@@ -84,6 +84,7 @@ const levelEight = async (gameDiv) => {
             result.textContent = `${playerAnswer} is the correct answer. Congratulations! You won! 🎉🏆 `;
             attempts = 3
             playerWon = true
+            onWin()
         } else {
             attempts += 1;
             trialCount.innerText = attempts

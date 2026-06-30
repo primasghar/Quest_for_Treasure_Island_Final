@@ -14,7 +14,7 @@ let trialCount = document.querySelector('.trials')
 
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const levelFive = (gameDiv) => {
+const levelFive = (gameDiv, onWin) => {
     gameTitle("GUESS THE NUMBER")
     gameDescription("Select the number, if it matches the computer's selection you will win.")
 
@@ -25,6 +25,8 @@ const levelFive = (gameDiv) => {
     gameDiv.appendChild(selectNoBtnEl)
 
     const handleGuessNo = () => {
+        let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
+        console.log("computer no", computerSelectedNo)
         let playerSelectedNo = selectNoEl.value
 
         if (playerSelectedNo === "") {
@@ -34,7 +36,6 @@ const levelFive = (gameDiv) => {
 
         selectNoBtnEl.disabled = true
 
-        let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
 
         let computerChoiceElement = document.createElement('p')
         computerChoiceElement.className = "computerChoice"
@@ -47,14 +48,16 @@ const levelFive = (gameDiv) => {
                 Congratulations! You won! 🎉🏆 `;
                 attempts = 3
                 playerWon = true
+                onWin()
             } else {
                 attempts += 1;
                 trialCount.innerText = attempts
                 selectNoBtnEl.disabled = false
                 result.textContent = `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
             ${attempts <= 2 ? "Please try again! 🔄" : ""}`
-                setTimeout(()=>{
-                    attempts < 3 ? computerChoiceElement.remove() : ""}, 2000)
+                setTimeout(() => {
+                    attempts < 3 ? computerChoiceElement.remove() : ""
+                }, 2000)
             }
 
             if (attempts === 3) {

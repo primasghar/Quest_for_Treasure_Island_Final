@@ -6,7 +6,7 @@ let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
 
 
-const levelThree = (gameDiv) => {
+const levelThree = (gameDiv, onWin) => {
     gameTitle("ROLL THE DICE")
     gameDescription("Roll the 3 dices three times by clicking the button to get the sum that equals target no: 12.")
 
@@ -62,6 +62,7 @@ const levelThree = (gameDiv) => {
              if (sum === 12) {
                 result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Congrats! You win!🎉🏆`;
                 rollBtnEl.disabled = true;
+                onWin()
             } else if (attempts >= 3) {
                 result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`;
                 rollBtnEl.disabled = true;

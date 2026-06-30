@@ -29,7 +29,7 @@ const fetchRiddles = async () => {
     }
 };
 
-const levelSeven = async (gameDiv) => {
+const levelSeven = async (gameDiv, onWin) => {
     gameTitle("RIDDLES")
     gameDescription("Please click the button below and answer the riddle.")
 
@@ -78,6 +78,7 @@ const levelSeven = async (gameDiv) => {
             result.textContent = `"${playerAnswer}" is a correct answer. Congratulations! You won! 🎉🏆`;
             attempts = 3
             playerWon = true
+            onWin()
         } else {
             attempts += 1;
             trialCount.innerText = attempts

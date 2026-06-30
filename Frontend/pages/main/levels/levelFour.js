@@ -20,7 +20,7 @@ let optionsArray1 = [{value: "", nodeText: "-- Select Even/Odd --"},
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
-const levelFour = (gameDiv) => {
+const levelFour = (gameDiv, onWin) => {
     gameTitle("EVENS ODDS")
     gameDescription("First select EVEN or ODD. Then select numbers from (1-10). Your selected number will be added to the computer's selected number. If their sum matches your EVEN or ODD choice you will win.")
 
@@ -56,10 +56,12 @@ const levelFour = (gameDiv) => {
                     result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.Congratulations! You won! 🎉🏆`;
                     attempts = 3
                     playerWon = true
+                    onWin()
                 } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
                     result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congratulations! You won! 🎉🏆 `;
                     attempts = 3
                     playerWon = true
+                    onWin()
                 } else {
                     attempts += 1;
                     result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.

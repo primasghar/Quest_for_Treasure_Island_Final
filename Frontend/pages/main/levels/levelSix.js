@@ -20,7 +20,7 @@ let playerWon = false
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
 
-const handleSubmitSequence = () => {
+const handleSubmitSequence = (onWin) => {
     console.log("handle submit", sequenceInputEl.value, seq)
     submitSeqBtnEl.disabled = true;
     sequenceInputEl.disabled = true;
@@ -31,6 +31,7 @@ const handleSubmitSequence = () => {
         result.textContent = `Your sequence ${playerGuess} matched ${seq}. Congratulations! You won! 🎉🏆`;
         attempts = 3
         playerWon = true
+        onWin()
     } else {
         attempts += 1;
         trialCount.innerText = attempts
@@ -58,7 +59,7 @@ const handleSubmitSequence = () => {
 }
 
 
-const levelSix = (gameDiv) => {
+const levelSix = (gameDiv, onWin) => {
     gameTitle("SEQUENCE MEMORY")
     gameDescription("A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
 
@@ -84,7 +85,7 @@ const levelSix = (gameDiv) => {
             gameDiv.appendChild(sequenceInputEl)
 
             submitSeqBtnEl = createButtonElement("submitBtn", "Submit")
-            submitSeqBtnEl.addEventListener("click", handleSubmitSequence )
+            submitSeqBtnEl.addEventListener("click", ()=>handleSubmitSequence(onWin) )
             gameDiv.appendChild(submitSeqBtnEl)
 
 
