@@ -1,6 +1,9 @@
 //-----------------Accessing Elements
 export const gameTitle = (gameName) => {
     let gameTitle = document.querySelector('.gameNameHeading')
+    if (!gameTitle) {
+        console.error("gameTitle element not found — check your selector and HTML structure")
+    }
     gameTitle.innerText = gameName;
     gameTitle.className = "gameTitle"
 }
@@ -60,11 +63,11 @@ export const createNumberSelect = (selectId, noArray) => {
 
 }
 
-export const createInputElement = (plcholder) => {
+export const createInputElement = (placeholder) => {
     let inputElement = document.createElement('input');
     inputElement.type = 'text';
     inputElement.id = 'playerInput';
-    inputElement.placeholder = plcholder;
+    inputElement.placeholder = placeholder;
     return inputElement;
 }
 
@@ -84,31 +87,58 @@ export const generateRandomSequence = () => {
 }
 
 //Fetches the player data and update local storage that updates the UI
-const fetchPlayerData = async (playerID) => {
+// const fetchPlayerData = async (playerID) => {
+//
+//     try {
+//         const response = await fetch(`http://127.0.0.1:5000/player/${playerID}`)
+//         const playerData = await response.json();
+//         console.log(playerData)
+//         localStorage.setItem("playerDetails", JSON.stringify(playerData));
+//         return JSON.stringify(playerData);
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// };
 
+// //updates the table in the BE
+// export const updateScoreBoard = async (gameLevel, gameScore, gameCFP, gamePlayerID) => {
+//     try {
+//         const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID}),
+//
+//         })
+//         return await response.json();
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// };
+
+// const distanceBetweenAirports = (prev, current) => {
+//     //      airportA = airportData(prev)
+// //      airportB = airportData(current)
+// //      return distance.distance((airport_a[3], airport_a[4]),
+// //                               (airport_b[3], airport_b[4])).km
+// }
+//
+//
+// const calcCarbonEmissionBtwAirports = (prevLevel, currentLevel) => {
+//     let avgCO2PerKm = 150
+//     let travelledDistance = distanceBetweenAirports(prevLevel, currentLevel)
+//      return travelledDistance * avgCO2PerKm
+//
+// }
+
+export const deletePlayerData = async () => {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/player/${playerID}`)
-        const playerData = await response.json();
-        console.log(playerData)
-        localStorage.setItem("playerDetails", JSON.stringify(playerData) );
-        return JSON.stringify(playerData);
-    } catch (error) {
-        console.log(error.message);
-    }
-};
+        const response = await fetch(`http://127.0.0.1:5000/quit`)
+        const quitConfirmed = await response.json();
+        console.log(await response)
+        return quitConfirmed;
 
-//updates the table in the BE
-export const updateScoreBoard = async (gameLevel, gameScore, gameCFP, gamePlayerID) => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID}),
-
-        })
-        return await response.json();
     } catch (error) {
         console.log(error.message);
     }

@@ -1,7 +1,7 @@
 from http.client import responses
 
 from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query,update_progress_query, fetch_riddle_query, \
-    fetch_quiz_questions_query, fetch_game_airports_query
+    fetch_quiz_questions_query, fetch_game_airports_query, delete_player_and_progress_query
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 import json
@@ -118,6 +118,13 @@ def airports_icao():
     print(game_airports)
     response = game_airports
 
+    return response
+
+@app.route('/quit')
+def remove_player():
+    delete_confirmation = delete_player_and_progress_query()
+    print(delete_confirmation)
+    response = delete_confirmation
     return response
 
 

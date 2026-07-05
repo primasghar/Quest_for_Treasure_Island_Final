@@ -7,15 +7,20 @@ import levelSix from "./levels/levelSix.js"
 import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 
+import {deletePlayerData} from "../../utils/functions.js"
+
 const nextGameBtn = document.querySelector(".playNext");
 nextGameBtn.disabled = true
 
 const playAgainBtn = document.querySelector(".playAgain");
 playAgainBtn.disabled = true
 
+const quitBtn = document.querySelector(".quit");
+
 const gameDiv = document.querySelector('.gameArea')
 
-let player = JSON.parse(localStorage.getItem('playerDetails') || null);
+let player = JSON.parse(localStorage.getItem('playerDetails'));
+console.log("player", player)
 // if (!player) { /* redirect to start screen, etc. */
 // }
 
@@ -23,6 +28,8 @@ let playerName = player['name']
 let playerGameLevel = player['level']
 let playerCarbonFootPrints = player['carbonPrint']
 let playerScore = player['score']
+// let playerId = player['playerId']
+// let playerProgressId = player['progressId']
 
 let sbName = document.querySelector('.name')
 let sbLevel = document.querySelector('.level')
@@ -69,10 +76,10 @@ const changeLevel = (levelToShow) => {
         case 6:
             levelSix(gameDiv, onWin);
             break;
-                case 7:
+        case 7:
             levelSeven(gameDiv, onWin);
             break;
-                case 8:
+        case 8:
             levelEight(gameDiv, onWin);
             break;
         default:
@@ -91,4 +98,10 @@ nextGameBtn.addEventListener("click", () => {
     console.log("next level btn", player.level)
     sbLevel.innerText = player.level;
     sbScore.innerText = player.score;
+})
+
+quitBtn.addEventListener("click", () => {
+    console.log("quit")
+    deletePlayerData()
+    window.location.href = '../playerName/index.html';
 })

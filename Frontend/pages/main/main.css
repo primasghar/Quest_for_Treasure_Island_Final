@@ -37,12 +37,11 @@ h1 {
 /*    Page specific    */
 
 .main {
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     row-gap: 1rem;
+    padding:1rem;
     background-image: url("../../images/mainPic.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -54,7 +53,7 @@ h1 {
     justify-content: space-around;
     background-color: var(--prussian-blue);
     width: 80%;
-    height: 30%;
+    height: 20%;
     padding: 1rem;
     border-radius: 1rem;
     backdrop-filter: blur(10px);
@@ -96,7 +95,6 @@ tr {
     flex-direction: column;
     row-gap: 1rem;
     background-color: var(--teal);
-    /*height: 50%;*/
     width: 80%;
     padding: 1rem;
     border-radius: 1rem;
@@ -128,6 +126,7 @@ tr {
     justify-content: center;
     align-items: center;
     font-size: var(--font-size42);
+    margin: 1rem
 }
 
 .gameDescription {
@@ -416,7 +415,7 @@ option:focus {
 .showResult {
     background-color: var(--white);
     font-size: 1.5rem;
-    height: 20%;
+    height: 8.75rem;
     color: var(--dark-brown);
     font-weight: bold;
     border-radius: 0.5rem;
