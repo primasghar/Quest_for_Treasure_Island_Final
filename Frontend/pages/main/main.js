@@ -6,8 +6,9 @@ import levelFive from "./levels/levelFive.js"
 import levelSix from "./levels/levelSix.js"
 import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
+import winnerPage from "./levels/winnerPage.js";
 
-import {deletePlayerData, updatePlayerProgress} from "../../utils/functions.js"
+import {deletePlayerData, gameTitle, updatePlayerProgress} from "../../utils/functions.js"
 
 const nextGameBtn = document.querySelector(".playNext");
 nextGameBtn.disabled = true
@@ -17,6 +18,7 @@ playAgainBtn.disabled = true
 
 const quitBtn = document.querySelector(".quit");
 
+const title = document.querySelector(".gameNameHeading");
 const gameDiv = document.querySelector('.gameArea')
 const resultArea = document.querySelector('.showResult')
 
@@ -52,19 +54,10 @@ const changeLevel = (levelToShow) => {
         console.log(player)
 
         if (player.level === 8) {
-
             gameDiv.innerHTML = ""
             resultArea.innerHTML = ""
-
-            let winner = document.createElement('p');
-            winner.className = "winner"
-            winner.innerText = `Congratulations ${playerName}.You have passed the final stage of the quest. You will be taken to the Treasure Island by boat.`
-
-            let goingToIsland = document.createElement('p');
-            goingToIsland.innerText = `You have completed the final stage. You will be taken to the land of hidden riches, the Treasure Island by our associate.`
-
-            gameDiv.appendChild(winner)
-            resultArea.appendChild(goingToIsland)
+            title.innerText = "WINNER"
+            winnerPage(gameDiv, resultArea, player.name)
         }
 
         if (player.level !== 8) {
@@ -80,7 +73,7 @@ const changeLevel = (levelToShow) => {
         player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
     }
 
-    switch (8) {
+    switch (levelToShow) {
         case 1:
             levelOne(gameDiv, onWin);
             break;
