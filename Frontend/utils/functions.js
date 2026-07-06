@@ -100,22 +100,22 @@ export const generateRandomSequence = () => {
 //     }
 // };
 
-// //updates the table in the BE
-// export const updateScoreBoard = async (gameLevel, gameScore, gameCFP, gamePlayerID) => {
-//     try {
-//         const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID}),
-//
-//         })
-//         return await response.json();
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// };
+//updates the table in the BE
+export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID) => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID}),
+
+        })
+        return await response.json();
+    } catch (error) {
+        console.log(error.message);
+    }
+};
 
 // const distanceBetweenAirports = (prev, current) => {
 //     //      airportA = airportData(prev)

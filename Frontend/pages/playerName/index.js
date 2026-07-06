@@ -11,6 +11,7 @@ const fetchNewPlayerData = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/player/${nameInput}`)
         const newPlayerData = await response.json();
+        console.log("new player", newPlayerData)
         localStorage.setItem("playerDetails", JSON.stringify(newPlayerData) );
         window.location.href ='../main/main.html';
 

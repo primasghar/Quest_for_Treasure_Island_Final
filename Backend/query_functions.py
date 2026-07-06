@@ -87,10 +87,11 @@ def fetch_airport_country_query(iso_country):
 def update_progress_query(level, score, carbon_fp, player_id):
     sql = f"UPDATE progress SET current_level = %s, game_score = %s, carbon_footprint = %s WHERE player_id = %s"
     # print(sql)
+    print(player_id)
     cursor = connection.cursor()
     cursor.execute(sql, (level, score, carbon_fp, player_id,))
-    # if cursor.rowcount==1:
-    #     print("Player progress updated")
+    if cursor.rowcount==1:
+        print("Player progress updated")
 
 
 def delete_player_and_progress_query():

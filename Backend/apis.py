@@ -78,7 +78,8 @@ def update_progress():
     if not data:
         return jsonify({"error": "Request body must be valid JSON"}), 400
 
-    missing = [f for f in ("playerID", "score", "carbon_fp", "player_id" ) if f not in data]
+    missing = [f for f in ("level", "score", "carbon_fp", "player_id" ) if f not in data]
+    print("missing", missing)
     if missing:
         return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
 
