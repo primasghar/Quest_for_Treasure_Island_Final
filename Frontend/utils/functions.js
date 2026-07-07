@@ -132,6 +132,25 @@ export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePl
 //
 // }
 
+export const getDistance = (lat1, lon1, lat2, lon2)=> {
+    const R = 6371; // Earth's radius in km (use 3958.8 for miles)
+
+    const toRad = deg => deg * (Math.PI / 180); //To convert deg to radian unit
+
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+
+    //  Haversine formula based
+    const a =
+        Math.sin(dLat / 2) ** 2 +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) ** 2;
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c; // distance in km
+}
+
 export const deletePlayerData = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/quit`)
