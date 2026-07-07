@@ -8,9 +8,9 @@ import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 import winnerPage from "./levels/winnerPage.js";
 
-import {deletePlayerData, updatePlayerProgress} from "../../utils/functions.js"
+import {airportData, allICAOCodes, deletePlayerData, updatePlayerProgress} from "../../utils/functions.js"
 
-//Initializing MAP
+//-------------------------------------------MAP---------------------------------------------
 
 const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
     const start = trailPoints[trailPoints.length - 1]; // last known point
@@ -51,27 +51,36 @@ const map = L.map('map', {
     center: [60.3184, 24.9633],
      zoom: 7,
 });
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
-
+L.circle([60.3184, 24.9633], { radius: 500 }).addTo(map);
 const marker = L.marker([60.3184, 24.9633]).addTo(map);
 let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
 let trailLine = L.polyline(trailPoints, { color: 'blue', weight: 3, dashArray: '10, 10' }).addTo(map);
 
 
-L.circle([60.3184, 24.9633], { radius: 500 }).addTo(map);
 
 // Testing map
 
-goToLocation(60.3184,24.9633,  7, "Helsinki Airport")
+// goToLocation(60.3184,24.9633,  7, "Helsinki Airport")
+//
+// setTimeout(()=>{
+//     goToLocation(59.409831694 ,24.792830162, 7,"Tallin Airport")
+// }, 2000)
+// -----------------------------Fetching all ICAO CODES included in this game----------------------------------------------------
 
-setTimeout(()=>{
-    goToLocation(59.409831694 ,24.792830162, 7,"Tallin Airport")
-}, 2000)
+let allGameAirportICAO = await allICAOCodes()
+console.log('Type:', typeof allGameAirportICAO);
+console.log('Is array:', Array.isArray(allGameAirportICAO));
+console.log('First item:', allGameAirportICAO?.[0]);
+//{airport_name:"Helsinki Vantaa Airport", country:"Finland",icao:"EFHK", iso_country:"FI",lat:60.3172,lon:24.963301}
+
+let hslData = airportData(allGameAirportICAO[0][1])
+console.log(hslData)
 
 
+//----------------------Accessing button and other elements------------------------------------
 
 const nextGameBtn = document.querySelector(".playNext");
 nextGameBtn.disabled = true
@@ -83,9 +92,10 @@ const title = document.querySelector(".gameNameHeading");
 const gameDiv = document.querySelector('.gameArea')
 const resultArea = document.querySelector('.showResult')
 
+// ---------------Fetching player data from LOCAL STORAGE and Displaying in UI------------------
+
 let player = JSON.parse(localStorage.getItem('playerDetails'));
 console.log("player", player)
-
 
 let playerName = player['name']
 let playerGameLevel = player['level']
@@ -106,6 +116,7 @@ sbLevel.innerText = playerGameLevel;
 sbCarbon.innerText = playerCarbonFootPrints;
 sbScore.innerText = playerScore;
 
+// ----------------------------Game-----------------------------------------------------------
 
 const changeLevel = (levelToShow) => {
 
@@ -170,19 +181,24 @@ const changeLevel = (levelToShow) => {
             console.log(`Game over`);
     }
 
-
 }
 
 changeLevel(playerGameLevel);
 
 nextGameBtn.addEventListener("click", () => {
+    let airportICAO;
     location.reload();
     player = JSON.parse(localStorage.getItem('playerDetails'));
     changeLevel(player.level);
 
     sbLevel.innerText = player.level;
     sbScore.innerText = player.score;
+
+    airportICAO = allGameAirportICAO[player.level][1]
 })
+
+
+// ---------------------Adding Event Listener to Buttons------------------------------------------
 
 quitBtn.addEventListener("click", () => {
     deletePlayerData()

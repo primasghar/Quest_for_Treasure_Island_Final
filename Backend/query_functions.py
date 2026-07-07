@@ -92,6 +92,7 @@ def update_progress_query(level, score, carbon_fp, player_id):
     cursor.execute(sql, (level, score, carbon_fp, player_id,))
     if cursor.rowcount==1:
         print("Player progress updated")
+        return "Player progress updated"
 
 
 def delete_player_and_progress_query():

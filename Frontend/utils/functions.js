@@ -132,7 +132,31 @@ export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePl
 //
 // }
 
-export const getDistance = (lat1, lon1, lat2, lon2)=> {
+export const allICAOCodes = async () => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/airports/icao`)
+        const allAirportsICAO = await response.json();
+        console.log(allAirportsICAO)
+        return allAirportsICAO;
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const airportData = async (icao) => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao}`)
+        const airportDetails = await response.json();
+        console.log(airportDetails)
+        return JSON.stringify(airportDetails);
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+
+
+export const getDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Earth's radius in km (use 3958.8 for miles)
 
     const toRad = deg => deg * (Math.PI / 180); //To convert deg to radian unit
