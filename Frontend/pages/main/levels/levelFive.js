@@ -14,7 +14,9 @@ let trialCount = document.querySelector('.trials')
 
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const levelFive = (gameDiv, onWin) => {
+// --------------------------------Main Function------------------------
+
+const levelFive = (gameDiv, onWin, onLose) => {
     gameTitle("GUESS THE NUMBER")
     gameDescription("Select the number, if it matches the computer's selection you will win.")
 
@@ -54,7 +56,7 @@ const levelFive = (gameDiv, onWin) => {
                 trialCount.innerText = attempts
                 selectNoBtnEl.disabled = false
                 result.textContent = `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
-            ${attempts <= 2 ? "Please try again! 🔄" : ""}`
+            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`
                 setTimeout(() => {
                     attempts < 3 ? computerChoiceElement.remove() : ""
                 }, 2000)
@@ -63,8 +65,9 @@ const levelFive = (gameDiv, onWin) => {
             if (attempts === 3) {
                 selectNoBtnEl.disabled = true
                 if (playerWon === false) {
-                    let gameLost = document.createElement('p').innerText = `You have lost the game.😢`
+                    let gameLost = document.createElement('p').innerText = `You lost.😢`
                     result.append(gameLost)
+                    onLose()
                 }
 
             }

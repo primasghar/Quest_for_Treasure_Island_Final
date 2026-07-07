@@ -5,8 +5,9 @@ let attempts = 0;
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
 
+// --------------------------------Main Function------------------------
 
-const levelThree = (gameDiv, onWin) => {
+const levelThree = (gameDiv, onWin, onLose) => {
     gameTitle("ROLL THE DICE")
     gameDescription("Roll the 3 dices three times by clicking the button to get the sum that equals target no: 12.")
 
@@ -68,8 +69,9 @@ const levelThree = (gameDiv, onWin) => {
                 rollBtnEl.disabled = true;
 
                 let gameLost = document.createElement('p');
-                gameLost.innerText = 'Sorry! You have lost the game. 😢';
+                gameLost.innerText = `Sorry! You lost.😢 No attempts left!`
                 result.append(gameLost);
+                onLose()
             } else {
                 result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Try again! 🔄 (${3 - attempts} left)`;
             }

@@ -29,7 +29,9 @@ const fetchRiddles = async () => {
     }
 };
 
-const levelSeven = async (gameDiv, onWin) => {
+// --------------------------------Main Function------------------------
+
+const levelSeven = async (gameDiv, onWin, onLose) => {
     gameTitle("RIDDLES")
     gameDescription("Please click the button below and answer the riddle.")
 
@@ -88,14 +90,15 @@ const levelSeven = async (gameDiv, onWin) => {
             riddle.innerText = ""
 
             result.textContent = `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
-            ${attempts <= 2 ? `Please try again! 🔄 (${3 - attempts} attempts left) Good luck!`: "" }`
+            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left) Good luck!`: "" }`
         }
 
         if (attempts === 3) {
             showRiddleBtnEl.disabled = true
             if (playerWon === false) {
-                let gameLost = document.createElement('p').innerText = `You have lost the game. 😢`
+                let gameLost = document.createElement('p').innerText = `You lost. 😢`
                 result.append(gameLost)
+                onLose()
             }
         }
     }

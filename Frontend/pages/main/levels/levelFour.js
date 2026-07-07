@@ -19,11 +19,12 @@ let optionsArray1 = [{value: "", nodeText: "-- Select Even/Odd --"},
 
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+// --------------------------------Main Function------------------------
 
-const levelFour = (gameDiv, onWin) => {
+const levelFour = (gameDiv, onWin, onLose) => {
     gameTitle("EVENS ODDS")
     gameDescription("First select EVEN or ODD. Then select numbers from (1-10). Your selected number will be added to the computer's selected number. If their sum matches your EVEN or ODD choice you will win.")
-
+    // Creating Game Elements
     let evenOddSelect = createSelectElement("selectOptions", optionsArray1)
     gameDiv.appendChild(evenOddSelect)
 
@@ -33,6 +34,7 @@ const levelFour = (gameDiv, onWin) => {
     let playButton = createButtonElement("playBtn", "Play")
     gameDiv.appendChild(playButton)
 
+    // Handler function
     const handleEvenOdd = () => {
         let playerTarget = evenOddSelect.value;
         let playerSelectedNo = numberSelect.value;
@@ -65,15 +67,16 @@ const levelFour = (gameDiv, onWin) => {
                 } else {
                     attempts += 1;
                     result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
-            ${attempts <= 2 ? "Please try again!" : ""}`
+            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`
                     trialCount.innerText = attempts
                 }
 
                 if (attempts === 3) {
-                   playButton.disabled = true
+                    playButton.disabled = true
                     if (playerWon === false) {
-                        let gameLost = document.createElement('p').innerText = `You have lost the game.😢`
+                        let gameLost = document.createElement('p').innerText = `You lost.😢  No attempts left!`
                         result.append(gameLost)
+                        onLose()
                     }
 
                 }

@@ -42,7 +42,7 @@ const addCoin = (gameDiv) => {
     coin.appendChild(tails)
 }
 
-const handleFlipCoin = (onWin) => {
+const handleFlipCoin = (onWin, onLose) => {
     const chosenOption = selectEl.value;
 
     if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
@@ -70,9 +70,10 @@ const handleFlipCoin = (onWin) => {
             onWin();
 
         } else if (attempts >= 3) {
-            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left! 🔄`;
+            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. Sorry! You lost. No attempts left!`;
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
+            onLose()
 
         } else {
             result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. Try again! 🔄 (${3 - attempts} left)`;
@@ -84,7 +85,9 @@ const handleFlipCoin = (onWin) => {
 
 };
 
-const levelOne = (gameDiv, onWin) => {
+// --------------------------------Main Function------------------------
+
+const levelOne = (gameDiv, onWin, onLose) => {
 
     gameTitle("FLIP THE COIN")
     gameDescription("Select HEADS or TAILS.")
@@ -94,7 +97,7 @@ const levelOne = (gameDiv, onWin) => {
 
     flipButtonEl = createButtonElement("playBtn", "FLIP")
     flipButtonEl.addEventListener("click", () => {
-        handleFlipCoin(onWin)
+        handleFlipCoin(onWin, onLose)
     })
     gameDiv.appendChild(flipButtonEl)
 

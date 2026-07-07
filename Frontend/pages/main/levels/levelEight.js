@@ -30,8 +30,9 @@ const fetchQuizQuestions = async () => {
 };
 
 
-//Main Game function
-const levelEight = async (gameDiv, onWin) => {
+// --------------------------------Main Function------------------------
+
+const levelEight = async (gameDiv, onWin, onLose) => {
     gameTitle("QUIZ")
     gameDescription("Click the button below to see the quiz question and answer it to win.")
 
@@ -94,15 +95,16 @@ const levelEight = async (gameDiv, onWin) => {
             question.innerText = ""
 
             result.textContent = `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
-            ${attempts <= 2 ? `Please try again! 🔄 (${3 - attempts} attempts left) Good luck!` : ""}`
+            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left) Good luck!` : ""}`
 
         }
 
         if (attempts === 3) {
             showQuestionBtnEl.disabled = true
             if (playerWon === false) {
-                let gameLost = document.createElement('p').innerText = `You have lost the game.`
+                let gameLost = document.createElement('p').innerText = `You lost.`
                 result.append(gameLost)
+                onLose()
             }
         }
     }

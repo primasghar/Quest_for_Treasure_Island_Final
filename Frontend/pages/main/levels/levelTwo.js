@@ -17,7 +17,7 @@ let optionsArray = [{value: "", nodeText: "-- Player's choice --"},
     {value: "PAPER", nodeText: "PAPER"},
     {value: "SCISSORS", nodeText: "SCISSORS"}];
 
-const runGame = (onWin) => {
+const runGame = (onWin, onLose) => {
     const options_list = ["ROCK", "PAPER", "SCISSORS"]
     const choiceNumber = Math.floor(Math.random() * 3);
 
@@ -49,7 +49,7 @@ const runGame = (onWin) => {
             playerWon = "No"
 
             if (attempts < 3) {
-                result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r You lose! 😢. ${attempts <= 2 ? " Please try again!" : ""}`
+                result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r You lose! 😢. ${attempts <= 2 ? `Try again! 🔄  ${3 - attempts} left`  : ""}`
             }
 
         } else if (computerChoice === playerChoice) {
@@ -57,7 +57,7 @@ const runGame = (onWin) => {
             playerWon = "Draw"
 
             if (attempts < 3) {
-                result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r It's a draw! 🤝. ${attempts <= 2 ? " Please try again!" : ""}`
+                result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r It's a draw! 🤝. ${attempts <= 2 ? `Try again! 🔄  ${3 - attempts} left` : ""}`
             }
 
         }
@@ -68,12 +68,15 @@ const runGame = (onWin) => {
     if (attempts === 3 && (playerWon === "No" || playerWon === "Draw")) {
         selectEl.disabled = true;
         buttonEl.disabled = true;
-        result.textContent = `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r You lose! 😢 GAME OVER!`
+        result.textContent = `Your choose: ${playerChoice}. Computer's choose: ${computerChoice}. \rSorry! You lost.😢 No attempts left!.`
+        onLose()
     }
 
 }
 
-const levelTwo = (gameDiv, onWin) => {
+// --------------------------------Main Function------------------------
+
+const levelTwo = (gameDiv, onWin, onLose) => {
     gameTitle("ROCK, PAPER, SCISSORS")
     gameDescription("Select ROCK, PAPER, or SCISSORS.")
 
@@ -82,7 +85,7 @@ const levelTwo = (gameDiv, onWin) => {
 
     buttonEl = createButtonElement("playBtn", "Play")
     buttonEl.addEventListener("click", ()=> {
-        runGame(onWin) });
+        runGame(onWin, onLose) });
     gameDiv.appendChild(buttonEl)
 }
 

@@ -8,14 +8,12 @@ import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 import winnerPage from "./levels/winnerPage.js";
 
-import {deletePlayerData, gameTitle, updatePlayerProgress} from "../../utils/functions.js"
+import {deletePlayerData, updatePlayerProgress} from "../../utils/functions.js"
 
 const nextGameBtn = document.querySelector(".playNext");
 nextGameBtn.disabled = true
-
 const playAgainBtn = document.querySelector(".playAgain");
 playAgainBtn.disabled = true
-
 const quitBtn = document.querySelector(".quit");
 
 const title = document.querySelector(".gameNameHeading");
@@ -24,15 +22,14 @@ const resultArea = document.querySelector('.showResult')
 
 let player = JSON.parse(localStorage.getItem('playerDetails'));
 console.log("player", player)
-// if (!player) { /* redirect to start screen, etc. */
-// }
+
 
 let playerName = player['name']
 let playerGameLevel = player['level']
 let playerCarbonFootPrints = player['carbonPrint']
 let playerScore = player['score']
 let playerId = player['playerId']
-let playerProgressId = player['progressId']
+// let playerProgressId = player['progressId']
 
 let sbId = document.querySelector('.id')
 let sbName = document.querySelector('.name')
@@ -73,30 +70,38 @@ const changeLevel = (levelToShow) => {
         player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
     }
 
+    const onLose = () => {
+        player = JSON.parse(localStorage.getItem('playerDetails'));
+        if (player.score >= 500) {
+            playAgainBtn.disabled = false
+        }
+
+    }
+
     switch (levelToShow) {
         case 1:
-            levelOne(gameDiv, onWin);
+            levelOne(gameDiv, onWin, onLose);
             break;
         case 2:
-            levelTwo(gameDiv, onWin);
+            levelTwo(gameDiv, onWin, onLose);
             break;
         case 3:
-            levelThree(gameDiv, onWin);
+            levelThree(gameDiv, onWin, onLose);
             break;
         case 4:
-            levelFour(gameDiv, onWin);
+            levelFour(gameDiv, onWin, onLose);
             break;
         case 5:
-            levelFive(gameDiv, onWin);
+            levelFive(gameDiv, onWin, onLose);
             break;
         case 6:
-            levelSix(gameDiv, onWin);
+            levelSix(gameDiv, onWin, onLose);
             break;
         case 7:
-            levelSeven(gameDiv, onWin);
+            levelSeven(gameDiv, onWin, onLose);
             break;
         case 8:
-            levelEight(gameDiv, onWin);
+            levelEight(gameDiv, onWin, onLose);
             break;
         default:
             console.log(`Game over`);
@@ -111,14 +116,23 @@ nextGameBtn.addEventListener("click", () => {
     location.reload();
     player = JSON.parse(localStorage.getItem('playerDetails'));
     changeLevel(player.level);
-    console.log("next level btn", player.level)
+
     sbLevel.innerText = player.level;
     sbScore.innerText = player.score;
 })
 
 quitBtn.addEventListener("click", () => {
-    console.log("quit")
     deletePlayerData()
     localStorage.removeItem('playerDetails');
     window.location.href = '../playerName/index.html';
+})
+
+playAgainBtn.addEventListener("click", () => {
+    player = JSON.parse(localStorage.getItem('playerDetails'));
+    player.score -= 500;
+
+    localStorage.setItem("playerDetails", JSON.stringify(player));
+    updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
+
+    location.reload();
 })

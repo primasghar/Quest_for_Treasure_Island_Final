@@ -20,7 +20,7 @@ let playerWon = false
 let result = document.querySelector('.result')
 let trialCount = document.querySelector('.trials')
 
-const handleSubmitSequence = (onWin) => {
+const handleSubmitSequence = (onWin, onLose) => {
     console.log("handle submit", sequenceInputEl.value, seq)
     submitSeqBtnEl.disabled = true;
     sequenceInputEl.disabled = true;
@@ -37,7 +37,7 @@ const handleSubmitSequence = (onWin) => {
         trialCount.innerText = attempts
 
         if (attempts <= 2) {
-            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Please try again! 🔄. Press "Sequence" button to see the new sequence. Good luck!`
+            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Try again! 🔄 (${3 - attempts} left). Press "Sequence" button to see the new sequence. Good luck!`
             showSeqBtnEl.disabled = false
             sequenceInputEl.value = ""
         } else {
@@ -51,15 +51,17 @@ const handleSubmitSequence = (onWin) => {
     if (attempts === 3) {
         showSeqBtnEl.disabled = true
         if (playerWon === false) {
-            let gameLost = document.createElement('p').innerText = `Game Over!.`
+            let gameLost = document.createElement('p').innerText = `You Lost.`
             result.append(gameLost)
+            onLose()
         }
 
     }
 }
 
+// --------------------------------Main Function------------------------
 
-const levelSix = (gameDiv, onWin) => {
+const levelSix = (gameDiv, onWin, onLose) => {
     gameTitle("SEQUENCE MEMORY")
     gameDescription("A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
 
@@ -85,7 +87,7 @@ const levelSix = (gameDiv, onWin) => {
             gameDiv.appendChild(sequenceInputEl)
 
             submitSeqBtnEl = createButtonElement("submitBtn", "Submit")
-            submitSeqBtnEl.addEventListener("click", ()=>handleSubmitSequence(onWin) )
+            submitSeqBtnEl.addEventListener("click", ()=>handleSubmitSequence(onWin, onLose) )
             gameDiv.appendChild(submitSeqBtnEl)
 
 
