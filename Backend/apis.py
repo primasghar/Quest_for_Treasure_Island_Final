@@ -1,7 +1,9 @@
 from http.client import responses
 
-from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query,update_progress_query, fetch_riddle_query, \
-    fetch_quiz_questions_query, fetch_game_airports_query, delete_player_and_progress_query
+from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, \
+    update_progress_query, fetch_riddle_query, \
+    fetch_quiz_questions_query, fetch_game_airports_query, delete_player_and_progress_query, fetch_airport_info_query, \
+    fetch_airport_country_query
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 import json
@@ -45,6 +47,7 @@ def player(text):
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
 
+
 @app.route('/progress/player_id')
 def progress(player_id):
     try:
@@ -78,7 +81,7 @@ def update_progress():
     if not data:
         return jsonify({"error": "Request body must be valid JSON"}), 400
 
-    missing = [f for f in ("level", "score", "carbon_fp", "player_id" ) if f not in data]
+    missing = [f for f in ("level", "score", "carbon_fp", "player_id") if f not in data]
     print("missing", missing)
     if missing:
         return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
@@ -118,8 +121,28 @@ def airports_icao():
     game_airports = fetch_game_airports_query()
     print(game_airports)
     response = game_airports
-
     return response
+
+
+@app.route('/airportDetail/<icao>')
+def airports_details(icao):
+    airport_info = fetch_airport_info_query(icao)
+    print(airport_info)
+
+    airport_country = fetch_airport_country_query(airport_info[0])
+    print(airport_info)
+    # [iso_country, ident, name(airport), latitude_deg, longitude_deg, name(country)]
+
+    response = {
+        "airportName": airport_info[2],
+        "country": airport_country[0],
+        "lat": airport_info[3],
+        "lon": airport_info[4],
+        "isoCountry": airport_info[0],
+        "icao": airport_info[1],
+    }
+    return response
+
 
 @app.route('/quit')
 def remove_player():
