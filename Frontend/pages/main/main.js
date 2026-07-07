@@ -10,6 +10,69 @@ import winnerPage from "./levels/winnerPage.js";
 
 import {deletePlayerData, updatePlayerProgress} from "../../utils/functions.js"
 
+//Initializing MAP
+
+const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
+    const start = trailPoints[trailPoints.length - 1]; // last known point
+    const end = [lat, lng];
+    const startTime = performance.now();
+
+    // Move map + marker at the same time
+    map.flyTo(end, zoom, { duration: duration / 1000 });
+
+    function animateStep(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1); // 0 → 1
+
+        // Linear interpolation between start and end
+        const lat = start[0] + (end[0] - start[0]) * progress;
+        const lng = start[1] + (end[1] - start[1]) * progress;
+
+        // Update marker position along the path
+        marker.setLatLng([lat, lng]);
+
+        // Redraw trail with the in-progress point appended
+        trailLine.setLatLngs([...trailPoints, [lat, lng]]);
+
+        if (progress < 1) {
+            requestAnimationFrame(animateStep);
+        } else {
+            // Finalize — lock in the real endpoint
+            trailPoints.push(end);
+            trailLine.setLatLngs(trailPoints);
+            if (label) marker.bindPopup(label).openPopup();
+        }
+    }
+
+    requestAnimationFrame(animateStep);
+}
+
+const map = L.map('map', {
+    center: [60.3184, 24.9633],
+     zoom: 7,
+});
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+const marker = L.marker([60.3184, 24.9633]).addTo(map);
+let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
+let trailLine = L.polyline(trailPoints, { color: 'blue', weight: 3, dashArray: '10, 10' }).addTo(map);
+
+
+L.circle([60.3184, 24.9633], { radius: 500 }).addTo(map);
+
+// Testing map
+
+goToLocation(60.3184,24.9633,  7, "Helsinki Airport")
+
+setTimeout(()=>{
+    goToLocation(59.409831694 ,24.792830162, 7,"Tallin Airport")
+}, 2000)
+
+
+
 const nextGameBtn = document.querySelector(".playNext");
 nextGameBtn.disabled = true
 const playAgainBtn = document.querySelector(".playAgain");

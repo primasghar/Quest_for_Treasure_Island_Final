@@ -64,13 +64,21 @@ h1 {
     text-align: center;
 }
 
-.map, .scoreBoard {
+.scoreBoard {
     font-family: inherit;
     background-color: var(--dark-teal);
     height: 40%;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
+}
+
+#map {
+    font-family: inherit;
+    background-color: var(--dark-teal);
+    height: 292px;
+    width: 500px;
+    border-radius: 1rem;
 }
 
 .scoreBoard {
