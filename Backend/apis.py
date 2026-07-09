@@ -130,7 +130,7 @@ def airports_details(icao):
     print(airport_info)
 
     airport_country = fetch_airport_country_query(airport_info[0])
-    print(airport_info)
+
     # [iso_country, ident, name(airport), latitude_deg, longitude_deg, name(country)]
 
     response = {
