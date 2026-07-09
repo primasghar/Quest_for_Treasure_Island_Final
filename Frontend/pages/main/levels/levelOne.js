@@ -81,7 +81,7 @@ const handleFlipCoin = (onWin, onLose) => {
 
         coin.classList.remove('flipping');
         isFlipping = false;
-    }, 2000);
+    }, 3000);
 
 };
 
