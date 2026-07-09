@@ -8,77 +8,15 @@ import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 import winnerPage from "./levels/winnerPage.js";
 
-import {airportData, allICAOCodes, deletePlayerData, updatePlayerProgress} from "../../utils/functions.js"
+import {
+    deletePlayerData,
+    updatePlayerBoardUI,
+    updatePlayerProgress, nextAirportOnMap, showMap, gameTitle, clearGameAreas
+} from "../../utils/functions.js"
 
 //-------------------------------------------MAP---------------------------------------------
 
-const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
-    const start = trailPoints[trailPoints.length - 1]; // last known point
-    const end = [lat, lng];
-    const startTime = performance.now();
-
-    // Move map + marker at the same time
-    map.flyTo(end, zoom, { duration: duration / 1000 });
-
-    function animateStep(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1); // 0 → 1
-
-        // Linear interpolation between start and end
-        const lat = start[0] + (end[0] - start[0]) * progress;
-        const lng = start[1] + (end[1] - start[1]) * progress;
-
-        // Update marker position along the path
-        marker.setLatLng([lat, lng]);
-
-        // Redraw trail with the in-progress point appended
-        trailLine.setLatLngs([...trailPoints, [lat, lng]]);
-
-        if (progress < 1) {
-            requestAnimationFrame(animateStep);
-        } else {
-            // Finalize — lock in the real endpoint
-            trailPoints.push(end);
-            trailLine.setLatLngs(trailPoints);
-            if (label) marker.bindPopup(label).openPopup();
-        }
-    }
-
-    requestAnimationFrame(animateStep);
-}
-
-const map = L.map('map', {
-    center: [60.3184, 24.9633],
-     zoom: 7,
-});
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-L.circle([60.3184, 24.9633], { radius: 500 }).addTo(map);
-const marker = L.marker([60.3184, 24.9633]).addTo(map);
-let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
-let trailLine = L.polyline(trailPoints, { color: 'blue', weight: 3, dashArray: '10, 10' }).addTo(map);
-
-
-
-// Testing map
-
-// goToLocation(60.3184,24.9633,  7, "Helsinki Airport")
-//
-// setTimeout(()=>{
-//     goToLocation(59.409831694 ,24.792830162, 7,"Tallin Airport")
-// }, 2000)
-// -----------------------------Fetching all ICAO CODES included in this game----------------------------------------------------
-
-let allGameAirportICAO = await allICAOCodes()
-console.log('Type:', typeof allGameAirportICAO);
-console.log('Is array:', Array.isArray(allGameAirportICAO));
-console.log('First item:', allGameAirportICAO?.[0]);
-//{airport_name:"Helsinki Vantaa Airport", country:"Finland",icao:"EFHK", iso_country:"FI",lat:60.3172,lon:24.963301}
-
-let hslData = airportData(allGameAirportICAO[0][1])
-console.log(hslData)
-
+showMap()
 
 //----------------------Accessing button and other elements------------------------------------
 
@@ -95,39 +33,20 @@ const resultArea = document.querySelector('.showResult')
 // ---------------Fetching player data from LOCAL STORAGE and Displaying in UI------------------
 
 let player = JSON.parse(localStorage.getItem('playerDetails'));
-console.log("player", player)
-
-let playerName = player['name']
-let playerGameLevel = player['level']
-let playerCarbonFootPrints = player['carbonPrint']
-let playerScore = player['score']
-let playerId = player['playerId']
-// let playerProgressId = player['progressId']
-
-let sbId = document.querySelector('.id')
-let sbName = document.querySelector('.name')
-let sbLevel = document.querySelector('.level')
-let sbCarbon = document.querySelector('.carbon')
-let sbScore = document.querySelector('.score')
-
-sbId.innerText = playerId
-sbName.innerText = playerName;
-sbLevel.innerText = playerGameLevel;
-sbCarbon.innerText = playerCarbonFootPrints;
-sbScore.innerText = playerScore;
+updatePlayerBoardUI(player)
 
 // ----------------------------Game-----------------------------------------------------------
 
 const changeLevel = (levelToShow) => {
 
-    const onWin = () => {
-        player = JSON.parse(localStorage.getItem('playerDetails'));
+    const onWin = async () => {
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
         console.log(player)
 
         if (player.level === 8) {
-            gameDiv.innerHTML = ""
-            resultArea.innerHTML = ""
-            title.innerText = "WINNER"
+            clearGameAreas()
+
+            gameTitle("WINNER")
             winnerPage(gameDiv, resultArea, player.name)
         }
 
@@ -139,13 +58,13 @@ const changeLevel = (levelToShow) => {
         player.carbonPrint += 100;
 
         localStorage.setItem("playerDetails", JSON.stringify(player));
-        updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
+        await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
 
         player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
     }
 
     const onLose = () => {
-        player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
         if (player.score >= 500) {
             playAgainBtn.disabled = false
         }
@@ -183,35 +102,34 @@ const changeLevel = (levelToShow) => {
 
 }
 
-changeLevel(playerGameLevel);
+changeLevel(player.level);
 
-nextGameBtn.addEventListener("click", () => {
-    let airportICAO;
-    location.reload();
-    player = JSON.parse(localStorage.getItem('playerDetails'));
+// ---------------------Buttons and Event Listeners------------------------------------------
+
+nextGameBtn.addEventListener("click", async () => {
+    clearGameAreas()
+
+    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    updatePlayerBoardUI(player)
+
     changeLevel(player.level);
 
-    sbLevel.innerText = player.level;
-    sbScore.innerText = player.score;
-
-    airportICAO = allGameAirportICAO[player.level][1]
+    await nextAirportOnMap()
 })
 
 
-// ---------------------Adding Event Listener to Buttons------------------------------------------
-
-quitBtn.addEventListener("click", () => {
-    deletePlayerData()
+quitBtn.addEventListener("click", async () => {
+    await deletePlayerData()
     localStorage.removeItem('playerDetails');
     window.location.href = '../playerName/index.html';
 })
 
-playAgainBtn.addEventListener("click", () => {
-    player = JSON.parse(localStorage.getItem('playerDetails'));
+playAgainBtn.addEventListener("click", async () => {
+    let player = JSON.parse(localStorage.getItem('playerDetails'));
     player.score -= 500;
 
     localStorage.setItem("playerDetails", JSON.stringify(player));
-    updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
+    await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
 
     location.reload();
 })
