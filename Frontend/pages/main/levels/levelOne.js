@@ -41,6 +41,9 @@ const addCoin = (gameDiv) => {
 }
 
 const handleFlipCoin = (onWin, onLose) => {
+    flipButtonEl.disabled = true;
+    selectEl.disabled = true;
+
     const chosenOption = selectEl.value;
 
     if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
@@ -57,24 +60,19 @@ const handleFlipCoin = (onWin, onLose) => {
     let isHeads = Math.random() < 0.5;
 
     setTimeout(function () {
+
         resultText = isHeads ? 'HEADS' : 'TAILS';
         coin.style.transform = isHeads ? 'rotateY(0deg)' : 'rotateY(180deg)';
 
         if (chosenOption === resultText) {
-
             showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}.`)
-            selectEl.disabled = true;
-            flipButtonEl.disabled = true;
             onWin();
-
         } else if (attempts >= 3) {
             showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!` )
-
-            selectEl.disabled = true;
-            flipButtonEl.disabled = true;
             onLose()
-
         } else {
+            flipButtonEl.disabled = false;
+            selectEl.disabled = false;
             showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You lose. (${3 - attempts} attempts left) Good luck!`)
         }
 
