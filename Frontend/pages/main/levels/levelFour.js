@@ -53,23 +53,23 @@ const levelFour = (gameDiv, onWin, onLose) => {
                 if (playerTarget === "EVEN" && sumOfNos % 2 === 0) {
                     attempts = 3
                     playerWon = true
-                    showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number. Congratulations! You won.` )
+                    showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.` )
                     onWin()
                 } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
                     attempts = 3
                     playerWon = true
-                    showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congratulations! You won.` )
+                    showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number.` )
                     onWin()
                 } else {
                     attempts += 1;
                     showResultCard("try", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
-            ${attempts <= 2 ? `Try again!(${3 - attempts} left)` : ""}` )
+            ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}` )
                 }
 
                 if (attempts === 3) {
                     playButton.disabled = true
                     if (playerWon === false) {
-                        showResultCard("lose", `You lost. No attempts left!`)
+                        showResultCard("lose", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number. No attempts left!`)
                         onLose()
                     }
 

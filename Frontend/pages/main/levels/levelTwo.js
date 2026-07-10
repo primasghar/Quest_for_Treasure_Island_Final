@@ -41,7 +41,7 @@ const playGame = (onWin, onLose) => {
             selectEl.disabled = true;
             buttonEl.disabled = true;
 
-            showResultCard("win", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. Congrads! You win!.`)
+            showResultCard("win", `You choose: ${playerChoice}. Computer choose: ${computerChoice}`)
             onWin()
 
         } else if (computerChoice === "ROCK" && playerChoice === "SCISSORS" ||
@@ -51,7 +51,7 @@ const playGame = (onWin, onLose) => {
             playerWon = "No"
 
             if (attempts < 3) {
-                showResultCard("try", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r You lose! 😢. ${attempts <= 2 ? `Try again! ${3 - attempts} left` : ""}`)
+                showResultCard("try", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
             }
 
         } else if (computerChoice === playerChoice) {
@@ -59,7 +59,7 @@ const playGame = (onWin, onLose) => {
             playerWon = "Draw"
 
             if (attempts < 3) {
-                showResultCard("draw", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. \r It's a draw! 🤝. ${attempts <= 2 ? `Try again! 🔄  ${3 - attempts} left` : ""}`)
+                showResultCard("draw", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. ${attempts <= 2 ? `${3 - attempts} attempts left` : ""}`)
             }
 
         }
@@ -70,7 +70,7 @@ const playGame = (onWin, onLose) => {
     if (attempts === 3 && (playerWon === "No" || playerWon === "Draw")) {
         selectEl.disabled = true;
         buttonEl.disabled = true;
-        showResultCard("lose", `Your choose: ${playerChoice}. Computer's choose: ${computerChoice}. \rSorry! You lost.😢 No attempts left!.`)
+        showResultCard("lose", `Your choose: ${playerChoice}. Computer's choose: ${computerChoice}. No attempts left!.`)
         onLose()
     }
 }

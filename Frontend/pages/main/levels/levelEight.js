@@ -79,7 +79,7 @@ const levelEight = async (gameDiv, onWin, onLose) => {
         playerAnsInputEl.disabled = true;
 
         if (playerAnswer === correctAnswer) {
-            showResultCard("win", `${playerAnswer} is the correct answer. Congratulations! You won!`)
+            showResultCard("win", `${playerAnswer} is the correct answer.`)
             attempts = 3
             playerWon = true
             onWin()
@@ -90,14 +90,14 @@ const levelEight = async (gameDiv, onWin, onLose) => {
             question.innerText = ""
 
             showResultCard("try", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
-            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left) Good luck!` : ""}`)
+            ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
 
         }
 
         if (attempts === 3) {
             showQuestionBtnEl.disabled = true
             if (playerWon === false) {
-                showResultCard("lose", `You lost.`)
+                showResultCard("lose", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. No attempts left.`)
                 onLose()
             }
         }

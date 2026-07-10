@@ -28,7 +28,7 @@ const handleSubmitSequence = (onWin, onLose) => {
         attempts = 3
         playerWon = true
         showSeqBtnEl.disabled = true
-        showResultCard("win", `Your sequence ${playerGuess} matched ${seq}. Congratulations! You won!`)
+        showResultCard("win", `Your sequence ${playerGuess} matched ${seq}.`)
         onWin()
     } else {
         attempts += 1;
@@ -36,12 +36,12 @@ const handleSubmitSequence = (onWin, onLose) => {
         if (attempts <= 2) {
             showSeqBtnEl.disabled = false
             sequenceInputEl.value = ""
-            showResultCard("try", `Your sequence ${playerGuess} does not match ${seq}. Try again!(${3 - attempts} left).`)
+            showResultCard("try", `Your sequence ${playerGuess} does not match ${seq}.(${3 - attempts} attempts left) Good luck!`)
         } else {
             showSeqBtnEl.disabled = true
             sequenceInputEl.value = ""
             onLose()
-            showResultCard("lose", `Your sequence ${playerGuess} does not match ${seq}. You Lost. No attempts left.`)
+            showResultCard("lose", `Your sequence ${playerGuess} does not match ${seq}. No attempts left.`)
         }
 
     }

@@ -42,8 +42,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
 
         setTimeout(() => {
             if (+playerSelectedNo === computerSelectedNo) {
-                showResultCard("win", `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}. 
-                Congratulations! You won!` )
+                showResultCard("win", `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}.` )
                 attempts = 3
                 playerWon = true
                 onWin()
@@ -51,7 +50,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
                 attempts += 1;
                 selectNoBtnEl.disabled = false
                 showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
-            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`)
+            ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
                 setTimeout(() => {
                     attempts < 3 ? computerChoiceElement.remove() : ""
                 }, 2000)
@@ -60,7 +59,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
             if (attempts === 3) {
                 selectNoBtnEl.disabled = true
                 if (playerWon === false) {
-                    showResultCard("lose", `You lost. No attempts left`)
+                    showResultCard("lose", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}. No attempts left`)
                     onLose()
                 }
 

@@ -62,20 +62,20 @@ const handleFlipCoin = (onWin, onLose) => {
 
         if (chosenOption === resultText) {
 
-            showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You won!`)
+            showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}.`)
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
             onWin();
 
         } else if (attempts >= 3) {
-            showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. Sorry! You lost. No attempts left!` )
+            showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!` )
 
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
             onLose()
 
         } else {
-            showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. Please try again! (${3 - attempts} left)`)
+            showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You lose. (${3 - attempts} attempts left) Good luck!`)
         }
 
         coin.classList.remove('flipping');

@@ -76,20 +76,20 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
         if (playerAnswer === correctAnswer) {
             attempts = 3
             playerWon = true
-            showResultCard("win", `"${playerAnswer}" is a correct answer. Congratulations! You won!`)
+            showResultCard("win", `"${playerAnswer}" is a correct answer.`)
             onWin()
         } else {
             attempts += 1;
             showRiddleBtnEl.disabled = false
             playerAnsInputEl.value = ""
             riddle.innerText = ""
-            showResultCard("try",`${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`)
+            showResultCard("try",`${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
         }
 
         if (attempts === 3) {
             showRiddleBtnEl.disabled = true
             if (playerWon === false) {
-                showResultCard("lose", "You lost!")
+                showResultCard("lose", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. No attempts left.`)
                 onLose()
             }
         }

@@ -88,11 +88,10 @@ export const showResultCard = (status, message) => {
     }
 
     const config = {
-        win:  { icon: "🎉", label: "You win",  bg: "#e8f5e9", border: "#2e7d32", text: "#1b5e20" },
-        lose: { icon: "😢", label: "You lose", bg: "#fdecea", border: "#c62828", text: "#b71c1c" },
-        draw: { icon: "🤝", label: "It's a draw", bg: "#fff8e1", border: "#f9a825", text: "#8d6e00" },
-        try:  { icon: "🔄", label: "Try again",   bg: "#fff8e1", border: "#f9a825", text: "#8d6e00" },
-        // try: { icon: "🔄", label: "Try Again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101" },
+        win:  { icon: "🎉", label: "Congratulations! You win!",  bg: "#e8f5e9", border: "#2e7d32", text: "#1b5e20" },
+        lose: { icon: "😢", label: "Sorry! You lose!", bg: "#fdecea", border: "#c62828", text: "#b71c1c" },
+        draw: { icon: "🤝", label: "Oops! It's a draw", bg: "#fff8e1", border: "#f9a825", text: "#8d6e00" },
+        try: { icon: "🔄", label: "Please try again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101" }
     };
 
     const { icon, label, bg, border, text } = config[status] || config.lose;

@@ -53,17 +53,17 @@ const levelThree = (gameDiv, onWin, onLose) => {
             if (sum === 12) {
 
                 rollBtnEl.disabled = true;
-                showResultCard("win", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Congrats! You win.`)
+                showResultCard("win", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`)
                 onWin()
             } else if (attempts >= 3) {
-                showResultCard("lose", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Sorry! You lost. No attempts left!`)
+                showResultCard("lose", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. No attempts left!`)
                 rollBtnEl.disabled = true;
 
                 let player = JSON.parse(localStorage.getItem('playerDetails'));
                 if (player.score === 0) rollBtnEl.disabled = true
                 onLose()
             } else {
-                showResultCard("try", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Try again! (${3 - attempts} left)`)
+                showResultCard("try", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.(${3 - attempts} attempts left) Good luck!`)
             }
         }, 1000);
     }
