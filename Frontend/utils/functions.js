@@ -238,9 +238,13 @@ export const calcCarbonEmission = async (prevLevel, nextLevel) => {
     return 150 * distanceBtwAirports;
 }
 
+let map;
+let marker;
+let trailPoints = [[60.3184, 24.9633]];
+let trailLine;
 
 export const showMap = () => {
-    const map = L.map('map', {
+     map = L.map('map', {
         center: [60.3184, 24.9633],
         zoom: 7,
     });
@@ -249,15 +253,12 @@ export const showMap = () => {
     }).addTo(map);
     L.circle([60.3184, 24.9633], {radius: 500}).addTo(map);
 
-    const marker = L.marker([60.3184, 24.9633]).addTo(map);
-    let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
-    let trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
+   marker = L.marker([60.3184, 24.9633]).addTo(map);
+   trailPoints = [[60.3184, 24.9633]]; // starts with initial location
+    trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
 }
-export const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
-    const marker = L.marker([60.3184, 24.9633]).addTo(map);
-    let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
-    let trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
 
+export const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
     const start = trailPoints[trailPoints.length - 1]; // last known point
     const end = [lat, lng];
     const startTime = performance.now();
@@ -294,11 +295,9 @@ export const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) =>
     requestAnimationFrame(animateStep);
 }
 
-export const nextAirportOnMap = async () => {
-    let player = JSON.parse(localStorage.getItem('playerDetails'));
-
+export const nextAirportOnMap = async (level) => {
     let allGameAirportICAO = await allICAOCodes();
-    let nextAirportICAO = allGameAirportICAO[player.level][1]
+    let nextAirportICAO = allGameAirportICAO[level][1]
     console.log("next-icao", nextAirportICAO)
 
     let nextAirportData = await airportData(nextAirportICAO)

@@ -26,7 +26,6 @@ const playAgainBtn = document.querySelector(".playAgain");
 playAgainBtn.disabled = true
 const quitBtn = document.querySelector(".quit");
 
-const title = document.querySelector(".gameNameHeading");
 const gameDiv = document.querySelector('.gameArea')
 const resultArea = document.querySelector('.showResult')
 
@@ -110,13 +109,14 @@ nextGameBtn.addEventListener("click", async () => {
     clearGameAreas()
 
     let player = JSON.parse(localStorage.getItem('playerDetails'));
+    const {level} = player
     updatePlayerBoardUI(player)
 
-    changeLevel(player.level);
+    changeLevel(level);
 
     nextGameBtn.disabled = true
 
-    await nextAirportOnMap()
+    await nextAirportOnMap(level)
 })
 
 
