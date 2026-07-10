@@ -3,7 +3,7 @@ import {
     gameDescription,
     createInputElement,
     createButtonElement,
-    generateRandomSequence
+    generateRandomSequence, showResultCard
 } from '../../../utils/functions.js'
 
 
@@ -17,9 +17,6 @@ let submitSeqBtnEl;
 let attempts = 0
 let playerWon = false
 
-let result = document.querySelector('.result')
-let trialCount = document.querySelector('.trials')
-
 const handleSubmitSequence = (onWin, onLose) => {
     console.log("handle submit", sequenceInputEl.value, seq)
     submitSeqBtnEl.disabled = true;
@@ -28,32 +25,23 @@ const handleSubmitSequence = (onWin, onLose) => {
     const playerGuess = sequenceInputEl.value.trim().toUpperCase();
 
     if (playerGuess === seq) {
-        result.textContent = `Your sequence ${playerGuess} matched ${seq}. Congratulations! You won! 🎉🏆`;
         attempts = 3
         playerWon = true
+        showSeqBtnEl.disabled = true
+        showResultCard("win", `Your sequence ${playerGuess} matched ${seq}. Congratulations! You won!`)
         onWin()
     } else {
         attempts += 1;
-        trialCount.innerText = attempts
 
         if (attempts <= 2) {
-            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. Try again! 🔄 (${3 - attempts} left). Press "Sequence" button to see the new sequence. Good luck!`
             showSeqBtnEl.disabled = false
             sequenceInputEl.value = ""
+            showResultCard("try", `Your sequence ${playerGuess} does not match ${seq}. Try again!(${3 - attempts} left).`)
         } else {
             showSeqBtnEl.disabled = true
             sequenceInputEl.value = ""
-            result.textContent = `Your sequence ${playerGuess} does not match ${seq}. `
-        }
-
-    }
-
-    if (attempts === 3) {
-        showSeqBtnEl.disabled = true
-        if (playerWon === false) {
-            let gameLost = document.createElement('p').innerText = `You Lost.`
-            result.append(gameLost)
             onLose()
+            showResultCard("lose", `Your sequence ${playerGuess} does not match ${seq}. You Lost. No attempts left.`)
         }
 
     }
@@ -87,7 +75,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
             gameDiv.appendChild(sequenceInputEl)
 
             submitSeqBtnEl = createButtonElement("submitBtn", "Submit")
-            submitSeqBtnEl.addEventListener("click", ()=>handleSubmitSequence(onWin, onLose) )
+            submitSeqBtnEl.addEventListener("click", () => handleSubmitSequence(onWin, onLose))
             gameDiv.appendChild(submitSeqBtnEl)
 
 

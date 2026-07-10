@@ -80,6 +80,36 @@ export const createInputElement = (placeholder) => {
 }
 
 //--------------------------------------------------------------
+export const showResultCard = (status, message) => {
+    const resultArea = document.querySelector('.showResult');
+    if (!resultArea) {
+        console.error("showResult element not found");
+        return;
+    }
+
+    const config = {
+        win:  { icon: "🎉", label: "You win",  bg: "#e8f5e9", border: "#2e7d32", text: "#1b5e20" },
+        lose: { icon: "😢", label: "You lose", bg: "#fdecea", border: "#c62828", text: "#b71c1c" },
+        draw: { icon: "🤝", label: "It's a draw", bg: "#fff8e1", border: "#f9a825", text: "#8d6e00" },
+        try:  { icon: "🔄", label: "Try again",   bg: "#fff8e1", border: "#f9a825", text: "#8d6e00" },
+        // try: { icon: "🔄", label: "Try Again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101" },
+    };
+
+    const { icon, label, bg, border, text } = config[status] || config.lose;
+
+    resultArea.innerHTML = `
+        <div class="resultCard" style="border-left: 6px solid ${border}; background: ${bg}; color: ${text};">
+            <span class = "resultIcon">${icon}</span>
+            <div>
+                <strong class = "resultLabel">${label}</strong>
+                <p class="resultMsg">${message}</p>
+            </div>
+        </div>
+    `;
+};
+
+
+
 export const generateRandomSequence = () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let result = '';
@@ -219,18 +249,21 @@ export const showMap = () => {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
     L.circle([60.3184, 24.9633], {radius: 500}).addTo(map);
+
     const marker = L.marker([60.3184, 24.9633]).addTo(map);
     let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
     let trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
 }
 export const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
+    const marker = L.marker([60.3184, 24.9633]).addTo(map);
+    let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
+    let trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
+
     const start = trailPoints[trailPoints.length - 1]; // last known point
     const end = [lat, lng];
     const startTime = performance.now();
 
-    // const marker = L.marker([60.3184, 24.9633]).addTo(map);
-    // let trailPoints = [[60.3184, 24.9633]]; // starts with initial location
-    // let trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
+
 
     // Move map + marker at the same time
     map.flyTo(end, zoom, {duration: duration / 1000});

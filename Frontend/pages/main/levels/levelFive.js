@@ -2,15 +2,11 @@ import {
     gameTitle,
     gameDescription,
     createNumberSelect,
-    createButtonElement
+    createButtonElement, showResultCard
 } from '../../../utils/functions.js'
 
 let attempts = 0
 let playerWon = false
-
-let result = document.querySelector('.result')
-let trialCount = document.querySelector('.trials')
-
 
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -46,17 +42,16 @@ const levelFive = (gameDiv, onWin, onLose) => {
 
         setTimeout(() => {
             if (+playerSelectedNo === computerSelectedNo) {
-                result.textContent = `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}. 
-                Congratulations! You won! 🎉🏆 `;
+                showResultCard("win", `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}. 
+                Congratulations! You won!` )
                 attempts = 3
                 playerWon = true
                 onWin()
             } else {
                 attempts += 1;
-                trialCount.innerText = attempts
                 selectNoBtnEl.disabled = false
-                result.textContent = `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
-            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`
+                showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
+            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`)
                 setTimeout(() => {
                     attempts < 3 ? computerChoiceElement.remove() : ""
                 }, 2000)
@@ -65,8 +60,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
             if (attempts === 3) {
                 selectNoBtnEl.disabled = true
                 if (playerWon === false) {
-                    let gameLost = document.createElement('p').innerText = `You lost.😢`
-                    result.append(gameLost)
+                    showResultCard("lose", `You lost. No attempts left`)
                     onLose()
                 }
 

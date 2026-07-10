@@ -3,6 +3,7 @@ import {
     gameDescription,
     createSelectElement,
     createButtonElement,
+    showResultCard
 } from '../../../utils/functions.js'
 
 let selectEl;
@@ -16,14 +17,11 @@ let attempts = 0;
 
 let coinContainer;
 
-let result = document.querySelector('.result');
-let trialCount = document.querySelector('.trials');
-
 const optionsArray = [{value: "", nodeText: "-- Player's choice --"},
     {value: "HEADS", nodeText: "HEADS"},
     {value: "TAILS", nodeText: "TAILS"}];
 
-
+// Creates the coin
 const addCoin = (gameDiv) => {
 
     coinContainer = document.createElement('div');
@@ -54,29 +52,30 @@ const handleFlipCoin = (onWin, onLose) => {
 
     isFlipping = true;
     attempts += 1;
-    trialCount.textContent = attempts;
-    result.textContent = '';
     coin.classList.add('flipping');
 
     let isHeads = Math.random() < 0.5;
+
     setTimeout(function () {
         resultText = isHeads ? 'HEADS' : 'TAILS';
         coin.style.transform = isHeads ? 'rotateY(0deg)' : 'rotateY(180deg)';
 
         if (chosenOption === resultText) {
-            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. You won! 🎉🏆`;
+
+            showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You won!`)
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
             onWin();
 
         } else if (attempts >= 3) {
-            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. Sorry! You lost. No attempts left!`;
+            showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. Sorry! You lost. No attempts left!` )
+
             selectEl.disabled = true;
             flipButtonEl.disabled = true;
             onLose()
 
         } else {
-            result.textContent = `You chose: ${chosenOption}. Coin flipped: ${resultText}. Try again! 🔄 (${3 - attempts} left)`;
+            showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. Please try again! (${3 - attempts} left)`)
         }
 
         coin.classList.remove('flipping');

@@ -3,15 +3,11 @@ import {
     gameDescription,
     createSelectElement,
     createNumberSelect,
-    createButtonElement
+    createButtonElement, showResultCard
 } from '../../../utils/functions.js'
 
 let attempts = 0
 let playerWon = false
-
-let result = document.querySelector('.result')
-let trialCount = document.querySelector('.trials')
-
 
 let optionsArray1 = [{value: "", nodeText: "-- Select Even/Odd --"},
     {value: "EVEN", nodeText: "EVEN"},
@@ -55,27 +51,25 @@ const levelFour = (gameDiv, onWin, onLose) => {
 
 
                 if (playerTarget === "EVEN" && sumOfNos % 2 === 0) {
-                    result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.Congratulations! You won! 🎉🏆`;
                     attempts = 3
                     playerWon = true
+                    showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number. Congratulations! You won.` )
                     onWin()
                 } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
-                    result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congratulations! You won! 🎉🏆 `;
                     attempts = 3
                     playerWon = true
+                    showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number. Congratulations! You won.` )
                     onWin()
                 } else {
                     attempts += 1;
-                    result.textContent = `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
-            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left)` : ""}`
-                    trialCount.innerText = attempts
+                    showResultCard("try", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
+            ${attempts <= 2 ? `Try again!(${3 - attempts} left)` : ""}` )
                 }
 
                 if (attempts === 3) {
                     playButton.disabled = true
                     if (playerWon === false) {
-                        let gameLost = document.createElement('p').innerText = `You lost.😢  No attempts left!`
-                        result.append(gameLost)
+                        showResultCard("lose", `You lost. No attempts left!`)
                         onLose()
                     }
 

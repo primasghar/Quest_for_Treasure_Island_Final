@@ -1,21 +1,12 @@
-import {gameTitle, gameDescription, createButtonElement} from '../../../utils/functions.js'
+import {gameTitle, gameDescription, createButtonElement, showResultCard} from '../../../utils/functions.js'
 
 let attempts = 0;
-
-let result = document.querySelector('.result')
-let trialCount = document.querySelector('.trials')
 
 // --------------------------------Main Function------------------------
 
 const levelThree = (gameDiv, onWin, onLose) => {
     gameTitle("ROLL THE DICE")
     gameDescription("Roll the 3 dices three times by clicking the button to get the sum that equals target no: 12.")
-
-    // let diceImg = document.createElement('img');
-    // diceImg.src = "../../images/rolling-dices.png";
-    // diceImg.alt = "dice image"
-    // diceImg.className = "diceImage"
-    // gameTitle.appendChild(diceImg)
 
     let targetNo = document.createElement('p');
     targetNo.className = "targetValue"
@@ -58,22 +49,21 @@ const levelThree = (gameDiv, onWin, onLose) => {
 
             const sum = randomNumber1 + randomNumber2 + randomNumber3
             attempts += 1;
-            trialCount.innerText = attempts;
 
-             if (sum === 12) {
-                result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Congrats! You win!🎉🏆`;
+            if (sum === 12) {
+
                 rollBtnEl.disabled = true;
+                showResultCard("win", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Congrats! You win.`)
                 onWin()
             } else if (attempts >= 3) {
-                result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`;
+                showResultCard("lose", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Sorry! You lost. No attempts left!`)
                 rollBtnEl.disabled = true;
 
-                let gameLost = document.createElement('p');
-                gameLost.innerText = `Sorry! You lost.😢 No attempts left!`
-                result.append(gameLost);
+                let player = JSON.parse(localStorage.getItem('playerDetails'));
+                if (player.score === 0) rollBtnEl.disabled = true
                 onLose()
             } else {
-                result.innerHTML = `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Try again! 🔄 (${3 - attempts} left)`;
+                showResultCard("try", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. Try again! (${3 - attempts} left)`)
             }
         }, 1000);
     }

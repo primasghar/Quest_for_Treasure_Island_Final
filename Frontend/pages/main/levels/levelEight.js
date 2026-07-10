@@ -2,7 +2,7 @@ import {
     gameTitle,
     gameDescription,
     createButtonElement,
-    createInputElement
+    createInputElement, showResultCard
 } from '../../../utils/functions.js'
 
 let questionsArray;
@@ -12,9 +12,6 @@ let showQuestionBtnEl;
 
 let playerAnsInputEl;
 let submitBtnEl;
-
-let result = document.querySelector('.result')
-let trialCount = document.querySelector('.trials')
 
 let attempts = 0
 let playerWon = false
@@ -82,28 +79,25 @@ const levelEight = async (gameDiv, onWin, onLose) => {
         playerAnsInputEl.disabled = true;
 
         if (playerAnswer === correctAnswer) {
-            result.textContent = `${playerAnswer} is the correct answer. Congratulations! You won! 🎉🏆 `;
+            showResultCard("win", `${playerAnswer} is the correct answer. Congratulations! You won!`)
             attempts = 3
             playerWon = true
             onWin()
         } else {
             attempts += 1;
-            trialCount.innerText = attempts
-
             showQuestionBtnEl.disabled = false
             playerAnsInputEl.value = ""
             question.innerText = ""
 
-            result.textContent = `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
-            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left) Good luck!` : ""}`
+            showResultCard("try", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
+            ${attempts <= 2 ? `Try again! 🔄 (${3 - attempts} left) Good luck!` : ""}`)
 
         }
 
         if (attempts === 3) {
             showQuestionBtnEl.disabled = true
             if (playerWon === false) {
-                let gameLost = document.createElement('p').innerText = `You lost.`
-                result.append(gameLost)
+                showResultCard("lose", `You lost.`)
                 onLose()
             }
         }

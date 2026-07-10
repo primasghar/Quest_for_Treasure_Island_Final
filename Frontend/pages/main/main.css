@@ -245,7 +245,42 @@ option:focus {
     /*justify-self: center;*/
     cursor: pointer;
 }
+/*----------------------------------Result div ----------------------------------*/
+.showResult {
+    background-color: var(--white);
+    font-size: 1.5rem;
+    height: 7rem;
+    color: var(--dark-brown);
+    font-weight: bold;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+.resultCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    animation: slideIn 0.3s ease-out;
+}
 
+.resultIcon{
+    font-size: var(--font-size42);
+}
+
+.resultLabel{
+    display: block;
+    font-size: var(--font-size24);
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.resultMsg{
+    margin: 0;
+    font-size: var(--font-size20);
+    opacity: 0.85;"
+}
+/*---------------------------------buttons - Main and Game -------------------------------*/
 .playBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover, .questionBtn:hover,
 .playBtn:focus, .submitBtn:focus, .sequenceBtn:focus, .riddleBtn:focus, .questionBtn:focus {
     border: 2px solid #ffd700;
@@ -311,7 +346,8 @@ option:focus {
     box-shadow: none;
 }
 
-/*    Media Queries   */
+
+/*------------------------------------------Media Queries---------------------------------------   */
 
 @media screen and (min-width: 769px) {
     header {
@@ -418,20 +454,6 @@ option:focus {
     background: #b8860b;
     color: #4a4a4a;
     transform: rotateY(180deg);
-}
-
-.showResult {
-    background-color: var(--white);
-    font-size: 1.5rem;
-    height: 8rem;
-    color: var(--dark-brown);
-    font-weight: bold;
-    border-radius: 0.5rem;
-    padding: 1rem;
-}
-
-.resultHeading {
-    margin: 0;
 }
 
 /*Roll the dice*/
@@ -565,6 +587,6 @@ option:focus {
     text-align: center;
 }
 
-.winnerTitle{
+.winnerTitle {
     text-align: center;
 }

@@ -114,6 +114,8 @@ nextGameBtn.addEventListener("click", async () => {
 
     changeLevel(player.level);
 
+    nextGameBtn.disabled = true
+
     await nextAirportOnMap()
 })
 
