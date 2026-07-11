@@ -21,7 +21,21 @@ export const gameDescription = (describeGame) => {
     gameInfo.innerText = `You have three opportunities to win this game and go to your next airport destination.\r ${describeGame}`;
 }
 
-//------------Creating Elements Button, Select, Input--------
+//------------Creating Elements Div, Paragraph, Button, Select, Input--------
+
+export const createDivElement = (divClass) => {
+    const divElement = document.createElement("div")
+    divElement.className = divClass
+    return divElement;
+}
+
+
+export const createParagraphElement = (paraClass, paraText) => {
+    const paraElement = document.createElement("p")
+    paraElement.className = paraClass
+    paraElement.innerHTML = paraText
+    return paraElement;
+}
 
 export const createButtonElement = (buttonClass, buttonText) => {
     const buttonElement = document.createElement("button")
@@ -305,7 +319,7 @@ export const nextAirportOnMap = async (level) => {
 
     let nextLat = nextAirportData['lat']
     let nextLon = nextAirportData['lon']
-    let locationLabel = `${nextAirportData['airportName']},${nextAirportData['country']}`
+    let locationLabel = `${nextAirportData['airportName']}, ${nextAirportData['country']}`
 
     goToLocation(nextLat, nextLon, 7, locationLabel)
 }
