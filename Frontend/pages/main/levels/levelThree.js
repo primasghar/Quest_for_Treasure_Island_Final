@@ -1,20 +1,34 @@
-import {gameTitle, gameDescription, createButtonElement, showResultCard} from '../../../utils/functions.js'
+import {
+    gameTitle,
+    createButtonElement,
+    showResultCard,
+    createDivElement, createParagraphElement
+} from '../../../utils/functions.js'
+
+let levelThreeContainer;
+let describeGame3Para;
 
 let attempts = 0;
+
 
 // --------------------------------Main Function------------------------
 
 const levelThree = (gameDiv, onWin, onLose) => {
     gameTitle("ROLL THE DICE")
-    gameDescription("Roll the 3 dices three times by clicking the button to get the sum that equals target no: 12.")
+
+    levelThreeContainer = createDivElement("game3Container")
+    gameDiv.appendChild(levelThreeContainer)
+
+    describeGame3Para = createParagraphElement("game3Description", "Roll 3 dices by clicking the button. To win, their sum should be equal to target no: 12.")
+    levelThreeContainer.appendChild(describeGame3Para)
 
     let targetNo = document.createElement('p');
     targetNo.className = "targetValue"
     targetNo.innerText = `Target Number: 12`;
-    gameDiv.appendChild(targetNo)
+    levelThreeContainer.appendChild(targetNo)
 
-    let rollBtnEl = createButtonElement("playBtn", "Roll")
-    gameDiv.appendChild(rollBtnEl)
+    let rollBtnEl = createButtonElement("rollDiceBtn", "Roll")
+    levelThreeContainer.appendChild(rollBtnEl)
 
     const handleDiceRoll = () => {
 
@@ -27,7 +41,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
 
             let allDices = document.createElement('div')
             allDices.className = "dices"
-            gameDiv.appendChild(allDices)
+            levelThreeContainer.appendChild(allDices)
 
             let dice1 = document.createElement("img")
             dice1.className = "dice1"

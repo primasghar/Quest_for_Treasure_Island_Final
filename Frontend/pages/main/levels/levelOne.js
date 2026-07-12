@@ -1,11 +1,14 @@
 import {
     gameTitle,
     gameDescription,
+    createParagraphElement,
     createSelectElement,
     createButtonElement,
-    showResultCard
+    showResultCard, createDivElement
 } from '../../../utils/functions.js'
 
+let levelOneContainer;
+let describeGamePara;
 let selectEl;
 let flipButtonEl;
 
@@ -22,18 +25,21 @@ const optionsArray = [{value: "", nodeText: "-- Player's choice --"},
     {value: "TAILS", nodeText: "TAILS"}];
 
 // Creates the coin
-const addCoin = (gameDiv) => {
+const addCoin = () => {
 
     coinContainer = document.createElement('div');
     coinContainer.className = "coinContainer";
-    gameDiv.appendChild(coinContainer);
+    levelOneContainer.appendChild(coinContainer);
+
     coin = document.createElement('div');
     coin.className = "coin";
     coinContainer.appendChild(coin)
+
     let heads = document.createElement('div');
     heads.className = "heads";
     heads.innerText = "H"
     coin.appendChild(heads)
+
     let tails = document.createElement('div');
     tails.className = "tails";
     tails.innerText = "T"
@@ -87,19 +93,22 @@ const handleFlipCoin = (onWin, onLose) => {
 const levelOne = (gameDiv, onWin, onLose) => {
 
     gameTitle("FLIP THE COIN")
-    gameDescription("Select HEADS or TAILS.")
 
-    selectEl = createSelectElement("selectOptions", optionsArray)
-    gameDiv.appendChild(selectEl)
+    levelOneContainer = createDivElement("game1Container")
+    gameDiv.appendChild(levelOneContainer)
 
-    flipButtonEl = createButtonElement("playBtn", "FLIP")
+    describeGamePara = createParagraphElement("game1Description", "Select HEADS or TAILS and Press the button to flip the coin.")
+    levelOneContainer.appendChild(describeGamePara)
+
+    selectEl = createSelectElement("level1Select", optionsArray)
+    levelOneContainer.appendChild(selectEl)
+
+    flipButtonEl = createButtonElement("flipBtn", "FLIP")
     flipButtonEl.addEventListener("click", () => {
-        handleFlipCoin(onWin, onLose)
-    })
-    gameDiv.appendChild(flipButtonEl)
+        handleFlipCoin(onWin, onLose)})
+    levelOneContainer.appendChild(flipButtonEl)
 
-    addCoin(gameDiv);
-
+    addCoin(levelOneContainer);
 }
 
 export default levelOne;

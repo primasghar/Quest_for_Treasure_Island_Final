@@ -3,9 +3,11 @@ import {
     gameDescription,
     createSelectElement,
     createButtonElement,
-    showResultCard
+    showResultCard, createDivElement, createParagraphElement
 } from '../../../utils/functions.js'
 
+let levelTwoContainer;
+let describeGame2Para;
 let selectEl;
 let buttonEl;
 
@@ -79,16 +81,21 @@ const playGame = (onWin, onLose) => {
 
 const levelTwo = (gameDiv, onWin, onLose) => {
     gameTitle("ROCK, PAPER, SCISSORS")
-    gameDescription("Select ROCK, PAPER, or SCISSORS.")
 
-    selectEl = createSelectElement("selectOptions", optionsArray);
-    gameDiv.appendChild(selectEl)
+    levelTwoContainer = createDivElement("game2Container")
+    gameDiv.appendChild(levelTwoContainer)
+
+    describeGame2Para = createParagraphElement("game2Description", "Select ROCK, PAPER, or SCISSORS and press the button.")
+    levelTwoContainer.appendChild(describeGame2Para)
+
+    selectEl = createSelectElement("rpsSelectEl", optionsArray);
+    levelTwoContainer.appendChild(selectEl)
 
     buttonEl = createButtonElement("playBtn", "Play")
     buttonEl.addEventListener("click", () => {
         playGame(onWin, onLose)
     });
-    gameDiv.appendChild(buttonEl)
+    levelTwoContainer.appendChild(buttonEl)
 }
 
 export default levelTwo

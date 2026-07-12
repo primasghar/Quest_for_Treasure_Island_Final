@@ -1,9 +1,11 @@
 import {
     gameTitle,
     gameDescription,
-    createButtonElement, createInputElement, showResultCard
+    createButtonElement, createInputElement, showResultCard, createDivElement, createParagraphElement
 } from '../../../utils/functions.js'
 
+let levelSevenContainer;
+let describeGame7Para;
 
 let riddlesArray;
 let chosenRiddle;
@@ -30,19 +32,26 @@ const fetchRiddles = async () => {
 
 const levelSeven = async (gameDiv, onWin, onLose) => {
     gameTitle("RIDDLES")
-    gameDescription("Please click the button below and answer the riddle.")
+
+    levelSevenContainer = createDivElement("game7Container")
+    gameDiv.appendChild(levelSevenContainer)
+
+    describeGame7Para = createParagraphElement("game7Description", "Please click the button below and answer the riddle.")
+    levelSevenContainer.appendChild(describeGame7Para)
+
 
     riddlesArray = await fetchRiddles()
 
     showRiddleBtnEl = createButtonElement("riddleBtn", "Show Riddle")
-    gameDiv.appendChild(showRiddleBtnEl)
+    levelSevenContainer.appendChild(showRiddleBtnEl)
 
     playerAnsInputEl = createInputElement("Enter your answer...")
-    gameDiv.appendChild(playerAnsInputEl)
+    levelSevenContainer.appendChild(playerAnsInputEl)
     playerAnsInputEl.disabled = true;
 
     submitBtnEl = createButtonElement("submitBtn", "Submit")
-    gameDiv.appendChild(submitBtnEl)
+    levelSevenContainer.appendChild(submitBtnEl)
+
     // Function to show the riddle
     const handleShowRiddle = () => {
         let availableRiddles = [...riddlesArray]
@@ -51,13 +60,10 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
         const randomIndex = Math.floor(Math.random() * availableRiddles.length);
 
         chosenRiddle = availableRiddles.splice(randomIndex, 1)[0];
-        // console.log("riddle", chosenRiddle)
 
         riddleText = chosenRiddle[1];
-        riddle = document.createElement('p')
-        riddle.className = "riddle"
-        riddle.innerText = riddleText
-        gameDiv.appendChild(riddle)
+        riddle = createParagraphElement("riddle", riddleText)
+        levelSevenContainer.appendChild(riddle)
 
         playerAnsInputEl.disabled = false;
         submitBtnEl.disabled = false;

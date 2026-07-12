@@ -76,7 +76,7 @@ h1 {
 #map {
     font-family: inherit;
     background-color: var(--dark-teal);
-    height: 292px;
+    height: 277px;
     width: 500px;
     border-radius: 1rem;
 }
@@ -117,15 +117,12 @@ tr {
 }
 
 .gameArea {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, 128px);
-    grid-auto-rows: 150px;
     min-height: 18.75rem;
+    height: 22rem;
+    background: linear-gradient(135deg, #f5e6c8, #e8d5a8);
+    border: 2px solid #b8935f;
+    box-shadow: inset 0 0 20px rgba(139, 105, 20, 0.15);
     border-radius: 1rem;
-    background-color: var(--white);
-    text-align: center;
-    align-items: center;
     padding: 1rem;
 }
 
@@ -133,15 +130,10 @@ tr {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: var(--font-size42);
+    font-size: var(--font-size30);
     margin: 1rem
 }
 
-.gameDescription {
-    grid-column: 1/3;
-    color: black;
-    font-size: 1.3rem;
-}
 
 select,
 ::picker(select) {
@@ -149,11 +141,11 @@ select,
 }
 
 select {
-    grid-column: 1/2;
+    width: 20rem;
     font-family: inherit;
     font-size: var(--font-size20);
     border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     margin: 0.5rem;
     align-self: center;
     border: 2px solid #dddddd;
@@ -161,7 +153,6 @@ select {
     transition: 0.4s;
     cursor: pointer;
     color: black;
-
 }
 
 select:hover,
@@ -174,9 +165,9 @@ select::picker-icon {
     transition: 0.4s rotate;
 }
 
-select:open::picker-icon {
-    rotate: 180deg;
-}
+/*select:open::picker-icon {*/
+/*    rotate: 180deg;*/
+/*}*/
 
 ::picker(select) {
     /*border: none;*/
@@ -230,31 +221,34 @@ option:focus {
     font-size: 1.3rem;
 }
 
-.playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
+.flipBtn, .rollDiceBtn, .evenOddBtn, .playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
     color: white;
     text-shadow: black 1px 0 10px;
     font-size: var(--font-size24);
     font-weight: bolder;
     background-color: #b8860b;
-    grid-column: 2/3;
     margin: 0.5rem 3rem;
     border: 2px solid #b8860b;
     border-radius: 0.5rem;
     width: 10rem;
     height: 2.563rem;
-    /*justify-self: center;*/
     cursor: pointer;
+    align-self: center;
 }
+
 /*----------------------------------Result div ----------------------------------*/
 .showResult {
+    background: linear-gradient(135deg, #f5e6c8, #e8d5a8);
+    border: 2px solid #b8935f;
+    box-shadow: inset 0 0 20px rgba(139, 105, 20, 0.15);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--white);
     height: 7rem;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     padding: 1rem;
 }
+
 .resultCard {
     display: flex;
     align-items: center;
@@ -275,28 +269,32 @@ option:focus {
     }
 }
 
-.resultIcon{
+.resultIcon {
     font-size: var(--font-size42);
 }
 
-.resultLabel{
+.resultLabel {
     display: block;
     font-size: var(--font-size24);
     font-weight: bold;
     margin-bottom: 4px;
 }
 
-.resultMsg{
+.resultMsg {
     margin: 0;
     font-size: var(--font-size20);
-    opacity: 0.85;"
+    opacity: 0.85;
+"
 }
-/*---------------------------------buttons - Main and Game -------------------------------*/
-.playBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover, .questionBtn:hover,
-.playBtn:focus, .submitBtn:focus, .sequenceBtn:focus, .riddleBtn:focus, .questionBtn:focus {
+
+/*---------------------------------Buttons - Main and Game -------------------------------*/
+.flipBtn:hover, .rollDiceBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover, .questionBtn:hover,
+.flipBtn:focus, .rollDiceBtn:focus, .playBtn:focus, .submitBtn:focus, .sequenceBtn:focus, .riddleBtn:focus, .questionBtn:focus {
     border: 2px solid #ffd700;
 }
 
+.flipBtn.disabled,
+.rollDiceBtn.disabled,
 .playBtn:disabled,
 .sequenceBtn:disabled,
 .submitBtn:disabled,
@@ -399,19 +397,61 @@ option:focus {
 
 }
 
-/*-----FLIP THE COIN-----*/
+/*------------------------------Common in levels----------------------*/
+.game1Container, .game2Container, .game3Container, .game4Container, .game5Container, .game6Container, .game7Container, .game8Container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    /*grid-column-gap: 2rem;*/
+    grid-row-gap: 2rem;
+}
+
+.game1Description, .game2Description, .game3Description, .game4Description, .game5Description, .game6Description, .game7Description, .game8Description {
+    font-size: var(--font-size24);
+    color: var(--dark-brown);
+    grid-row: 1/2;
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+    padding: 1rem;
+}
+
+/*-------------------------------FLIP THE COIN---------------------------------1--*/
+
+.game1Container {
+    grid-template-rows: 40px 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.game1Description {
+    grid-column: 1/3;
+}
+
+#level1Select {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    justify-self: end;
+}
+
+.flipBtn {
+    grid-column: 2/3;
+    grid-row: 2/3;
+
+}
 
 .coinContainer {
     grid-column: 1/3;
+    grid-row: 3/4;
     perspective: 1000px;
     display: flex;
     justify-content: center;
-    /*margin-top: 2rem;*/
+    margin: 1rem;
 }
 
 .coin {
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 2s ease-in-out;
@@ -467,7 +507,36 @@ option:focus {
     transform: rotateY(180deg);
 }
 
-/*Roll the dice*/
+/*----------------------------ROCK, PAPER,SCISSORS-------------------------------2--*/
+.game2Container {
+    grid-template-rows: 40px 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.game2Description {
+    grid-column: 1/3;
+}
+
+#rpsSelectEl {
+    justify-self: end;
+}
+
+/*------------------------------------ROLL THE DICES------------------------------3--*/
+.game3Container {
+    grid-template-rows: 40px 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.game3Description {
+    grid-column: 1/3;
+}
+
+.rollDiceBtn {
+    align-self: center;
+}
+
 .diceImage {
     width: 4rem;
     margin-left: 1rem;
@@ -477,12 +546,14 @@ option:focus {
     color: black;
     font-size: var(--font-size24);
     padding-top: 0.6rem;
-    justify-self: flex-end;
+    align-self: center;
+    justify-self: end;
     margin-right: 1rem;
 }
 
 .dices {
     grid-column: 1/3;
+    grid-row: 3/4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -494,23 +565,29 @@ option:focus {
     margin-bottom: 1rem;
 }
 
-/*Even Odds */
+/*-------------------------------------EVEN AND ODD-----------------------------------4--*/
+.game4Container {
+    grid-template-rows: 40px 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 
-.selectionDiv {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 1rem;
+.game4Description {
+    grid-column: 1/4;
+}
+
+.evenOddBtn {
+    grid-column: 3/4;
 }
 
 .computerChoice {
+    grid-column: 1/4;
     color: black;
     font-size: var(--font-size20);
     text-align: left;
     margin: 1rem 0;
 }
 
-.evenOddDiv, .numberDiv {
+.evenOddSelect, .numberSelect {
     font-size: var(--font-size20);
     height: 3.75rem;
     display: flex;
@@ -530,22 +607,57 @@ option:focus {
 
 /*Guess the Number*/
 
-.buttonDescription, .sequence {
-    color: black;
-    font-size: var(--font-size24);
+/*.buttonDescription, .sequence {*/
+/*    color: black;*/
+/*    font-size: var(--font-size24);*/
+/*}*/
+/*-------------------------------------GUESS NUMBER---------------------------------5--*/
+.game5Container {
+    grid-template-rows: 40px 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
 }
 
-/*Sequence Memory */
+.game5Description {
+    grid-column: 1/3;
+}
+
+#guessNoSelect {
+    justify-self: end;
+}
+
+.guessComputerChoice {
+    grid-row: 3/4;
+    grid-column: 1/3;
+    font-size: var(--font-size24);
+    color: black;
+    text-align: center;
+}
+
+/*--------------------------------------SEQUENCE MEMORY-----------------------------6-- */
+.game6Container {
+    grid-template-rows: 40px 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.game6Description {
+    grid-column: 1/3;
+}
 
 .sequenceBtn, .riddleBtn, .questionBtn {
     width: 14rem;
     grid-column: 1/3;
+    grid-row: 2/3;
     justify-self: center;
 }
 
 .sequence {
+    color: black;
+    font-size: var(--font-size24);
     grid-column: 1/3;
     grid-row: 3/4;
+    justify-self: center;
 }
 
 #playerInput {
@@ -574,19 +686,32 @@ option:focus {
 }
 
 
-/* riddles */
+/*--------------------------- RIDDLES---------------------------------------7--and--8-- */
+.game7Container, .game8Container {
+    grid-template-rows: 40px 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.game7Description, .game8Description {
+    grid-column: 1/3;
+}
 
 .riddle, .question {
     grid-column: 1/3;
     grid-row: 3/4;
-    font-size: var(--font-size20);
+    justify-self: center;
+    font-size: var(--font-size24);
     font-family: inherit;
     color: black;
 }
 
-/*winner*/
+/*---------------------------------WINNER-------------------------------------------------*/
 
 .winner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: black;
     font-size: var(--font-size42);
     grid-column: 1/3;

@@ -43,10 +43,12 @@ const changeLevel = (levelToShow) => {
         console.log(player)
 
         if (player.level === 8) {
-            clearGameAreas()
+            setTimeout(() => {
+                clearGameAreas()
+                gameTitle("WINNER")
+                winnerPage(gameDiv, resultArea, player.name)
+            }, 2000)
 
-            gameTitle("WINNER")
-            winnerPage(gameDiv, resultArea, player.name)
         }
 
         if (player.level !== 8) {

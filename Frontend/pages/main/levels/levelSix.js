@@ -3,9 +3,11 @@ import {
     gameDescription,
     createInputElement,
     createButtonElement,
-    generateRandomSequence, showResultCard
+    generateRandomSequence, showResultCard, createDivElement, createParagraphElement
 } from '../../../utils/functions.js'
 
+let levelSixContainer;
+let describeGame6Para;
 
 let seq;
 let randSequence;
@@ -51,11 +53,15 @@ const handleSubmitSequence = (onWin, onLose) => {
 
 const levelSix = (gameDiv, onWin, onLose) => {
     gameTitle("SEQUENCE MEMORY")
-    gameDescription("A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
 
+    levelSixContainer = createDivElement("game6Container")
+    gameDiv.appendChild(levelSixContainer)
+
+    describeGame6Para = createParagraphElement("game6Description","A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
+    levelSixContainer.appendChild(describeGame6Para)
 
     showSeqBtnEl = createButtonElement("sequenceBtn", "Sequence")
-    gameDiv.appendChild(showSeqBtnEl)
+    levelSixContainer.appendChild(showSeqBtnEl)
 
     const handleShowSequence = () => {
         showSeqBtnEl.disabled = true;
@@ -66,20 +72,20 @@ const levelSix = (gameDiv, onWin, onLose) => {
         randSequence = document.createElement('p')
         randSequence.innerText = `Sequence No ${attempts + 1}:  ${seq}`;
         randSequence.className = "sequence"
-        gameDiv.appendChild(randSequence)
+        levelSixContainer.appendChild(randSequence)
 
         setTimeout(() => {
             randSequence.innerText = "";
 
             sequenceInputEl = createInputElement('Enter sequence...')
-            gameDiv.appendChild(sequenceInputEl)
+            levelSixContainer.appendChild(sequenceInputEl)
 
             submitSeqBtnEl = createButtonElement("submitBtn", "Submit")
             submitSeqBtnEl.addEventListener("click", () => handleSubmitSequence(onWin, onLose))
-            gameDiv.appendChild(submitSeqBtnEl)
+            levelSixContainer.appendChild(submitSeqBtnEl)
 
 
-        }, 8000)
+        }, 1000)
 
     }
 

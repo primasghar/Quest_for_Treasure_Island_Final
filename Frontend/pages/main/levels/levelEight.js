@@ -1,9 +1,11 @@
 import {
     gameTitle,
-    gameDescription,
     createButtonElement,
-    createInputElement, showResultCard
+    createInputElement, showResultCard, createDivElement, createParagraphElement
 } from '../../../utils/functions.js'
+
+let levelEightContainer;
+let describeGame8Para;
 
 let questionsArray;
 let chosenQuestion;
@@ -31,12 +33,17 @@ const fetchQuizQuestions = async () => {
 
 const levelEight = async (gameDiv, onWin, onLose) => {
     gameTitle("QUIZ")
-    gameDescription("Click the button below to see the quiz question and answer it to win.")
+
+    levelEightContainer = createDivElement("game8Container")
+    gameDiv.appendChild(levelEightContainer)
+
+    describeGame8Para = createParagraphElement("game8Description", "Click the button below to see the quiz question and answer it to win.")
+    levelEightContainer.appendChild(describeGame8Para)
 
     questionsArray = await fetchQuizQuestions()
 
     showQuestionBtnEl = createButtonElement("questionBtn", "Show Question")
-    gameDiv.appendChild(showQuestionBtnEl)
+    levelEightContainer.appendChild(showQuestionBtnEl)
 
     //Function to display question
     const handleShowQuestion = () => {
@@ -46,13 +53,12 @@ const levelEight = async (gameDiv, onWin, onLose) => {
         const randomIndex = Math.floor(Math.random() * availableQuestions.length);
 
         chosenQuestion = availableQuestions.splice(randomIndex, 1)[0];
-        console.log("question", chosenQuestion)
 
         questionText = chosenQuestion[1];
         question = document.createElement('p')
         question.className = "question"
         question.innerText = questionText
-        gameDiv.appendChild(question)
+        levelEightContainer.appendChild(question)
 
         playerAnsInputEl.disabled = false;
         submitBtnEl.disabled = false;
@@ -63,11 +69,11 @@ const levelEight = async (gameDiv, onWin, onLose) => {
     showQuestionBtnEl.addEventListener("click", handleShowQuestion);
 
     playerAnsInputEl = createInputElement("Enter your answer...")
-    gameDiv.appendChild(playerAnsInputEl)
+    levelEightContainer.appendChild(playerAnsInputEl)
     playerAnsInputEl.disabled = true;
 
     submitBtnEl = createButtonElement("submitBtn", "Submit")
-    gameDiv.appendChild(submitBtnEl)
+    levelEightContainer.appendChild(submitBtnEl)
     submitBtnEl.disabled = true;
 
     //Function  handling submitting of player's answer and showing results.

@@ -1,9 +1,11 @@
 import {
     gameTitle,
-    gameDescription,
     createNumberSelect,
-    createButtonElement, showResultCard
+    createButtonElement, showResultCard, createDivElement, createParagraphElement
 } from '../../../utils/functions.js'
+
+let levelFiveContainer;
+let describeGame5Para;
 
 let attempts = 0
 let playerWon = false
@@ -14,17 +16,22 @@ let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const levelFive = (gameDiv, onWin, onLose) => {
     gameTitle("GUESS THE NUMBER")
-    gameDescription("Select the number, if it matches the computer's selection you will win.")
 
-    let selectNoEl = createNumberSelect("selectOptions", optionsArray2)
-    gameDiv.appendChild(selectNoEl)
+    levelFiveContainer = createDivElement("game5Container")
+    gameDiv.appendChild(levelFiveContainer)
+
+    describeGame5Para = createParagraphElement("game5Description", "Select the number, if it matches the computer's choice you will win.")
+    levelFiveContainer.appendChild(describeGame5Para)
+
+    let selectNoEl = createNumberSelect("guessNoSelect", optionsArray2)
+    levelFiveContainer.appendChild(selectNoEl)
 
     let selectNoBtnEl = createButtonElement("playBtn", "Play")
-    gameDiv.appendChild(selectNoBtnEl)
+    levelFiveContainer.appendChild(selectNoBtnEl)
 
     const handleGuessNo = () => {
         let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
-        console.log("computer no", computerSelectedNo)
+
         let playerSelectedNo = selectNoEl.value
 
         if (playerSelectedNo === "") {
@@ -32,22 +39,22 @@ const levelFive = (gameDiv, onWin, onLose) => {
             return;
         }
 
+        selectNoEl.disabled = true
         selectNoBtnEl.disabled = true
 
 
-        let computerChoiceElement = document.createElement('p')
-        computerChoiceElement.className = "computerChoice"
-        computerChoiceElement.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
-        gameDiv.appendChild(computerChoiceElement)
+        let computerChoiceElement = createParagraphElement("guessComputerChoice", `Computer's choice: ${computerSelectedNo.toString()} `)
+        levelFiveContainer.appendChild(computerChoiceElement)
 
         setTimeout(() => {
             if (+playerSelectedNo === computerSelectedNo) {
-                showResultCard("win", `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}.` )
+                showResultCard("win", `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}.`)
                 attempts = 3
                 playerWon = true
                 onWin()
             } else {
                 attempts += 1;
+                selectNoEl.disabled = false
                 selectNoBtnEl.disabled = false
                 showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
             ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
@@ -57,6 +64,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
             }
 
             if (attempts === 3) {
+                selectNoEl.disabled = true
                 selectNoBtnEl.disabled = true
                 if (playerWon === false) {
                     showResultCard("lose", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}. No attempts left`)
