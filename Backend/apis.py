@@ -124,24 +124,34 @@ def airports_icao():
     return response
 
 
-@app.route('/airportDetail/<icao>')
-def airports_details(icao):
-    airport_info = fetch_airport_info_query(icao)
-    print(airport_info)
+@app.route('/airportDetail/<icao_list>')
+def airports_details(icao_list):
+    icao_codes = icao_list.split(',')
 
-    airport_country = fetch_airport_country_query(airport_info[0])
+    results = []
 
-    # [iso_country, ident, name(airport), latitude_deg, longitude_deg, name(country)]
+    for icao in icao_codes:
+        icao = icao.strip()
+        airport_info = fetch_airport_info_query(icao)
 
-    response = {
-        "airportName": airport_info[2],
-        "country": airport_country[0],
-        "lat": airport_info[3],
-        "lon": airport_info[4],
-        "isoCountry": airport_info[0],
-        "icao": airport_info[1],
-    }
-    return response
+        if not airport_info:
+            results.append({"icao": icao, "error": "not found"})
+            continue
+
+        airport_country = fetch_airport_country_query(airport_info[0])
+
+        # [iso_country, ident, name(airport), latitude_deg, longitude_deg, name(country)]
+
+        results.append({
+            "airportName": airport_info[2],
+            "country": airport_country[0],
+            "lat": airport_info[3],
+            "lon": airport_info[4],
+            "isoCountry": airport_info[0],
+            "icao": airport_info[1],
+        })
+
+    return {"airports": results}
 
 
 @app.route('/quit')

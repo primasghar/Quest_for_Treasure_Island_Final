@@ -11,12 +11,10 @@ import winnerPage from "./levels/winnerPage.js";
 import {
     deletePlayerData,
     updatePlayerBoardUI,
-    updatePlayerProgress, nextAirportOnMap, showMap, gameTitle, clearGameAreas
+    updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, gameTitle, clearGameAreas,
+    mapVisitedAirportsOnLoad
 } from "../../utils/functions.js"
 
-//-------------------------------------------MAP---------------------------------------------
-
-showMap()
 
 //----------------------Accessing button and other elements------------------------------------
 
@@ -29,10 +27,29 @@ const quitBtn = document.querySelector(".quit");
 const gameDiv = document.querySelector('.gameArea')
 const resultArea = document.querySelector('.showResult')
 
-// ---------------Fetching player data from LOCAL STORAGE and Displaying in UI------------------
+// onLoad--------------------------------------------------------
 
 let player = JSON.parse(localStorage.getItem('playerDetails'));
-updatePlayerBoardUI(player)
+console.log("topLoad", player)
+
+let locations = [];
+
+const initMap = async () => {
+
+    if (player.level === 1) {
+        locations = [{ name: 'Helsinki Vantaa Airport', coords: [60.3184, 24.9633] }];
+    } else {
+        locations = await mapVisitedAirportsOnLoad(player.level);
+        console.log("on reloading", locations);
+    }
+
+    showMapOnLoad(locations); // now called AFTER locations is fully populated
+
+    updatePlayerBoardUI(player);
+}
+
+initMap();
+
 
 // ----------------------------Game-----------------------------------------------------------
 
@@ -118,7 +135,11 @@ nextGameBtn.addEventListener("click", async () => {
 
     nextGameBtn.disabled = true
 
-    await nextAirportOnMap(level)
+    let airport = await getAirportData(level)
+    console.log("next airport", airport)
+
+    addLocation(airport, locations)
+
 })
 
 

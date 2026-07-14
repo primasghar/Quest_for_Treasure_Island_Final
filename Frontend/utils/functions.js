@@ -102,13 +102,13 @@ export const showResultCard = (status, message) => {
     }
 
     const config = {
-        win:  { icon: "🎉", label: "Congratulations! You win!",  bg: "#e8f5e9", border: "#2e7d32", text: "#1b5e20" },
-        lose: { icon: "😢", label: "Sorry! You lose!", bg: "#fdecea", border: "#c62828", text: "#b71c1c" },
-        draw: { icon: "🤝", label: "Oops! It's a draw", bg: "#fff8e1", border: "#f9a825", text: "#8d6e00" },
-        try: { icon: "🔄", label: "Please try again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101" }
+        win: {icon: "🎉", label: "Congratulations! You win!", bg: "#e8f5e9", border: "#2e7d32", text: "#1b5e20"},
+        lose: {icon: "😢", label: "Sorry! You lose!", bg: "#fdecea", border: "#c62828", text: "#b71c1c"},
+        draw: {icon: "🤝", label: "Oops! It's a draw", bg: "#fff8e1", border: "#f9a825", text: "#8d6e00"},
+        try: {icon: "🔄", label: "Please try again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101"}
     };
 
-    const { icon, label, bg, border, text } = config[status] || config.lose;
+    const {icon, label, bg, border, text} = config[status] || config.lose;
 
     resultArea.innerHTML = `
         <div class="resultCard" style="border-left: 6px solid ${border}; background: ${bg}; color: ${text};">
@@ -120,7 +120,6 @@ export const showResultCard = (status, message) => {
         </div>
     `;
 };
-
 
 
 export const generateRandomSequence = () => {
@@ -151,7 +150,7 @@ export const generateRandomSequence = () => {
 //     }
 // };
 
-//Updates the UI using player data (not,ally accessed from local storage)
+//Updates the UI using player data ( accessed from local storage)
 export const updatePlayerBoardUI = (player) => {
 
     let playerName = player['name']
@@ -202,9 +201,9 @@ export const allICAOCodes = async () => {
     }
 };
 
-export const airportData = async (icao) => {
+export const airportData = async (icao_list) => {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao}`)
+        const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao_list}`)
         const airportDetails = await response.json();
         console.log(airportDetails)
         return airportDetails;
@@ -253,75 +252,130 @@ export const calcCarbonEmission = async (prevLevel, nextLevel) => {
 }
 
 let map;
-let marker;
-let trailPoints = [[60.3184, 24.9633]];
+let markers = []
+let trailPoints = []
 let trailLine;
 
-export const showMap = () => {
-     map = L.map('map', {
+export const showMapOnLoad = (locations) => {
+    // locations = initialLocations;
+    console.log(locations)
+
+    map = L.map('map', {
         center: [60.3184, 24.9633],
         zoom: 7,
     });
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-    L.circle([60.3184, 24.9633], {radius: 500}).addTo(map);
 
-   marker = L.marker([60.3184, 24.9633]).addTo(map);
-   trailPoints = [[60.3184, 24.9633]]; // starts with initial location
-    trailLine = L.polyline(trailPoints, {color: 'blue', weight: 3, dashArray: '10, 10'}).addTo(map);
+    // Add a circle, marker, and label for each location
+    markers = locations.map((loc, i) => {
+        L.circle(loc.coords, {radius: 500}).addTo(map);
+
+        const marker = L.marker(loc.coords).addTo(map);
+
+        marker.bindTooltip(`${i + 1}. ${loc.name}`, {
+            permanent: true,
+            direction: 'right',
+            offset: [10, 0],
+            className: 'stop-label'
+        });
+
+        marker.bindPopup(`<strong>Stop ${i + 1}</strong><br>${loc.name}`);
+
+        return marker;
+    });
+
+    // Build the trail connecting all locations in order
+    trailPoints = locations.map(loc => loc.coords);
+    trailLine = L.polyline(trailPoints, {
+        color: 'blue',
+        weight: 3,
+        dashArray: '10, 10'
+    }).addTo(map);
+
+    // map.fitBounds(trailLine.getBounds(), {padding: [30, 30]});
 }
 
-export const goToLocation = (lat, lng, zoom = 7, label = '', duration = 1500) => {
-    const start = trailPoints[trailPoints.length - 1]; // last known point
-    const end = [lat, lng];
-    const startTime = performance.now();
-
-
-
-    // Move map + marker at the same time
-    map.flyTo(end, zoom, {duration: duration / 1000});
-
-    function animateStep(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1); // 0 → 1
-
-        // Linear interpolation between start and end
-        const lat = start[0] + (end[0] - start[0]) * progress;
-        const lng = start[1] + (end[1] - start[1]) * progress;
-
-        // Update marker position along the path
-        marker.setLatLng([lat, lng]);
-
-        // Redraw trail with the in-progress point appended
-        trailLine.setLatLngs([...trailPoints, [lat, lng]]);
-
-        if (progress < 1) {
-            requestAnimationFrame(animateStep);
-        } else {
-            // Finalize — lock in the real endpoint
-            trailPoints.push(end);
-            trailLine.setLatLngs(trailPoints);
-            if (label) marker.bindPopup(label).openPopup();
-        }
+// Push a new location and update the map to show it
+export const addLocation = (loc, locations) => {
+    if (!map) {
+        console.warn('Map not initialised — call showMapOnLoad first');
+        return;
     }
 
-    requestAnimationFrame(animateStep);
+    locations.push(loc);
+    const i = locations.length - 1;
+
+    // Circle + marker for the new location
+    L.circle(loc.coords, {radius: 500}).addTo(map);
+
+    const marker = L.marker(loc.coords).addTo(map);
+
+    marker.bindTooltip(`${i + 1}. ${loc.name}`, {
+        permanent: true,
+        direction: 'right',
+        offset: [10, 0],
+        className: 'stop-label'
+    });
+
+    marker.bindPopup(`<strong>Stop ${i + 1}</strong><br>${loc.name}`);
+
+    markers.push(marker);
+
+    // Extend the trail to include the new point
+    trailPoints.push(loc.coords);
+    trailLine.setLatLngs(trailPoints);
+
+    // Optionally re-fit the map to include the new point
+    // map.fitBounds(trailLine.getBounds(), { padding: [30, 30] });
 }
 
-export const nextAirportOnMap = async (level) => {
+
+export const getAirportData = async (level) => {
+    let nextAirportDataForMap;
+
     let allGameAirportICAO = await allICAOCodes();
-    let nextAirportICAO = allGameAirportICAO[level][1]
+
+    let nextAirportICAO = [allGameAirportICAO[level - 1][1]]//Pass ICAO in an array
     console.log("next-icao", nextAirportICAO)
 
     let nextAirportData = await airportData(nextAirportICAO)
-    console.log("next-airport data", nextAirportData)
+    console.log("next-airport data", nextAirportData)//{"airports": result} result is array of objects of airport data
 
-    let nextLat = nextAirportData['lat']
-    let nextLon = nextAirportData['lon']
-    let locationLabel = `${nextAirportData['airportName']}, ${nextAirportData['country']}`
+    console.log("shape of airport", nextAirportData.airports)
 
-    goToLocation(nextLat, nextLon, 7, locationLabel)
+    for (const airport of nextAirportData.airports) {
+        const airportName = airport.airportName;
+        const lat = airport.lat;
+        const lon = airport.lon;
+        nextAirportDataForMap = {name: airportName, coords: [lat, lon]}
+    }
+
+    return nextAirportDataForMap;
+}
+
+export const mapVisitedAirportsOnLoad = async (level) => {
+    const airportDataForMap = [];
+
+    let allGameAirportICAO = await allICAOCodes();
+
+    const allVisitedICAO = allGameAirportICAO.slice(0, level).map(pair => pair[1]);
+
+    let allAirportsVisitedData = await airportData(allVisitedICAO)
+    console.log("next-airport data", allAirportsVisitedData)
+
+    //Getting only necessary data for map, name and lat/lon
+    for (const airport of allAirportsVisitedData.airports) {
+        const airportName = airport.airportName;
+        const lat = airport.lat;
+        const lon = airport.lon;
+
+        airportDataForMap.push({name: airportName, coords: [lat, lon]})
+    }
+
+    return airportDataForMap;
 }
 
 export const clearGameAreas = () => {
