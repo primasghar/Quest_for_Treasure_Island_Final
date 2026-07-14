@@ -204,9 +204,7 @@ export const allICAOCodes = async () => {
 export const airportData = async (icao_list) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao_list}`)
-        const airportDetails = await response.json();
-        console.log(airportDetails)
-        return airportDetails;
+           return await response.json();
     } catch (error) {
         console.log(error.message);
     }
@@ -247,7 +245,7 @@ export const calcCarbonEmission = async (prevLevel, nextLevel) => {
     let nextLon = nextAirportData['lon'];
 
     let distanceBtwAirports = getDistance(currentLat, currentLon, nextLat, nextLon)
-    //per km CO2 emissions to be 150.
+    //per km CO2 emissions to be 150g.
     return 150 * distanceBtwAirports;
 }
 
@@ -257,7 +255,7 @@ let trailPoints = []
 let trailLine;
 
 export const showMapOnLoad = (locations) => {
-    // locations = initialLocations;
+
     console.log(locations)
 
     map = L.map('map', {
@@ -334,26 +332,22 @@ export const addLocation = (loc, locations) => {
 
 
 export const getAirportData = async (level) => {
-    let nextAirportDataForMap;
+    let airportDataForMap;
 
     let allGameAirportICAO = await allICAOCodes();
 
-    let nextAirportICAO = [allGameAirportICAO[level - 1][1]]//Pass ICAO in an array
-    console.log("next-icao", nextAirportICAO)
+    let airportICAO = [allGameAirportICAO[level - 1][1]]//Pass ICAO in an array
 
-    let nextAirportData = await airportData(nextAirportICAO)
-    console.log("next-airport data", nextAirportData)//{"airports": result} result is array of objects of airport data
+    let data = await airportData(airportICAO)
 
-    console.log("shape of airport", nextAirportData.airports)
-
-    for (const airport of nextAirportData.airports) {
+    for (const airport of data.airports) {
         const airportName = airport.airportName;
         const lat = airport.lat;
         const lon = airport.lon;
-        nextAirportDataForMap = {name: airportName, coords: [lat, lon]}
+        airportDataForMap = {name: airportName, coords: [lat, lon]}
     }
 
-    return nextAirportDataForMap;
+    return airportDataForMap;
 }
 
 export const mapVisitedAirportsOnLoad = async (level) => {
@@ -364,7 +358,6 @@ export const mapVisitedAirportsOnLoad = async (level) => {
     const allVisitedICAO = allGameAirportICAO.slice(0, level).map(pair => pair[1]);
 
     let allAirportsVisitedData = await airportData(allVisitedICAO)
-    console.log("next-airport data", allAirportsVisitedData)
 
     //Getting only necessary data for map, name and lat/lon
     for (const airport of allAirportsVisitedData.airports) {

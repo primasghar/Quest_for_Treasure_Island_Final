@@ -30,7 +30,6 @@ const resultArea = document.querySelector('.showResult')
 // onLoad--------------------------------------------------------
 
 let player = JSON.parse(localStorage.getItem('playerDetails'));
-console.log("topLoad", player)
 
 let locations = [];
 
@@ -40,7 +39,6 @@ const initMap = async () => {
         locations = [{ name: 'Helsinki Vantaa Airport', coords: [60.3184, 24.9633] }];
     } else {
         locations = await mapVisitedAirportsOnLoad(player.level);
-        console.log("on reloading", locations);
     }
 
     showMapOnLoad(locations); // now called AFTER locations is fully populated
@@ -57,7 +55,6 @@ const changeLevel = (levelToShow) => {
 
     const onWin = async () => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
-        console.log(player)
 
         if (player.level === 8) {
             setTimeout(() => {
@@ -136,7 +133,6 @@ nextGameBtn.addEventListener("click", async () => {
     nextGameBtn.disabled = true
 
     let airport = await getAirportData(level)
-    console.log("next airport", airport)
 
     addLocation(airport, locations)
 
