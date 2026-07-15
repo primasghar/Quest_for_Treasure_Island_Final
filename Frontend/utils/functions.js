@@ -204,7 +204,7 @@ export const allICAOCodes = async () => {
 export const airportData = async (icao_list) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao_list}`)
-           return await response.json();
+        return await response.json();
     } catch (error) {
         console.log(error.message);
     }
@@ -225,28 +225,31 @@ export const getDistance = (lat1, lon1, lat2, lon2) => {
         Math.sin(dLon / 2) ** 2;
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
+    console.log(R * c)
     return R * c; // distance in km
+
 }
 
 //Getting prev and next airport data with icao codes and extracting lat and lon to get distance and then calc emissions.
-export const calcCarbonEmission = async (prevLevel, nextLevel) => {
+export const calcCarbonEmission = async (currLevel) => {
+
     let allGameAirportICAO = await allICAOCodes()
 
-    let currentAirportICAO = allGameAirportICAO[prevLevel][1];
-    let nextAirportICAO = allGameAirportICAO[nextLevel][1];
+    let currentAirportICAO = allGameAirportICAO[currLevel - 1][1];//Considering icao have 0 index and levels start from 1.
 
-    let currentAirportData = await airportData(currentAirportICAO);
-    let nextAirportData = await airportData(nextAirportICAO);
+    let nextAirportICAO = allGameAirportICAO[currLevel][1];
 
-    let currentLat = currentAirportData['lat'];
-    let currentLon = currentAirportData['lon'];
-    let nextLat = nextAirportData['lat'];
-    let nextLon = nextAirportData['lon'];
+    let currAndNextAirportData = await airportData([currentAirportICAO, nextAirportICAO]);
+
+    let currentLat = currAndNextAirportData.airports[0]['lat']
+    let currentLon = currAndNextAirportData.airports[0]['lon']
+    let nextLat = currAndNextAirportData.airports[1]['lat']
+    let nextLon = currAndNextAirportData.airports[1]['lon'];
 
     let distanceBtwAirports = getDistance(currentLat, currentLon, nextLat, nextLon)
     //per km CO2 emissions to be 150g.
-    return 150 * distanceBtwAirports;
+    console.log("carbon", 150 * distanceBtwAirports)
+    return Math.floor(150 * distanceBtwAirports);
 }
 
 let map;
@@ -350,6 +353,7 @@ export const getAirportData = async (level) => {
     return airportDataForMap;
 }
 
+
 export const mapVisitedAirportsOnLoad = async (level) => {
     const airportDataForMap = [];
 
@@ -371,6 +375,7 @@ export const mapVisitedAirportsOnLoad = async (level) => {
     return airportDataForMap;
 }
 
+
 export const clearGameAreas = () => {
     const title = document.querySelector(".gameNameHeading");
     const gameDiv = document.querySelector('.gameArea')
@@ -379,6 +384,7 @@ export const clearGameAreas = () => {
     gameDiv.innerHTML = ""
     resultDiv.innerHTML = ""
 }
+
 
 export const deletePlayerData = async () => {
     try {

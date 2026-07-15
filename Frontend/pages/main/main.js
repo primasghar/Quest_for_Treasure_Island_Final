@@ -12,7 +12,7 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, gameTitle, clearGameAreas,
-    mapVisitedAirportsOnLoad
+    mapVisitedAirportsOnLoad, calcCarbonEmission
 } from "../../utils/functions.js"
 
 
@@ -54,13 +54,16 @@ initMap();
 const changeLevel = (levelToShow) => {
 
     const onWin = async () => {
+
         let player = JSON.parse(localStorage.getItem('playerDetails'));
+
+        let carbEmit = await calcCarbonEmission(player.level)
 
         if (player.level === 8) {
             setTimeout(() => {
                 clearGameAreas()
                 gameTitle("WINNER")
-                winnerPage(gameDiv, resultArea, player.name)
+                winnerPage(gameDiv, resultArea, name)
             }, 2000)
 
         }
@@ -70,7 +73,8 @@ const changeLevel = (levelToShow) => {
         }
 
         player.score += 500;
-        player.carbonPrint += 100;
+        player.carbonPrint = player.carbonPrint + carbEmit;
+        console.log(player.carbonPrint)
 
         localStorage.setItem("playerDetails", JSON.stringify(player));
         await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
