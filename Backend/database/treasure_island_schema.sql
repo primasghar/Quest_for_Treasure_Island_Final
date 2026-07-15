@@ -17,6 +17,7 @@
       current_level INT default 1,
       game_score INT default 1000,
       carbon_footprint INT default 0,
+      attempts INT default 0,
 	  PRIMARY KEY (id),
       FOREIGN KEY (player_id) REFERENCES player(id),
       FOREIGN KEY (current_level) REFERENCES game_airports(id)
