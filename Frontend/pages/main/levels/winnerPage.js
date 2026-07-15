@@ -10,6 +10,8 @@ const winnerPage = (gameDiv, resultArea, playerName) => {
     //     }
     // });
     confetti()
+    confetti()
+    confetti()
     let winner = document.createElement('p');
     winner.className = "winner"
     winner.innerText = `Congratulations! ${playerName}.`

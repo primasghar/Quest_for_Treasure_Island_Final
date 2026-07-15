@@ -260,7 +260,7 @@ export const showMapOnLoad = (locations) => {
 
     map = L.map('map', {
         center: [60.3184, 24.9633],
-        zoom: 7,
+        zoom: 4,
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

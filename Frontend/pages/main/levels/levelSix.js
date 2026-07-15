@@ -85,7 +85,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
             levelSixContainer.appendChild(submitSeqBtnEl)
 
 
-        }, 1000)
+        }, 8000)
 
     }
 
