@@ -1,11 +1,11 @@
 @import url("../../utils/constants.css");
 
 html, body {
-    /*color: var(--white);*/
+    color: black;
     background-color: var(--dark-brown);
     padding: 0;
     margin: 0;
-    font-family: "Cabin Sketch", Roboto, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .wrapper {
@@ -33,6 +33,7 @@ h1 {
     font-size: var(--font-size30);
     font-weight: 700;
     text-align: center;
+    font-family: 'Pirata One', cursive;
 }
 
 /*    Page specific    */
@@ -52,7 +53,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    /*background-color: var(--prussian-blue);*/
+    background-color: rgb(170,137,88);
     width: 80%;
     height: 26%;
     padding: 1rem;
@@ -63,7 +64,7 @@ h1 {
 #map {
     font-family: inherit;
     background-color: var(--dark-teal);
-    height: 277px;
+    height: 280px;
     width: 500px;
     /*border-radius: 1rem;*/
 }
@@ -71,7 +72,7 @@ h1 {
 .board {
     height: 100%;
     display: flex;
-    gap:1rem;
+    gap: 1rem;
     flex-direction: column;
     /*border-radius: 1rem;*/
     padding: 1rem;
@@ -89,24 +90,24 @@ h1 {
     padding-left: 1rem;
 }
 
-.name{
+.name {
     margin: 0;
     font-size: var(--font-size30);
 }
 
-.idDiv{
+.idDiv {
     font-size: 0.8rem;
 }
 
-.levelAndAttempts{
+.levelAndAttempts {
     display: flex;
     flex-direction: column;
-    gap:1rem;
+    gap: 1rem;
 }
 
 .levelBadge, .attemptsBadge {
     height: 30px;
-    width: 122px;
+    width: 138px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,12 +115,12 @@ h1 {
     font-size: var(--font-size20);
     color: white;
     background-color: rgb(151, 111, 10);
-    border-radius: 0.5rem;
+    border-radius: 2px;
 }
 
 .levelTitle, .attemptsTitle {
     padding: 0 0.2rem 0 0.6rem;
-    margin:0;
+    margin: 0;
 }
 
 .scoreAndCarb {
@@ -128,7 +129,7 @@ h1 {
     grid-column-gap: 0.5rem;
 }
 
-.line{
+.line {
     width: 2px;
     background-color: #976f0a;
 }
@@ -140,19 +141,19 @@ h1 {
     text-align: center;
 }
 
- .carbon, .score {
-font-size: var(--font-size24);
+.carbon, .score {
+    font-size: var(--font-size24);
 }
 
 .partTwo {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    /*background-color: var(--teal);*/
+    background-color:  rgb(170,137,88);
     width: 80%;
     padding: 1rem;
     border-radius: 1rem;
-     backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .gameArea {
@@ -355,11 +356,13 @@ option:focus {
     flex-direction: column;
     row-gap: 1rem;
     justify-content: space-between;
+    font-family: 'Cinzel', serif;
 }
 
 .quit, .playNext, .playAgain {
     color: var(--white);
     font-size: var(--font-size20);
+    font-family: inherit;
     text-align: center;
     padding: 0.6rem 1.2rem;
     outline: none;
@@ -423,7 +426,7 @@ option:focus {
 
     /*old paper look for score board*/
     .scoreBoard {
-        /*border-radius: 1rem;*/
+        height: 280px;
         background: radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.15), transparent 50%),
         radial-gradient(ellipse at 80% 70%, rgba(139, 105, 20, 0.1), transparent 55%),
         radial-gradient(ellipse at 50% 100%, rgba(139, 105, 20, 0.15), transparent 60%),
