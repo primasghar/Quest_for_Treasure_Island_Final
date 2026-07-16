@@ -32,8 +32,9 @@ def player(text):
             "progressId": player_progress_data[0],
             "playerId": player_progress_data[1],
             "level": player_progress_data[2],
+            "attempts": player_progress_data[5],
             "score": player_progress_data[3],
-            "carbonPrint": player_progress_data[4],
+            "carbonPrint": player_progress_data[4]
         }
 
         return response

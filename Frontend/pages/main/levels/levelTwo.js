@@ -1,6 +1,5 @@
 import {
     gameTitle,
-    gameDescription,
     createSelectElement,
     createButtonElement,
     showResultCard, createDivElement, createParagraphElement

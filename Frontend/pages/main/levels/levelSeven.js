@@ -1,6 +1,5 @@
 import {
     gameTitle,
-    gameDescription,
     createButtonElement, createInputElement, showResultCard, createDivElement, createParagraphElement
 } from '../../../utils/functions.js'
 
