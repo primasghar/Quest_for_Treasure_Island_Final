@@ -3,7 +3,7 @@ import {
     createParagraphElement,
     createSelectElement,
     createButtonElement,
-    showResultCard, createDivElement
+    showResultCard, createDivElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelOneContainer;
@@ -15,7 +15,6 @@ let coin;
 
 let isFlipping = false;
 let resultText = "";
-let attempts = 0;
 
 let coinContainer;
 
@@ -45,7 +44,10 @@ const addCoin = () => {
     coin.appendChild(tails)
 }
 
-const handleFlipCoin = (onWin, onLose) => {
+const handleFlipCoin = async (onWin, onLose) => {
+    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let attempts = player.attempts;
+
     const chosenOption = selectEl.value;
 
     if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
@@ -59,7 +61,7 @@ const handleFlipCoin = (onWin, onLose) => {
     if (isFlipping || attempts >= 3) return;
 
     isFlipping = true;
-    attempts += 1;
+    await incrementAttempts()
     coin.classList.add('flipping');
 
     let isHeads = Math.random() < 0.5;
@@ -72,13 +74,17 @@ const handleFlipCoin = (onWin, onLose) => {
         if (chosenOption === resultText) {
             showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}.`)
             onWin();
-        } else if (attempts >= 3) {
-            showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!`)
-            onLose()
         } else {
+            showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!`)
+            // flipButtonEl.disabled = true;
+            // selectEl.disabled = true;
+            onLose()
+        }
+
+        if (chosenOption !== resultText && attempts < 2) {
             flipButtonEl.disabled = false;
             selectEl.disabled = false;
-            showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You lose. (${3 - attempts} attempts left) Good luck!`)
+            showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You lose.`)
         }
 
         coin.classList.remove('flipping');

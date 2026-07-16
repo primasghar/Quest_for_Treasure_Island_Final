@@ -1,4 +1,4 @@
-//-------------------------Accessing Elements-------------
+//-------------------------Accessing Elements------------
 
 export const gameTitle = (gameName) => {
     let gameTitle = document.querySelector('.gameNameHeading')
@@ -7,18 +7,6 @@ export const gameTitle = (gameName) => {
         console.error("gameTitle element not found — check your selector and HTML structure", gameTitle)
     }
     gameTitle.innerText = gameName;
-}
-
-export const gameDescription = (describeGame) => {
-    let gameInfo = document.querySelector('.gameDescription');
-
-    if (!gameInfo) {
-        gameInfo = document.createElement('p');
-        gameInfo.className = 'gameDescription';
-        document.querySelector('.gameArea').appendChild(gameInfo); // or wherever it belongs
-    }
-
-    gameInfo.innerText = `You have three opportunities to win this game and go to your next airport destination.\r ${describeGame}`;
 }
 
 //------------Creating Elements Div, Paragraph, Button, Select, Input--------
@@ -93,7 +81,7 @@ export const createInputElement = (placeholder) => {
     return inputElement;
 }
 
-//--------------------------------------------------------------
+//-------------------------------Result display-------------------------------
 export const showResultCard = (status, message) => {
     const resultArea = document.querySelector('.showResult');
     if (!resultArea) {
@@ -158,6 +146,7 @@ export const updatePlayerBoardUI = (player) => {
     let playerCarbonFootPrints = player['carbonPrint']
     let playerScore = player['score']
     let playerId = player['playerId']
+    let playerGameAttempts = player['attempts']
 // let playerProgressId = player['progressId']
 
     let sbId = document.querySelector('.id')
@@ -165,23 +154,40 @@ export const updatePlayerBoardUI = (player) => {
     let sbLevel = document.querySelector('.level')
     let sbCarbon = document.querySelector('.carbon')
     let sbScore = document.querySelector('.score')
+    let sbAttempts = document.querySelector('.attempts')
 
     sbId.innerText = playerId
     sbName.innerText = playerName;
     sbLevel.innerText = playerGameLevel;
+    sbAttempts.innerText = playerGameAttempts;
     sbCarbon.innerText = `${Math.floor(playerCarbonFootPrints / 1000)} kg`;
     sbScore.innerText = playerScore;
 }
 
+//Updates the attempts in UI and BE
+export const incrementAttempts = async ()=> {
+    let player = JSON.parse(localStorage.getItem('playerDetails')) || {};
+    console.log("attempts updated LS", player.attempts)
+    player.attempts += 1;
+    await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)//Setting BE with new val
+    localStorage.setItem("playerDetails", JSON.stringify(player));//Setting LS with new value
+    updatePlayerBoardUI(player)//Setting UI
+
+    if (player.attempts >= 3) {
+        console.log('Max attempts reached!');
+        //Need to add "Play again or Game Over in case the score is less than 200". Open a message box
+    }
+}
+
 //Updates the table in the BE
-export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID) => {
+export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID, gameAttempts) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID}),
+            body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID, attempts: gameAttempts}),
 
         })
         return await response.json();
@@ -397,3 +403,4 @@ export const deletePlayerData = async () => {
         console.log(error.message);
     }
 };
+
