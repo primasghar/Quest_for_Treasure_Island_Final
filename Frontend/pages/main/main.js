@@ -37,7 +37,7 @@ const initMap = async () => {
 
     if (player.level === 1) {
 
-        locations = [{ name: 'Helsinki Vantaa Airport', coords: [60.3184, 24.9633] }];
+        locations = [{name: 'Helsinki Vantaa Airport', coords: [60.3184, 24.9633]}];
     } else {
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
@@ -89,7 +89,7 @@ const changeLevel = (levelToShow) => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
         if (player.score >= 500) {
             playAgainBtn.disabled = false
-        } else{
+        } else {
             alert("You don't have enough score to trade for new game round. It's Game Over! Start Again.")
         }
 
@@ -157,6 +157,7 @@ quitBtn.addEventListener("click", async () => {
 playAgainBtn.addEventListener("click", async () => {
     let player = JSON.parse(localStorage.getItem('playerDetails'));
     player.score -= 500;
+    player.attempts = 0;
 
     localStorage.setItem("playerDetails", JSON.stringify(player));
     await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)

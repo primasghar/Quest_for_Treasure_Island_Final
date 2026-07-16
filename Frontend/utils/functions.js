@@ -165,7 +165,7 @@ export const updatePlayerBoardUI = (player) => {
 }
 
 //Updates the attempts in UI and BE
-export const incrementAttempts = async ()=> {
+export const incrementAttempts = async () => {
     let player = JSON.parse(localStorage.getItem('playerDetails')) || {};
     console.log("attempts updated LS", player.attempts)
     player.attempts += 1;
@@ -173,10 +173,6 @@ export const incrementAttempts = async ()=> {
     localStorage.setItem("playerDetails", JSON.stringify(player));//Setting LS with new value
     updatePlayerBoardUI(player)//Setting UI
 
-    if (player.attempts >= 3) {
-        console.log('Max attempts reached!');
-        //Need to add "Play again or Game Over in case the score is less than 200". Open a message box
-    }
 }
 
 //Updates the table in the BE
@@ -187,7 +183,13 @@ export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePl
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({level: gameLevel, score: gameScore, carbon_fp: gameCFP, player_id: gamePlayerID, attempts: gameAttempts}),
+            body: JSON.stringify({
+                level: gameLevel,
+                score: gameScore,
+                carbon_fp: gameCFP,
+                player_id: gamePlayerID,
+                attempts: gameAttempts
+            }),
 
         })
         return await response.json();

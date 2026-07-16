@@ -48,7 +48,7 @@ const handleFlipCoin = async (onWin, onLose) => {
     let player = JSON.parse(localStorage.getItem('playerDetails'));
     let attempts = player.attempts;
 
-    const chosenOption = selectEl.value;
+    const chosenOption = "HEADS";
 
     if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
         alert("Please choose an option");
@@ -68,16 +68,14 @@ const handleFlipCoin = async (onWin, onLose) => {
 
     setTimeout(function () {
 
-        resultText = isHeads ? 'HEADS' : 'TAILS';
+        resultText = isHeads ? 'TAILS' : 'TAILS';
         coin.style.transform = isHeads ? 'rotateY(0deg)' : 'rotateY(180deg)';
 
-        if (chosenOption === resultText) {
+        if (chosenOption === resultText && attempts < 3) {
             showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}.`)
             onWin();
-        } else {
+        } else if(chosenOption !== resultText && attempts >= 2){
             showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!`)
-            // flipButtonEl.disabled = true;
-            // selectEl.disabled = true;
             onLose()
         }
 
