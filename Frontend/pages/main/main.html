@@ -10,9 +10,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../favicon/favicon-16x16.png">
     <!--    <link rel="manifest" href="../../favicon/site.webmanifest">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600&family=Poppins:wght@400;500&family=Special+Elite&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -48,7 +49,6 @@
                                 <p class="attemptsTitle">Attempts:</p>
                                 <p class="attempts"></p>
                             </div>
-
                         </div>
 
                     </div>
@@ -67,15 +67,22 @@
             </section>
         </section>
         <section class="partTwo">
-            <h2 class="gameNameHeading"></h2>
+            <div class="gameTitleDiv">
+
+                <h2 class="gameNameHeading"></h2>
+                <div class="gameTitleTopText"><i class="ti ti-plane"></i><p class="arrivalText">arrived at <span class="airportName"></span></p>
+                    <p class="arrivalText"> -- game unlocked</p></div>
+                <p class="arrivalText">Win to earn next boarding pass. 3 attempts before the gate closes.</p>
+            </div>
+
             <div class="gameArea">
             </div>
             <div class="showResult">
             </div>
             <div class="buttons">
-                <button class="quit">Quit</button>
-                <button class="playAgain">Play Again</button>
-                <button class="playNext">Next</button>
+                <button class="quit"><i class="ti ti-x"></i></button>
+                <button class="playAgain"><i class="ti ti-refresh"></i></button>
+                <button class="playNext"><i class="ti ti-plane-departure"></i></button>
             </div>
         </section>
 

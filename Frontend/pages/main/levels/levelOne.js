@@ -74,7 +74,7 @@ const handleFlipCoin = async (onWin, onLose) => {
         if (chosenOption === resultText && attempts < 3) {
             showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}.`)
             onWin();
-        } else if(chosenOption !== resultText && attempts >= 2){
+        } else if (chosenOption !== resultText && attempts >= 2) {
             showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!`)
             onLose()
         }
@@ -100,7 +100,7 @@ const levelOne = (gameDiv, onWin, onLose) => {
     levelOneContainer = createDivElement("game1Container")
     gameDiv.appendChild(levelOneContainer)
 
-    describeGamePara = createParagraphElement("game1Description", "Select HEADS or TAILS and Press the button to flip the coin.")
+    describeGamePara = createParagraphElement("game1Description", "Select HEADS or TAILS and press Flip button. To win your choice should match computer's choice.")
     levelOneContainer.appendChild(describeGamePara)
 
     selectEl = createSelectElement("level1Select", optionsArray)
