@@ -49,11 +49,20 @@ h1 {
     background-size: cover;
 }
 
+/*  rgb(74,31,9)  rgb(98,51,19)  rgb(90,53,26) rgb(105,60,27) rgb(166,80,31)  rgb(157,69,25)*/
 .partOne {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: rgb(170, 137, 88);
+    background: linear-gradient(
+            180deg,
+            rgb(74, 31, 9) 0%,
+            rgb(98, 51, 19) 20%,
+            rgb(90, 53, 26) 40%,
+            rgb(105, 60, 27) 60%,
+            rgb(166, 80, 31) 80%,
+            rgb(157, 69, 25) 100%
+    );
     width: 80%;
     height: 26%;
     padding: 1rem;
@@ -151,7 +160,15 @@ h1 {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    background-color: rgb(170, 137, 88);
+    background: linear-gradient(
+            180deg,
+            rgb(74, 31, 9) 0%,
+            rgb(98, 51, 19) 20%,
+            rgb(90, 53, 26) 40%,
+            rgb(105, 60, 27) 60%,
+            rgb(166, 80, 31) 80%,
+            rgb(157, 69, 25) 100%
+    );
     width: 80%;
     padding: 1rem;
     border-radius: 1rem;
@@ -398,13 +415,20 @@ button {
     font-family: 'Cinzel', serif;
 }
 
+.iconAndTextBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:0.2rem;
+}
+
 .quit, .playNext, .playAgain {
-    width: 10rem;
+    width: 8rem;
     color: var(--white);
     font-size: var(--font-size20);
     font-family: inherit;
     text-align: center;
-    padding: 0.1rem 0.5rem;
+    padding: 0.4rem 0.5rem;
     outline: none;
     background-color: var(--deep-sea);
     border: none;
@@ -419,7 +443,7 @@ button {
 }
 
 i.ti-refresh {
-    font-size: 48px;
+    font-size: var(--font-size30);
     color: white;
 }
 
@@ -429,7 +453,7 @@ i.ti-refresh {
 }
 
 i.ti-plane-departure {
-    font-size: 48px;
+    font-size: var(--font-size30);
     color: white;
 }
 
@@ -444,7 +468,7 @@ i.ti-plane-departure {
 }
 
 i.ti-x {
-    font-size: 48px;
+    font-size: var(--font-size30);
     color: white;
 }
 

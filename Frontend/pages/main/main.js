@@ -37,7 +37,11 @@ const initMap = async () => {
 
     if (player.level === 1) {
 
-        locations = [{name: 'Helsinki Vantaa Airport', coords: [60.3184, 24.9633]}];
+        let airport = await getAirportData(1)
+        let airportNameTitle = document.querySelector('.airportName');
+        airportNameTitle.innerText = airport.name;
+
+        locations = [airport];
     } else {
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
@@ -134,7 +138,7 @@ nextGameBtn.addEventListener("click", async () => {
     clearGameAreas()
 
     let player = JSON.parse(localStorage.getItem('playerDetails'));
-    const {level} = player
+    const {level} = player //level already changed on win which also activate the next button.
     updatePlayerBoardUI(player)
 
     changeLevel(level);
@@ -144,6 +148,9 @@ nextGameBtn.addEventListener("click", async () => {
     let airport = await getAirportData(level)
 
     addLocation(airport, locations)
+
+    let airportNameTitle = document.querySelector('.airportName');
+        airportNameTitle.innerText = airport.name;
 
 })
 
