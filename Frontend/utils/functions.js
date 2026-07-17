@@ -217,6 +217,7 @@ export const airportData = async (icao_list) => {
         console.log(error.message);
     }
 };
+// Returns "list" of airports as objects
 
 export const getDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Earth's radius in km (use 3958.8 for miles)
@@ -343,22 +344,15 @@ export const addLocation = (loc, locations) => {
 
 
 export const getAirportData = async (level) => {
-    let airportDataForMap;
-
+    // As passing a single level, so will get data for a single airport as object in an array.
     let allGameAirportICAO = await allICAOCodes();
 
-    let airportICAO = [allGameAirportICAO[level - 1][1]]//Pass ICAO in an array
+    let airportICAO = [allGameAirportICAO[level - 1][1]]// Considering 0 indexed ICAO array and Pass ICAO in an array
 
     let data = await airportData(airportICAO)
+    console.log("getAirport", data)
 
-    for (const airport of data.airports) {
-        const airportName = airport.airportName;
-        const lat = airport.lat;
-        const lon = airport.lon;
-        airportDataForMap = {name: airportName, coords: [lat, lon]}
-    }
-
-    return airportDataForMap;
+    return data['airports'][0];
 }
 
 
