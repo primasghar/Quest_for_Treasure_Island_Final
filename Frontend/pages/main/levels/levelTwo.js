@@ -2,7 +2,7 @@ import {
     gameTitle,
     createSelectElement,
     createButtonElement,
-    showResultCard, createDivElement, createParagraphElement
+    showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelTwoContainer;
@@ -14,14 +14,16 @@ let playerChoice;
 let computerChoice;
 
 let playerWon = "No";
-let attempts = 0;
 
 let optionsArray = [{value: "", nodeText: "-- Player's choice --"},
     {value: "ROCK", nodeText: "ROCK"},
     {value: "PAPER", nodeText: "PAPER"},
     {value: "SCISSORS", nodeText: "SCISSORS"}];
 
-const playGame = (onWin, onLose) => {
+const playGame = async (onWin, onLose) => {
+    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let attempts = player.attempts;
+
     const options_list = ["ROCK", "PAPER", "SCISSORS"]
     const choiceNumber = Math.floor(Math.random() * 3);
 
@@ -31,14 +33,13 @@ const playGame = (onWin, onLose) => {
 
     if (playerChoice === "ROCK" || playerChoice === "PAPER" || playerChoice === "SCISSORS") {
 
-        attempts += 1;
+        await incrementAttempts()
 
         if (playerChoice === "ROCK" && computerChoice === "SCISSORS" ||
             playerChoice === "PAPER" && computerChoice === "ROCK" ||
             playerChoice === "SCISSORS" && computerChoice === "PAPER") {
 
             playerWon = "Yes"
-            attempts = 3
             selectEl.disabled = true;
             buttonEl.disabled = true;
 
@@ -51,16 +52,16 @@ const playGame = (onWin, onLose) => {
 
             playerWon = "No"
 
-            if (attempts < 3) {
-                showResultCard("try", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
+            if (attempts < 2) {
+                showResultCard("try", `You choose: ${playerChoice}. Computer choose: ${computerChoice}.`)
             }
 
         } else if (computerChoice === playerChoice) {
 
             playerWon = "Draw"
 
-            if (attempts < 3) {
-                showResultCard("draw", `You choose: ${playerChoice}. Computer choose: ${computerChoice}. ${attempts <= 2 ? `${3 - attempts} attempts left` : ""}`)
+            if (attempts < 2) {
+                showResultCard("draw", `You choose: ${playerChoice}. Computer choose: ${computerChoice}.`)
             }
 
         }
@@ -68,10 +69,10 @@ const playGame = (onWin, onLose) => {
         alert("Please choose from given option")
     }
 
-    if (attempts === 3 && (playerWon === "No" || playerWon === "Draw")) {
+    if (attempts === 2 && (playerWon === "No" || playerWon === "Draw")) {
         selectEl.disabled = true;
         buttonEl.disabled = true;
-        showResultCard("lose", `Your choose: ${playerChoice}. Computer's choose: ${computerChoice}. No attempts left!.`)
+        showResultCard("lose", `Your choose: ${playerChoice}. Computer's choose: ${computerChoice}. No attempts left. You lose.`)
         onLose()
     }
 }

@@ -1,15 +1,12 @@
 import {
     gameTitle,
     createNumberSelect,
-    createButtonElement, showResultCard, createDivElement, createParagraphElement
+    createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelFiveContainer;
 let describeGame5Para;
-
-let attempts = 0
 let playerWon = false
-
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 // --------------------------------Main Function------------------------
@@ -30,6 +27,10 @@ const levelFive = (gameDiv, onWin, onLose) => {
     levelFiveContainer.appendChild(selectNoBtnEl)
 
     const handleGuessNo = () => {
+
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let attempts = player.attempts;
+
         let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
 
         let playerSelectedNo = selectNoEl.value
@@ -42,28 +43,27 @@ const levelFive = (gameDiv, onWin, onLose) => {
         selectNoEl.disabled = true
         selectNoBtnEl.disabled = true
 
-
         let computerChoiceElement = createParagraphElement("guessComputerChoice", `Computer's choice: ${computerSelectedNo.toString()} `)
         levelFiveContainer.appendChild(computerChoiceElement)
 
-        setTimeout(() => {
+        setTimeout(async () => {
+
+            await incrementAttempts()
+
             if (+playerSelectedNo === computerSelectedNo) {
                 showResultCard("win", `You have selected: ${playerSelectedNo}, that equals the computer's choice: ${computerSelectedNo}.`)
-                attempts = 3
                 playerWon = true
                 onWin()
             } else {
-                attempts += 1;
                 selectNoEl.disabled = false
                 selectNoBtnEl.disabled = false
-                showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.
-            ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
+                showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.`)
                 setTimeout(() => {
-                    attempts < 3 ? computerChoiceElement.remove() : ""
-                }, 2000)
+                    attempts < 2 ? computerChoiceElement.remove() : ""
+                }, 1000)
             }
 
-            if (attempts === 3) {
+            if (attempts === 2) {
                 selectNoEl.disabled = true
                 selectNoBtnEl.disabled = true
                 if (playerWon === false) {

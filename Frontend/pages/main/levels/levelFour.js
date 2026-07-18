@@ -2,19 +2,15 @@ import {
     gameTitle,
     createSelectElement,
     createNumberSelect,
-    createButtonElement, showResultCard, createDivElement, createParagraphElement
+    createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelFourContainer;
 let describeGame4Para;
-
-let attempts = 0
 let playerWon = false
-
 let optionsArray1 = [{value: "", nodeText: "-- Select Even/Odd --"},
     {value: "EVEN", nodeText: "EVEN"},
     {value: "ODD", nodeText: "ODD"}];
-
 let optionsArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 // --------------------------------Main Function------------------------
@@ -41,6 +37,9 @@ const levelFour = (gameDiv, onWin, onLose) => {
 
     // Handler function
     const handleEvenOdd = () => {
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let attempts = player.attempts;
+
         let computerChoice;
 
         let playerTarget = evenOddSelect.value;
@@ -51,7 +50,9 @@ const levelFour = (gameDiv, onWin, onLose) => {
         } else if (playerSelectedNo === "") {
             alert('Please select a Number')
         } else {
-            setTimeout(() => {
+            setTimeout(async () => {
+                await incrementAttempts()
+
                 let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
                 computerChoice = document.createElement('p')
                 computerChoice.className = "computerChoice"
@@ -61,22 +62,21 @@ const levelFour = (gameDiv, onWin, onLose) => {
 
 
                 if (playerTarget === "EVEN" && sumOfNos % 2 === 0) {
-                    attempts = 3
                     playerWon = true
                     showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is an Even Number.`)
                     onWin()
                 } else if (playerTarget === "ODD" && sumOfNos % 2 !== 0) {
-                    attempts = 3
                     playerWon = true
                     showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number.`)
                     onWin()
                 } else {
-                    attempts += 1;
-                    showResultCard("try", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.
-            ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
+                    showResultCard("try", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.`)
+                     setTimeout(() => {
+                    attempts < 3 ? computerChoice.remove() : ""
+                }, 2000)
                 }
 
-                if (attempts === 3) {
+                if (attempts === 2) {
                     playButton.disabled = true
                     if (playerWon === false) {
                         showResultCard("lose", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number. No attempts left!`)

@@ -2,15 +2,11 @@ import {
     gameTitle,
     createButtonElement,
     showResultCard,
-    createDivElement, createParagraphElement
+    createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelThreeContainer;
 let describeGame3Para;
-
-let attempts = 0;
-
-
 // --------------------------------Main Function------------------------
 
 const levelThree = (gameDiv, onWin, onLose) => {
@@ -31,10 +27,12 @@ const levelThree = (gameDiv, onWin, onLose) => {
     levelThreeContainer.appendChild(rollBtnEl)
 
     const handleDiceRoll = () => {
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let attempts = player.attempts;
 
         document.querySelectorAll('.dices').forEach(el => el.remove());
 
-        setTimeout(() => {
+        setTimeout(async () => {
             let randomNumber1 = Math.floor(Math.random() * 6) + 1;
             let randomNumber2 = Math.floor(Math.random() * 6) + 1;
             let randomNumber3 = Math.floor(Math.random() * 6) + 1;
@@ -62,22 +60,25 @@ const levelThree = (gameDiv, onWin, onLose) => {
             allDices.appendChild(dice3)
 
             const sum = randomNumber1 + randomNumber2 + randomNumber3
-            attempts += 1;
+            await incrementAttempts()
 
             if (sum === 12) {
 
                 rollBtnEl.disabled = true;
                 showResultCard("win", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`)
                 onWin()
-            } else if (attempts >= 3) {
+
+            } else if (attempts >= 2) {
+
                 showResultCard("lose", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. No attempts left!`)
                 rollBtnEl.disabled = true;
 
                 let player = JSON.parse(localStorage.getItem('playerDetails'));
                 if (player.score === 0) rollBtnEl.disabled = true
                 onLose()
+
             } else {
-                showResultCard("try", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.(${3 - attempts} attempts left) Good luck!`)
+                showResultCard("try", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`)
             }
         }, 1000);
     }

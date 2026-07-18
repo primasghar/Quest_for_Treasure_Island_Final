@@ -1,6 +1,6 @@
 import {
     gameTitle,
-    createButtonElement, createInputElement, showResultCard, createDivElement, createParagraphElement
+    createButtonElement, createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelSevenContainer;
@@ -53,6 +53,9 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
 
     // Function to show the riddle
     const handleShowRiddle = () => {
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        attempts = player.attempts;
+
         let availableRiddles = [...riddlesArray]
         let riddleText = "";
 
@@ -71,7 +74,9 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
 
     showRiddleBtnEl.addEventListener("click", handleShowRiddle);
     // Function to submit the riddle answer, and display results.
-    const handleSubmitRiddleAnswer = () => {
+    const handleSubmitRiddleAnswer = async() => {
+        await incrementAttempts()
+
         let playerAnswer = playerAnsInputEl.value.trim().toUpperCase()
         let correctAnswer = chosenRiddle[2].toUpperCase()
 
@@ -79,19 +84,19 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
         playerAnsInputEl.disabled = true;
 
         if (playerAnswer === correctAnswer) {
-            attempts = 3
+
             playerWon = true
             showResultCard("win", `"${playerAnswer}" is a correct answer.`)
             onWin()
         } else {
-            attempts += 1;
+
             showRiddleBtnEl.disabled = false
             playerAnsInputEl.value = ""
             riddle.innerText = ""
-            showResultCard("try",`${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
+            showResultCard("try", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.`)
         }
 
-        if (attempts === 3) {
+        if (attempts === 2) {
             showRiddleBtnEl.disabled = true
             if (playerWon === false) {
                 showResultCard("lose", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. No attempts left.`)

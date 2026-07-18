@@ -2,7 +2,7 @@ import {
     gameTitle,
     createInputElement,
     createButtonElement,
-    generateRandomSequence, showResultCard, createDivElement, createParagraphElement
+    generateRandomSequence, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelSixContainer;
@@ -15,29 +15,34 @@ let showSeqBtnEl;
 let sequenceInputEl;
 let submitSeqBtnEl;
 
-let attempts = 0
 let playerWon = false
+let attempts;
 
-const handleSubmitSequence = (onWin, onLose) => {
+const handleSubmitSequence = async (onWin, onLose) => {
+
+    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    attempts = player.attempts;
+
     console.log("handle submit", sequenceInputEl.value, seq)
     submitSeqBtnEl.disabled = true;
     sequenceInputEl.disabled = true;
 
     const playerGuess = sequenceInputEl.value.trim().toUpperCase();
 
+    await incrementAttempts()
+
     if (playerGuess === seq) {
-        attempts = 3
+
         playerWon = true
         showSeqBtnEl.disabled = true
         showResultCard("win", `Your sequence ${playerGuess} matched ${seq}.`)
         onWin()
     } else {
-        attempts += 1;
 
-        if (attempts <= 2) {
+        if (attempts < 2) {
             showSeqBtnEl.disabled = false
             sequenceInputEl.value = ""
-            showResultCard("try", `Your sequence ${playerGuess} does not match ${seq}.(${3 - attempts} attempts left) Good luck!`)
+            showResultCard("try", `Your sequence ${playerGuess} does not match ${seq}.`)
         } else {
             showSeqBtnEl.disabled = true
             sequenceInputEl.value = ""
@@ -56,7 +61,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
     levelSixContainer = createDivElement("game6Container")
     gameDiv.appendChild(levelSixContainer)
 
-    describeGame6Para = createParagraphElement("game6Description","A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
+    describeGame6Para = createParagraphElement("game6Description", "A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
     levelSixContainer.appendChild(describeGame6Para)
 
     showSeqBtnEl = createButtonElement("sequenceBtn", "Sequence")
@@ -69,7 +74,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
         console.log("seq", seq)
 
         randSequence = document.createElement('p')
-        randSequence.innerText = `Sequence No ${attempts + 1}:  ${seq}`;
+        randSequence.innerText = `Sequence No:  ${seq}`;
         randSequence.className = "sequence"
         levelSixContainer.appendChild(randSequence)
 
@@ -84,7 +89,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
             levelSixContainer.appendChild(submitSeqBtnEl)
 
 
-        }, 8000)
+        }, 1000)
 
     }
 

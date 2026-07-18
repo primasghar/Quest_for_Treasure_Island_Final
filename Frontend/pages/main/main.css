@@ -5,7 +5,7 @@ html, body {
     background-color: var(--dark-brown);
     padding: 0;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Cinzel', serif;
 }
 
 .wrapper {
@@ -345,7 +345,9 @@ option:focus {
     padding: 1rem;
 }
 
+
 .resultCard {
+    font-family: 'Marcellus', serif;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -759,7 +761,7 @@ i.ti-x {
     grid-column: 1/4;
     color: black;
     font-size: var(--font-size20);
-    text-align: left;
+    text-align: center;
     margin: 1rem 0;
 }
 

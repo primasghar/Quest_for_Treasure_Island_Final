@@ -43,10 +43,11 @@ const initMap = async () => {
         let airportNameTitle = document.querySelector('.airportName');
         airportNameTitle.innerText = `${airportName}, ${country}`;
 
-        locations = [{name: airportName, coords:[lat, lon]}];
+        locations = [{name: airportName, coords: [lat, lon]}];
     } else {
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
+
 
     showMapOnLoad(locations); // now called AFTER locations is fully populated
 
@@ -132,7 +133,7 @@ const changeLevel = (levelToShow) => {
 
 }
 
-changeLevel(player.level);
+changeLevel(8);
 
 // ---------------------Buttons and Event Listeners------------------------------------------
 
@@ -147,13 +148,14 @@ nextGameBtn.addEventListener("click", async () => {
 
     nextGameBtn.disabled = true
 
-    let airport = await getAirportData(level)
-    const {name, lat, lon} = airport;
-
-    addLocation({name: name, coords:[lat, lon]}, locations)
+    let airport = await getAirportData(1)
+    const {airportName, country, lat, lon} = airport;
 
     let airportNameTitle = document.querySelector('.airportName');
-        airportNameTitle.innerText = airport.name;
+    airportNameTitle.innerText = `${airportName}, ${country}`;
+
+    addLocation({name: name, coords: [lat, lon]}, locations)
+
 
 })
 

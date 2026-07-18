@@ -1,7 +1,7 @@
 import {
     gameTitle,
     createButtonElement,
-    createInputElement, showResultCard, createDivElement, createParagraphElement
+    createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
 
 let levelEightContainer;
@@ -15,7 +15,7 @@ let showQuestionBtnEl;
 let playerAnsInputEl;
 let submitBtnEl;
 
-let attempts = 0
+let attempts;
 let playerWon = false
 
 //fetching all questions from BE
@@ -32,6 +32,7 @@ const fetchQuizQuestions = async () => {
 // --------------------------------Main Function------------------------
 
 const levelEight = async (gameDiv, onWin, onLose) => {
+
     gameTitle("QUIZ")
 
     levelEightContainer = createDivElement("game8Container")
@@ -47,6 +48,10 @@ const levelEight = async (gameDiv, onWin, onLose) => {
 
     //Function to display question
     const handleShowQuestion = () => {
+
+        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        attempts = player.attempts;
+
         let availableQuestions = [...questionsArray]
         let questionText = "";
 
@@ -77,7 +82,10 @@ const levelEight = async (gameDiv, onWin, onLose) => {
     submitBtnEl.disabled = true;
 
     //Function  handling submitting of player's answer and showing results.
-    const handleSubmitQuizAnswer = () => {
+    const handleSubmitQuizAnswer = async () => {
+
+        await incrementAttempts()
+
         let playerAnswer = playerAnsInputEl.value.trim().toUpperCase()
         let correctAnswer = chosenQuestion[2].toUpperCase()
 
@@ -86,21 +94,18 @@ const levelEight = async (gameDiv, onWin, onLose) => {
 
         if (playerAnswer === correctAnswer) {
             showResultCard("win", `${playerAnswer} is the correct answer.`)
-            attempts = 3
             playerWon = true
             onWin()
         } else {
-            attempts += 1;
             showQuestionBtnEl.disabled = false
             playerAnsInputEl.value = ""
             question.innerText = ""
 
-            showResultCard("try", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.
-            ${attempts <= 2 ? `(${3 - attempts} attempts left) Good luck!` : ""}`)
+            showResultCard("try", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.`)
 
         }
 
-        if (attempts === 3) {
+        if (attempts === 2) {
             showQuestionBtnEl.disabled = true
             if (playerWon === false) {
                 showResultCard("lose", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. No attempts left.`)
