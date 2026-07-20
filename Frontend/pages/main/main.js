@@ -56,7 +56,6 @@ const initMap = async () => {
 
 initMap();
 
-
 // ----------------------------Game-----------------------------------------------------------
 
 const changeLevel = (levelToShow) => {
@@ -158,7 +157,6 @@ nextGameBtn.addEventListener("click", async () => {
 
 
 })
-
 
 quitBtn.addEventListener("click", async () => {
     await deletePlayerData()

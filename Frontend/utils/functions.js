@@ -81,6 +81,51 @@ export const createInputElement = (placeholder) => {
     return inputElement;
 }
 
+//message Modal
+
+export const showMessageModal=(message, buttonText, onButtonClick) =>{
+
+    const overlay = createDivElement('modal-overlay');
+    const box = createDivElement('modal-box');
+    const messageEl = createParagraphElement('modal-message', message);
+    const button = createButtonElement('modal-button', buttonText);
+
+    // Close modal helper
+    const closeModal = () =>{
+      overlay.classList.remove('show');
+      setTimeout(() => overlay.remove(), 200);
+    }
+
+    // Button click handler
+    button.addEventListener('click', () => {
+      closeModal();
+      if (typeof onButtonClick === 'function') {
+        onButtonClick();
+      }
+    });
+
+    // Assemble modal
+    box.appendChild(messageEl);
+    box.appendChild(button);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // Trigger fade-in
+    requestAnimationFrame(() => overlay.classList.add('show'));
+  }
+
+  // Demo usage
+  // document.getElementById('demo-trigger').addEventListener('click', () => {
+  //   showMessageModal(
+  //     'You have used all 3 attempts. Try again?',
+  //     'OK',
+  //     () => {
+  //       console.log('Button clicked — running callback logic here.');
+  //     }
+  //   );
+  // });
+
+
 //-------------------------------Result display-------------------------------
 export const showResultCard = (status, message) => {
     const resultArea = document.querySelector('.showResult');
@@ -175,7 +220,7 @@ export const incrementAttempts = async () => {
 
 }
 
-//Updates the table in the BE
+//Updates the table in the BACKEND
 export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID, gameAttempts) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
@@ -198,6 +243,7 @@ export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePl
     }
 };
 
+//Fetches all airports ICAO from BACKEND -- selected to be used in this game.
 export const allICAOCodes = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/airports/icao`)
@@ -209,6 +255,7 @@ export const allICAOCodes = async () => {
     }
 };
 
+//Fetches airports data from BACKEND  with ICAO--Returns "list" of airports as objects
 export const airportData = async (icao_list) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao_list}`)
@@ -217,8 +264,8 @@ export const airportData = async (icao_list) => {
         console.log(error.message);
     }
 };
-// Returns "list" of airports as objects
 
+//Calculated the distance between current and previous airport (used to calc carbon emission)
 export const getDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Earth's radius in km (use 3958.8 for miles)
 
@@ -261,6 +308,7 @@ export const calcCarbonEmission = async (currLevel) => {
     return Math.floor(150 * distanceBtwAirports);
 }
 
+// Creates the map
 let map;
 let markers = []
 let trailPoints = []
@@ -342,7 +390,7 @@ export const addLocation = (loc, locations) => {
     // map.fitBounds(trailLine.getBounds(), { padding: [30, 30] });
 }
 
-
+//gets all data of an airport ( score, level, carbon emission, playerId, attempts )
 export const getAirportData = async (level) => {
     // As passing a single level, so will get data for a single airport as object in an array.
     let allGameAirportICAO = await allICAOCodes();
@@ -355,7 +403,7 @@ export const getAirportData = async (level) => {
     return data['airports'][0];
 }
 
-
+//Gets all the airports visited already to reload them on map, if player reloads the page.
 export const mapVisitedAirportsOnLoad = async (level) => {
     const airportDataForMap = [];
 
@@ -377,7 +425,7 @@ export const mapVisitedAirportsOnLoad = async (level) => {
     return airportDataForMap;
 }
 
-
+//Clears the game areas including result div.
 export const clearGameAreas = () => {
     const title = document.querySelector(".gameNameHeading");
     const gameDiv = document.querySelector('.gameArea')
@@ -387,7 +435,7 @@ export const clearGameAreas = () => {
     resultDiv.innerHTML = ""
 }
 
-
+//Deletes everything when QUIT button is pressed.
 export const deletePlayerData = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/quit`)
