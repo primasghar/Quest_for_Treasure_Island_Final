@@ -83,47 +83,56 @@ export const createInputElement = (placeholder) => {
 
 //message Modal
 
-export const showMessageModal=(message, buttonText, onButtonClick) =>{
+export const showMessageModal = (message, buttonText = null, onButtonClick = () => {
+}) => {
 
     const overlay = createDivElement('modal-overlay');
+    document.body.appendChild(overlay);
     const box = createDivElement('modal-box');
+    overlay.appendChild(box);
     const messageEl = createParagraphElement('modal-message', message);
-    const button = createButtonElement('modal-button', buttonText);
+    box.appendChild(messageEl);
+    const quitButton = createButtonElement('modal-quit', "quit");
+
 
     // Close modal helper
-    const closeModal = () =>{
-      overlay.classList.remove('show');
-      setTimeout(() => overlay.remove(), 200);
+    const closeModal = () => {
+        overlay.classList.remove('show');
+        setTimeout(() => overlay.remove(), 200);
     }
 
-    // Button click handler
-    button.addEventListener('click', () => {
-      closeModal();
-      if (typeof onButtonClick === 'function') {
-        onButtonClick();
-      }
-    });
+    if (buttonText) {
+        const button = createButtonElement('modal-button', buttonText);
+        button.addEventListener('click', () => {
+            closeModal();
+            onButtonClick();
+        });
+        box.appendChild(button);
+    }
 
-    // Assemble modal
-    box.appendChild(messageEl);
-    box.appendChild(button);
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
+    quitButton.addEventListener('click', async () => {
+        closeModal();
+        await deletePlayerData()
+        localStorage.removeItem('playerDetails');
+        window.location.href = '../playerName/index.html';
+    })
+    box.appendChild(quitButton)
+
 
     // Trigger fade-in
     requestAnimationFrame(() => overlay.classList.add('show'));
-  }
+}
 
-  // Demo usage
-  // document.getElementById('demo-trigger').addEventListener('click', () => {
-  //   showMessageModal(
-  //     'You have used all 3 attempts. Try again?',
-  //     'OK',
-  //     () => {
-  //       console.log('Button clicked — running callback logic here.');
-  //     }
-  //   );
-  // });
+// Demo usage
+// document.getElementById('demo-trigger').addEventListener('click', () => {
+//   showMessageModal(
+//     'You have used all 3 attempts. Try again?',
+//     'OK',
+//     () => {
+//       console.log('Button clicked — running callback logic here.');
+//     }
+//   );
+// });
 
 
 //-------------------------------Result display-------------------------------
@@ -138,7 +147,7 @@ export const showResultCard = (status, message) => {
         win: {icon: "🎉", label: "Congratulations! You win!", bg: "#e8f5e9", border: "#2e7d32", text: "#1b5e20"},
         lose: {icon: "😢", label: "Sorry! You lose!", bg: "#fdecea", border: "#c62828", text: "#b71c1c"},
         draw: {icon: "🤝", label: "Oops! It's a draw", bg: "#fff8e1", border: "#f9a825", text: "#8d6e00"},
-        try: {icon: "🔄", label: "Please try again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101"}
+        try: {icon: "🔄", label: "Try again", bg: "#ccc9c9", border: "#b1a8a8", text: "#180101"}
     };
 
     const {icon, label, bg, border, text} = config[status] || config.lose;

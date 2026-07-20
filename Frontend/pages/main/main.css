@@ -1,6 +1,6 @@
 @import url("../../utils/constants.css");
 
- body {
+body {
     color: black;
     background-color: var(--dark-brown);
     padding: 0;
@@ -914,8 +914,8 @@ i.ti-x {
 
 /*----------------------------------MSG MODAL----------------------------------------------------*/
 
-  /* Modal styles */
-  .modal-overlay {
+/* Modal styles */
+.modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
@@ -925,16 +925,17 @@ i.ti-x {
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.2s ease;
-  }
+}
 
-  .modal-overlay.show {
+.modal-overlay.show {
     opacity: 1;
-  }
+}
 
-  .modal-box {
+.modal-box {
     background: #fff;
     color: #222;
     padding: 28px 24px;
+    margin-right: 1rem;
     border-radius: 12px;
     max-width: 360px;
     width: 90%;
@@ -942,28 +943,38 @@ i.ti-x {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transform: scale(0.9);
     transition: transform 0.2s ease;
-  }
+}
 
-  .modal-overlay.show .modal-box {
+.modal-overlay.show .modal-box {
     transform: scale(1);
-  }
+}
 
-  .modal-message {
+.modal-message {
     font-size: 16px;
     margin-bottom: 20px;
     line-height: 1.5;
-  }
+}
 
-  .modal-button {
-    padding: 10px 24px;
-    font-size: 15px;
-    border: none;
-    border-radius: 8px;
+.modal-button, .modal-quit {
+    width: 4rem;
+    color: var(--white);
     background: #6B4226;
-    color: #fff;
+    font-size: var(--font-size20);
+    font-family: inherit;
+    text-align: center;
+    padding: 0.2rem 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 0.4rem;
     cursor: pointer;
-  }
+}
 
-  .modal-button:hover {
+.modal-button:hover, .modal-quit:hover {
     filter: brightness(1.1);
-  }
+}
+
+.modal-quit {
+    color: var(--white);
+    background-color: var(--maroon);
+    margin-left: 1rem;
+}

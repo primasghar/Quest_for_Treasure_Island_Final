@@ -12,7 +12,7 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, gameTitle, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission
+    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal
 } from "../../utils/functions.js"
 
 
@@ -20,8 +20,7 @@ import {
 
 const nextGameBtn = document.querySelector(".playNext");
 nextGameBtn.disabled = true
-const playAgainBtn = document.querySelector(".playAgain");
-playAgainBtn.disabled = true
+
 const quitBtn = document.querySelector(".quit");
 
 const gameDiv = document.querySelector('.gameArea')
@@ -46,6 +45,14 @@ const initMap = async () => {
         locations = [{name: airportName, coords: [lat, lon]}];
     } else {
         locations = await mapVisitedAirportsOnLoad(player.level);
+    }
+
+    console.log("on reload", player.score, player.attempts)
+    // In case player don't choose any option in message modal and reload the modals comes back.
+    if (player.score >= 500 && player.attempts === 3) {
+        showMessageModal("Want to Play again (-500 scores and +50g Carbon Footprints) ?", "Yes", onReplay)
+    } else if (player.score < 500 && player.attempts === 3) {
+        showMessageModal("You don't have enough score to play. Game Over! ")
     }
 
 
@@ -78,7 +85,6 @@ const changeLevel = (levelToShow) => {
         if (player.level !== 8) {
             player.level += 1;
             player.attempts = 0;
-            playAgainBtn.disabled = true
         }
 
         player.score += 500;
@@ -93,10 +99,11 @@ const changeLevel = (levelToShow) => {
 
     const onLose = () => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
-        if (player.score >= 500) {
-            playAgainBtn.disabled = false
-        } else {
-            alert("You don't have enough score to trade for new game round. It's Game Over! Start Again.")
+        console.log("on lose", player.score, player.attempts)
+        if (player.score >= 500 && player.attempts === 3) {
+            showMessageModal("Want to Play again (-500 scores and +50g Carbon Footprints) ?", "Yes", onReplay)
+        } else if (player.score < 500 && player.attempts === 3) {
+            showMessageModal("You don't have enough score to play. Game Over! ")
         }
 
     }
@@ -164,13 +171,18 @@ quitBtn.addEventListener("click", async () => {
     window.location.href = '../playerName/index.html';
 })
 
-playAgainBtn.addEventListener("click", async () => {
+
+const onReplay = async () => {
     let player = JSON.parse(localStorage.getItem('playerDetails'));
     player.score -= 500;
     player.attempts = 0;
-
+    player.carbonPrint += 50;
+    clearGameAreas()
+    changeLevel(player.level)
     localStorage.setItem("playerDetails", JSON.stringify(player));
     await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
 
-    location.reload();
-})
+    locations = await mapVisitedAirportsOnLoad(player.level);
+    updatePlayerBoardUI(player);
+
+}
