@@ -28,7 +28,9 @@ export const createParagraphElement = (paraClass, paraText) => {
 export const createButtonElement = (buttonClass, buttonText) => {
     const buttonElement = document.createElement("button")
     buttonElement.className = buttonClass
-    buttonElement.innerHTML = buttonText
+    const btnText = document.createElement('span')
+    btnText.innerText = buttonText
+    buttonElement.appendChild(btnText)
     return buttonElement;
 }
 
