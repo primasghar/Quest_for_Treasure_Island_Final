@@ -144,6 +144,8 @@ changeLevel(player.level);
 // ---------------------Buttons and Event Listeners------------------------------------------
 
 nextGameBtn.addEventListener("click", async () => {
+    let airportNameTitle = document.querySelector('.airportName');
+    airportNameTitle.innerText = ""
     clearGameAreas()
 
     let player = JSON.parse(localStorage.getItem('playerDetails'));
@@ -154,10 +156,9 @@ nextGameBtn.addEventListener("click", async () => {
 
     nextGameBtn.disabled = true
 
-    let airport = await getAirportData(1)
+    let airport = await getAirportData(player.level)
     const {airportName, country, lat, lon} = airport;
 
-    let airportNameTitle = document.querySelector('.airportName');
     airportNameTitle.innerText = `${airportName}, ${country}`;
 
     addLocation({name: name, coords: [lat, lon]}, locations)
