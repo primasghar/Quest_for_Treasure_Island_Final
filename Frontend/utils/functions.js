@@ -9,6 +9,11 @@ export const gameTitle = (gameName) => {
     gameTitle.innerText = gameName;
 }
 
+export const setAirportName = (airportName, country) => {
+    let airportNameTitle = document.querySelector('.airportName');
+    airportNameTitle.innerText = `${airportName}, ${country}`;
+}
+
 //------------Creating Elements Div, Paragraph, Button, Select, Input--------
 
 export const createDivElement = (divClass) => {
@@ -83,7 +88,7 @@ export const createInputElement = (placeholder) => {
     return inputElement;
 }
 
-//message Modal
+//-----------------------------------message Modal
 
 export const showMessageModal = (message, buttonText = null, onButtonClick = () => {
 }) => {
@@ -124,17 +129,6 @@ export const showMessageModal = (message, buttonText = null, onButtonClick = () 
     // Trigger fade-in
     requestAnimationFrame(() => overlay.classList.add('show'));
 }
-
-// Demo usage
-// document.getElementById('demo-trigger').addEventListener('click', () => {
-//   showMessageModal(
-//     'You have used all 3 attempts. Try again?',
-//     'OK',
-//     () => {
-//       console.log('Button clicked — running callback logic here.');
-//     }
-//   );
-// });
 
 
 //-------------------------------Result display-------------------------------
