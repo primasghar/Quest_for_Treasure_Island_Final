@@ -12,7 +12,7 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, gameTitle, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal
+    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName
 } from "../../utils/functions.js"
 
 
@@ -39,11 +39,15 @@ const initMap = async () => {
         let airport = await getAirportData(1)
         const {airportName, country, lat, lon} = airport;
 
-        let airportNameTitle = document.querySelector('.airportName');
-        airportNameTitle.innerText = `${airportName}, ${country}`;
+        setAirportName(airportName, country)
 
         locations = [{name: airportName, coords: [lat, lon]}];
     } else {
+        let airport = await getAirportData(player.level)
+        const {airportName, country} = airport;
+
+        setAirportName(airportName, country)
+
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
 
@@ -99,9 +103,8 @@ const changeLevel = (levelToShow) => {
 
     const onLose = () => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
-        console.log("on lose", player.score, player.attempts)
         if (player.score >= 500 && player.attempts === 3) {
-            showMessageModal("Want to Play again (-500 scores and +50g Carbon Footprints) ?", "Yes", onReplay)
+            showMessageModal("Do you want to play again (-500 scores and +1kg Carbon Footprints) ?", "Yes", onReplay)
         } else if (player.score < 500 && player.attempts === 3) {
             showMessageModal("You don't have enough score to play. Game Over! ")
         }
@@ -175,9 +178,11 @@ quitBtn.addEventListener("click", async () => {
 
 const onReplay = async () => {
     let player = JSON.parse(localStorage.getItem('playerDetails'));
+    console.log("before reload carbon", player.carbonPrint)
     player.score -= 500;
     player.attempts = 0;
-    player.carbonPrint += 50;
+    player.carbonPrint += 1000;
+    console.log("reload carbon", player.carbonPrint)
     clearGameAreas()
     changeLevel(player.level)
     localStorage.setItem("playerDetails", JSON.stringify(player));
