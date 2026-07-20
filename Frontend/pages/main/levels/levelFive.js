@@ -59,7 +59,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
                 selectNoBtnEl.disabled = false
                 showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.`)
                 setTimeout(() => {
-                    attempts < 2 ? computerChoiceElement.remove() : ""
+                    attempts < 2 ? computerChoiceElement.innerText = "" : ""
                 }, 1000)
             }
 
