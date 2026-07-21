@@ -18,10 +18,10 @@ import {
 
 //----------------------Accessing button and other elements------------------------------------
 
-const nextGameBtn = document.querySelector(".playNext");
+const nextGameBtn = document.querySelector(".playNextBtn");
 nextGameBtn.disabled = true
 
-const quitBtn = document.querySelector(".quit");
+const quitBtn = document.querySelector(".quitBtn");
 
 const gameDiv = document.querySelector('.gameArea')
 const resultArea = document.querySelector('.showResult')
@@ -56,7 +56,7 @@ const initMap = async () => {
     if (player.score >= 500 && player.attempts === 3) {
          showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
     } else if (player.score < 500 && player.attempts === 3) {
-        showMessageModal("You don't have enough score to play. Game Over! ")
+        showMessageModal("Not enough score to play again. Game Over! ")
     }
 
 
