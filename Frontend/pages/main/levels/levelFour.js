@@ -32,7 +32,7 @@ const levelFour = (gameDiv, onWin, onLose) => {
     let numberSelect = createNumberSelect("numberSelect", optionsArray2)
     levelFourContainer.appendChild(numberSelect)
 
-    let playButton = createButtonElement("evenOddBtn", "Play")
+    let playButton = createButtonElement("playBtn", "Play")
     levelFourContainer.appendChild(playButton)
 
     // Handler function

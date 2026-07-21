@@ -48,7 +48,7 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
     levelSevenContainer.appendChild(playerAnsInputEl)
     playerAnsInputEl.disabled = true;
 
-    submitBtnEl = createButtonElement("submitBtn", "Submit")
+    submitBtnEl = createButtonElement("playBtn", "Submit")
     levelSevenContainer.appendChild(submitBtnEl)
 
     // Function to show the riddle

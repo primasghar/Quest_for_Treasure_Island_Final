@@ -54,7 +54,7 @@ const initMap = async () => {
     console.log("on reload", player.score, player.attempts)
     // In case player don't choose any option in message modal and reload the modals comes back.
     if (player.score >= 500 && player.attempts === 3) {
-        showMessageModal("Want to Play again (-500 scores and +50g Carbon Footprints) ?", "Yes", onReplay)
+         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
     } else if (player.score < 500 && player.attempts === 3) {
         showMessageModal("You don't have enough score to play. Game Over! ")
     }
@@ -104,7 +104,7 @@ const changeLevel = (levelToShow) => {
     const onLose = () => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
         if (player.score >= 500 && player.attempts === 3) {
-            showMessageModal("Do you want to play again (-500 scores and +1kg Carbon Footprints) ?", "Yes", onReplay)
+            showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
         } else if (player.score < 500 && player.attempts === 3) {
             showMessageModal("You don't have enough score to play. Game Over! ")
         }

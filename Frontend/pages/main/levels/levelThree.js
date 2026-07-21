@@ -23,7 +23,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
     targetNo.innerText = `Target Number: 12`;
     levelThreeContainer.appendChild(targetNo)
 
-    let rollBtnEl = createButtonElement("rollDiceBtn", "Roll")
+    let rollBtnEl = createButtonElement("playBtn", "Roll")
     levelThreeContainer.appendChild(rollBtnEl)
 
     const handleDiceRoll = () => {

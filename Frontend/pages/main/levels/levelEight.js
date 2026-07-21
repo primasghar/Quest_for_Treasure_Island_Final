@@ -43,7 +43,7 @@ const levelEight = async (gameDiv, onWin, onLose) => {
 
     questionsArray = await fetchQuizQuestions()
 
-    showQuestionBtnEl = createButtonElement("questionBtn", "Show Question")
+    showQuestionBtnEl = createButtonElement("playBtn", "Show Question")
     levelEightContainer.appendChild(showQuestionBtnEl)
 
     //Function to display question

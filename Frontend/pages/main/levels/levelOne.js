@@ -106,7 +106,7 @@ const levelOne = (gameDiv, onWin, onLose) => {
     selectEl = createSelectElement("level1Select", optionsArray)
     levelOneContainer.appendChild(selectEl)
 
-    flipButtonEl = createButtonElement("flipBtn", "FLIP")
+    flipButtonEl = createButtonElement("playBtn", "FLIP")
     flipButtonEl.addEventListener("click", () => {
         handleFlipCoin(onWin, onLose)
     })
