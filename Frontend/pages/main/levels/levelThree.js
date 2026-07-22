@@ -31,6 +31,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
         let attempts = player.attempts;
 
         document.querySelectorAll('.dices').forEach(el => el.remove());
+        rollBtnEl.disabled = true
 
         setTimeout(async () => {
             let randomNumber1 = Math.floor(Math.random() * 6) + 1;
@@ -63,21 +64,15 @@ const levelThree = (gameDiv, onWin, onLose) => {
             await incrementAttempts()
 
             if (sum === 12) {
-
-                rollBtnEl.disabled = true;
                 showResultCard("win", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`)
                 onWin()
 
             } else if (attempts >= 2) {
-
                 showResultCard("lose", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. No attempts left!`)
-                rollBtnEl.disabled = true;
-
-                let player = JSON.parse(localStorage.getItem('playerDetails'));
-                if (player.score === 0) rollBtnEl.disabled = true
                 onLose()
 
             } else {
+                rollBtnEl.disabled = false
                 showResultCard("try", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`)
             }
         }, 1000);

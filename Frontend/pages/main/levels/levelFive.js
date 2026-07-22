@@ -1,7 +1,8 @@
 import {
     gameTitle,
     createNumberSelect,
-    createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
+    createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts,
+    warningMessageModal
 } from '../../../utils/functions.js'
 
 let levelFiveContainer;
@@ -36,7 +37,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
         let playerSelectedNo = selectNoEl.value
 
         if (playerSelectedNo === "") {
-            alert('Please select a Number')
+            warningMessageModal('Please select a Number')
             return;
         }
 

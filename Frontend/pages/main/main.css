@@ -667,7 +667,6 @@ i.ti-plane {
 }
 
 .sequenceBtn, .riddleBtn, .questionBtn {
-    width: 14rem;
     grid-column: 1/3;
     grid-row: 2/3;
     justify-self: center;
@@ -863,7 +862,7 @@ button {
     font-family: 'Cinzel', serif;
 }
 
-.playBtn, .quitBtn, .playNextBtn {
+.playBtn, .quitBtn, .playNextBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
     width: 10rem;
     height: 2.875rem;
     color: var(--white);
@@ -884,9 +883,12 @@ button {
     justify-content: center;
 }
 
+.sequenceBtn,.riddleBtn, .questionBtn {
+    width: 14rem;
+}
 /*-----------------PLAY BUTTON----------------*/
 
-.playBtn {
+.playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
     height: 36px;
     color: #2B1800;
     border: 0.125rem solid #B8860B;
@@ -900,7 +902,7 @@ button {
 
 }
 
-.playBtn::before {
+.playBtn::before, .submitBtn::before, .sequenceBtn::before, .riddleBtn::before, .questionBtn::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -912,16 +914,16 @@ button {
     pointer-events: none;
 }
 
-.playBtn span, .playBtn i {
+.playBtn span, .playBtn i, .submitBtn span, .submitBtn i, .sequenceBtn span, .sequenceBtn i, .riddleBtn span, .riddleBtn i, .questionBtn span, .questionBtn i {
     position: relative;
     z-index: 1;
 }
 
-.playBtn i {
+.playBtn i, .submitBtn i, .sequenceBtn i, .riddleBtn i, .questionBtn i {
     font-size: 20px;
 }
 
-.playBtn:hover {
+.playBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover , .questionBtn:hover  {
     filter: brightness(1.08);
 }
 
@@ -940,7 +942,6 @@ button {
     align-items: center;
     gap: 0.2rem;
 }
-
 
 
 i.ti-refresh {
@@ -1031,7 +1032,7 @@ i.ti-plane-departure {
 }
 
 /*------------disables styles-----------------*/
-.playBtn:disabled, .playNextBtn:disabled {
+.playBtn:disabled, .playNextBtn:disabled, .submitBtn:disabled, .sequenceBtn:disabled,.riddleBtn:disabled, .questionBtn:disabled {
     border: 1px solid #999999;
     background-image: none;
     background-color: #cccccc;

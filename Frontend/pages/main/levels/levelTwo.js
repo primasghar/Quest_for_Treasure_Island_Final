@@ -2,7 +2,7 @@ import {
     gameTitle,
     createSelectElement,
     createButtonElement,
-    showResultCard, createDivElement, createParagraphElement, incrementAttempts
+    showResultCard, createDivElement, createParagraphElement, incrementAttempts, warningMessageModal
 } from '../../../utils/functions.js'
 
 let levelTwoContainer;
@@ -66,7 +66,7 @@ const playGame = async (onWin, onLose) => {
 
         }
     } else {
-        alert("Please choose from given option")
+        warningMessageModal("Please select a valid option.")
     }
 
     if (attempts === 2 && (playerWon === "No" || playerWon === "Draw")) {

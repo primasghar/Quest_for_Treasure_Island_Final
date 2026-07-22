@@ -2,7 +2,8 @@ import {
     gameTitle,
     createSelectElement,
     createNumberSelect,
-    createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
+    createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts,
+    warningMessageModal
 } from '../../../utils/functions.js'
 
 let levelFourContainer;
@@ -40,15 +41,19 @@ const levelFour = (gameDiv, onWin, onLose) => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
         let attempts = player.attempts;
 
+        playButton.disabled = true
+
         let computerChoice;
 
         let playerTarget = evenOddSelect.value;
         let playerSelectedNo = numberSelect.value;
 
         if (playerTarget === "") {
-            alert('Please select EVEN or ODD')
+            warningMessageModal('Please select EVEN or ODD')
+
         } else if (playerSelectedNo === "") {
-            alert('Please select a Number')
+            warningMessageModal('Please select a Number')
+
         } else {
             setTimeout(async () => {
                 await incrementAttempts()
@@ -70,6 +75,7 @@ const levelFour = (gameDiv, onWin, onLose) => {
                     showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number.`)
                     onWin()
                 } else {
+                     playButton.disabled = false
                     showResultCard("try", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.`)
                      setTimeout(() => {
                     attempts < 3 ? computerChoice.remove() : ""

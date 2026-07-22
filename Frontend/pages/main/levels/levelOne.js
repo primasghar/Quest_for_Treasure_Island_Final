@@ -3,7 +3,7 @@ import {
     createParagraphElement,
     createSelectElement,
     createButtonElement,
-    showResultCard, createDivElement, incrementAttempts
+    showResultCard, createDivElement, incrementAttempts, warningMessageModal
 } from '../../../utils/functions.js'
 
 let levelOneContainer;
@@ -51,7 +51,7 @@ const handleFlipCoin = async (onWin, onLose) => {
     const chosenOption = selectEl.value;
 
     if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
-        alert("Please choose an option");
+        warningMessageModal("Please select a valid option.")
         return;
     }
 

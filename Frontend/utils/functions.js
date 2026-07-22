@@ -88,7 +88,7 @@ export const createInputElement = (placeholder) => {
     return inputElement;
 }
 
-//-----------------------------------message Modal
+//message Modal
 
 export const showMessageModal = (message, buttonText = null, onButtonClick = () => {
 }) => {
@@ -129,7 +129,29 @@ export const showMessageModal = (message, buttonText = null, onButtonClick = () 
     // Trigger fade-in
     requestAnimationFrame(() => overlay.classList.add('show'));
 }
+// Warning msg modal
+export const warningMessageModal = (message) => {
 
+    const overlay = createDivElement('modal-overlay');
+    document.body.appendChild(overlay);
+    const box = createDivElement('modal-box');
+    overlay.appendChild(box);
+    const messageEl = createParagraphElement('modal-message', message);
+    box.appendChild(messageEl);
+
+    // Close modal helper
+    const closeModal = () => {
+        overlay.classList.remove('show');
+        setTimeout(() => overlay.remove(), 200);
+    }
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+    });
+
+    // Trigger fade-in
+    requestAnimationFrame(() => overlay.classList.add('show'));
+}
 
 //-------------------------------Result display-------------------------------
 export const showResultCard = (status, message) => {

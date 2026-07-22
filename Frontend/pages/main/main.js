@@ -77,11 +77,13 @@ const changeLevel = (levelToShow) => {
 
         let carbEmit = await calcCarbonEmission(player.level)
 
+        player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
+
         if (player.level === 8) {
             setTimeout(() => {
                 clearGameAreas()
                 gameTitle("WINNER")
-                winnerPage(gameDiv, resultArea, name)
+                winnerPage(gameDiv, resultArea, player.name)
             }, 2000)
 
         }
@@ -97,8 +99,6 @@ const changeLevel = (levelToShow) => {
 
         localStorage.setItem("playerDetails", JSON.stringify(player));
         await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)
-
-        player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
     }
 
     const onLose = () => {

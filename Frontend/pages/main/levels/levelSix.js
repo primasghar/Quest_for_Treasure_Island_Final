@@ -84,7 +84,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
             sequenceInputEl = createInputElement('Enter sequence...')
             levelSixContainer.appendChild(sequenceInputEl)
 
-            submitSeqBtnEl = createButtonElement("playBtn", "Submit")
+            submitSeqBtnEl = createButtonElement("submitBtn", "Submit")
             submitSeqBtnEl.addEventListener("click", () => handleSubmitSequence(onWin, onLose))
             levelSixContainer.appendChild(submitSeqBtnEl)
 
