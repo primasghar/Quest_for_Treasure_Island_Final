@@ -448,7 +448,7 @@ i.ti-plane {
 
 /*-------------------------------FLIP THE COIN---------------------------------1--*/
 .game1Container {
-    grid-template-rows: 40px 60px 200px;
+    grid-template-rows: 60px 60px 200px;
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }
@@ -538,7 +538,7 @@ i.ti-plane {
 
 /*----------------------------ROCK, PAPER,SCISSORS-------------------------------2--*/
 .game2Container {
-    grid-template-rows: 40px 1fr;
+    grid-template-rows: 60px 1fr;
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }
@@ -553,7 +553,7 @@ i.ti-plane {
 
 /*------------------------------------ROLL THE DICES------------------------------3--*/
 .game3Container {
-    grid-template-rows: 40px 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 1rem;
 
@@ -597,7 +597,7 @@ i.ti-plane {
 
 /*-------------------------------------EVEN AND ODD-----------------------------------4--*/
 .game4Container {
-    grid-template-rows: 40px 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -633,7 +633,7 @@ i.ti-plane {
 
 /*-------------------------------------GUESS NUMBER---------------------------------5--*/
 .game5Container {
-    grid-template-rows: 40px 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }
@@ -656,7 +656,7 @@ i.ti-plane {
 
 /*--------------------------------------SEQUENCE MEMORY-----------------------------6-- */
 .game6Container {
-    grid-template-rows: 40px 1fr 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }
@@ -700,7 +700,7 @@ i.ti-plane {
 
 /*--------------------------- RIDDLES---------------------------------------7--and--8-- */
 .game7Container, .game8Container {
-    grid-template-rows: 40px 1fr 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }

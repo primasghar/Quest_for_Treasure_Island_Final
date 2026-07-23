@@ -60,9 +60,7 @@ const levelEight = async (gameDiv, onWin, onLose) => {
         chosenQuestion = availableQuestions.splice(randomIndex, 1)[0];
 
         questionText = chosenQuestion[1];
-        question = document.createElement('p')
-        question.className = "question"
-        question.innerText = questionText
+        question = createParagraphElement('question', questionText)
         levelEightContainer.appendChild(question)
 
         playerAnsInputEl.disabled = false;
