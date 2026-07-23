@@ -11,7 +11,7 @@ import winnerPage from "./levels/winnerPage.js";
 import {
     deletePlayerData,
     updatePlayerBoardUI,
-    updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, gameTitle, clearGameAreas,
+    updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
     mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName
 } from "../../utils/functions.js"
 
@@ -24,7 +24,6 @@ nextGameBtn.disabled = true
 const quitBtn = document.querySelector(".quitBtn");
 
 const gameDiv = document.querySelector('.gameArea')
-const resultArea = document.querySelector('.showResult')
 
 // onLoad--------------------------------------------------------
 
@@ -51,10 +50,11 @@ const initMap = async () => {
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
 
+
     console.log("on reload", player.score, player.attempts)
     // In case player don't choose any option in message modal and reload the modals comes back.
     if (player.score >= 500 && player.attempts === 3) {
-         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
+        showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
     } else if (player.score < 500 && player.attempts === 3) {
         showMessageModal("Not enough score to play again. Game Over! ")
     }
@@ -75,20 +75,20 @@ const changeLevel = (levelToShow) => {
 
         let player = JSON.parse(localStorage.getItem('playerDetails'));
 
-        let carbEmit = await calcCarbonEmission(player.level)
-
         player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
 
         if (player.level === 8) {
-            setTimeout(() => {
-                clearGameAreas()
-                gameTitle("WINNER")
-                winnerPage(gameDiv, resultArea, player.name)
+            setTimeout(async () => {
+                player.score += 500;
+                localStorage.setItem("playerDetails", JSON.stringify(player));
+                await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)
+                changeLevel(9)
             }, 2000)
-
         }
 
-        if (player.level !== 8) {
+        let carbEmit = await calcCarbonEmission(player.level)
+
+        if (player.level !== 9) {
             player.level += 1;
             player.attempts = 0;
         }
@@ -136,13 +136,14 @@ const changeLevel = (levelToShow) => {
         case 8:
             levelEight(gameDiv, onWin, onLose);
             break;
-        default:
-            console.log(`Game over`);
+        case 9:
+            winnerPage(player.name);
+            break;
     }
 
 }
 
-changeLevel(player.level);
+changeLevel(9);
 
 // ---------------------Buttons and Event Listeners------------------------------------------
 

@@ -1,4 +1,11 @@
-const winnerPage = (gameDiv, resultArea, playerName) => {
+import {
+    createButtonElement,
+    createDivElement,
+    createParagraphElement,
+    deletePlayerData
+} from "../../../utils/functions.js";
+
+const winnerPage = (playerName) => {
     // window.addEventListener("load", () => {
     //     let positionList = [
     //         {x: window.innerWidth * 0.50, y: window.innerHeight * 0.60},
@@ -9,21 +16,38 @@ const winnerPage = (gameDiv, resultArea, playerName) => {
     //         setTimeout(() => confetti({position: positionList[i]}), i * 250);
     //     }
     // });
+    const gameSection = document.querySelector('.gameAndResultSection');
+    gameSection.innerHTML = '';
+
+    const levelAndAttempts = document.querySelector('.levelAndAttempts')
+    levelAndAttempts.innerHTML = ''
+
+    const winnerDiv = createDivElement("winnerDiv")
+    gameSection.appendChild(winnerDiv)
+
+    const win = createParagraphElement('win', "WINNER")
+    winnerDiv.appendChild(win)
+
+    const winnerTitle = document.createElement('h2')
+    winnerTitle.className = "winnerTitle";
+    winnerTitle.innerText = `Congratulations! ${playerName}.`;
+    winnerDiv.appendChild(winnerTitle)
+
+    const goingToIsland = createParagraphElement("islandGoer", `You have reached the Treasure Island.`);
+    winnerDiv.appendChild(goingToIsland)
+
+    const quitPlayAgain = createButtonElement("winnerPageBtn", "Quit / Play Again")
+    winnerDiv.appendChild(quitPlayAgain)
+
+    quitPlayAgain.addEventListener("click", async () => {
+    await deletePlayerData()
+    localStorage.removeItem('playerDetails');
+    window.location.href = '../playerName/index.html';
+})
+
     confetti()
     confetti()
     confetti()
-    let winner = document.createElement('p');
-    winner.className = "winner"
-    winner.innerText = `Congratulations! ${playerName}.`
-
-    let goingToIsland = document.createElement('p');
-    goingToIsland.className = "islandGoer"
-    goingToIsland.innerText = `Awesome! You have completed all stages. We will taken you to the land of 
-            hidden riches, the Treasure Island. Our associate is waiting outside airport to take you there.`
-
-
-    gameDiv.appendChild(winner)
-    resultArea.appendChild(goingToIsland)
 }
 
 export default winnerPage
