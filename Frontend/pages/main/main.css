@@ -479,16 +479,16 @@ i.ti-plane {
 }
 
 .coin {
-    width: 150px;
-    height: 150px;
+    width: 9.375rem;
+    height: 9.375rem;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 2s ease-in-out;
+    transition: transform 0.001s ease-in-out;
     cursor: pointer;
 }
 
 .coin.flipping {
-    animation: flip 2s ease-in-out;
+    animation: flip 1s ease-in-out;
 }
 
 @keyframes flip {
@@ -731,7 +731,7 @@ i.ti-plane {
     padding: 1rem;
 }
 
-.win{
+.win {
     color: white;
     font-size: var(--font-size30);
     font-family: 'Luckiest Guy', cursive;
@@ -756,7 +756,7 @@ i.ti-plane {
 .winnerTitle {
     text-align: center;
     font-size: var(--font-size42);
-    margin:1rem;
+    margin: 1rem;
 }
 
 .winnerPageBtn {

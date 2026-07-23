@@ -103,11 +103,15 @@ const changeLevel = (levelToShow) => {
 
     const onLose = () => {
         let player = JSON.parse(localStorage.getItem('playerDetails'));
-        if (player.score >= 500 && player.attempts === 3) {
-            showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
-        } else if (player.score < 500 && player.attempts === 3) {
-            showMessageModal("You don't have enough score to play. Game Over! ")
-        }
+
+        setTimeout(() => {
+            if (player.score >= 500 && player.attempts === 3) {
+                showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
+            } else if (player.score < 500 && player.attempts === 3) {
+                showMessageModal("You don't have enough score to play. Game Over! ")
+            }
+        }, 1500)
+
 
     }
 
