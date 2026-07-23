@@ -59,9 +59,7 @@ const levelFour = (gameDiv, onWin, onLose) => {
                 await incrementAttempts()
 
                 let computerSelectedNo = Math.floor(Math.random() * 10 + 1)
-                computerChoice = document.createElement('p')
-                computerChoice.className = "computerChoice"
-                computerChoice.innerText = `Computer's choice: ${computerSelectedNo.toString()} `
+                computerChoice = createParagraphElement('computerChoice', `Computer's choice: ${computerSelectedNo.toString()} ` )
                 levelFourContainer.appendChild(computerChoice)
                 let sumOfNos = +playerSelectedNo + +computerSelectedNo;
 

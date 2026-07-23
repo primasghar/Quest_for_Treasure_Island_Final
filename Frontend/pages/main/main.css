@@ -437,7 +437,7 @@ i.ti-plane {
 }
 
 .game1Description, .game2Description, .game3Description, .game4Description, .game5Description, .game6Description, .game7Description, .game8Description {
-    font-size: var(--font-size20);
+    font-size: 24px;
     font-family: 'Marcellus', serif;
     color: var(--dark-brown);
     grid-row: 1/2;
