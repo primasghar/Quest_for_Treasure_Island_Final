@@ -143,7 +143,7 @@ const changeLevel = (levelToShow) => {
 
 }
 
-changeLevel(9);
+changeLevel(player.level);
 
 // ---------------------Buttons and Event Listeners------------------------------------------
 

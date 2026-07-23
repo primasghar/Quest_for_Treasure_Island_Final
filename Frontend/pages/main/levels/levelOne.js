@@ -25,21 +25,18 @@ const optionsArray = [{value: "", nodeText: "-- Player's choice --"},
 // Creates the coin
 const addCoin = () => {
 
-    coinContainer = document.createElement('div');
-    coinContainer.className = "coinContainer";
+    coinContainer = createDivElement('coinContainer')
     levelOneContainer.appendChild(coinContainer);
 
-    coin = document.createElement('div');
+    coin = createDivElement('coin')
     coin.className = "coin";
     coinContainer.appendChild(coin)
 
-    let heads = document.createElement('div');
-    heads.className = "heads";
+    let heads = createDivElement('heads')
     heads.innerText = "H"
     coin.appendChild(heads)
 
-    let tails = document.createElement('div');
-    tails.className = "tails";
+    let tails = createDivElement('tails')
     tails.innerText = "T"
     coin.appendChild(tails)
 }
