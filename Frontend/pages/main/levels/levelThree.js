@@ -18,9 +18,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
     describeGame3Para = createParagraphElement("game3Description", "Roll 3 dices by clicking the button. To win, their sum should be equal to target no: 12.")
     levelThreeContainer.appendChild(describeGame3Para)
 
-    let targetNo = document.createElement('p');
-    targetNo.className = "targetValue"
-    targetNo.innerText = `Target Number: 12`;
+    let targetNo = createParagraphElement('targetValue', 'Target Number: 12' )
     levelThreeContainer.appendChild(targetNo)
 
     let rollBtnEl = createButtonElement("playBtn", "Roll")
@@ -38,8 +36,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
             let randomNumber2 = Math.floor(Math.random() * 6) + 1;
             let randomNumber3 = Math.floor(Math.random() * 6) + 1;
 
-            let allDices = document.createElement('div')
-            allDices.className = "dices"
+            let allDices = createDivElement('dices')
             levelThreeContainer.appendChild(allDices)
 
             let dice1 = document.createElement("img")
