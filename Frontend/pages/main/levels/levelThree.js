@@ -41,19 +41,19 @@ const levelThree = (gameDiv, onWin, onLose) => {
 
             let dice1 = document.createElement("img")
             dice1.className = "dice1"
-            dice1.src = "../../images/dice-" + randomNumber1 + ".png";
+            dice1.src = "../../images/dice-block-" + randomNumber1 + ".svg";
             dice1.alt = `dice face ${randomNumber1}`;
             allDices.appendChild(dice1)
 
             let dice2 = document.createElement("img")
             dice2.className = "dice2"
-            dice2.src = "../../images/dice-" + randomNumber2 + ".png";
+            dice2.src = "../../images/dice-block-" + randomNumber2 + ".svg";
             dice2.alt = `dice face ${randomNumber2}`;
             allDices.appendChild(dice2)
 
             let dice3 = document.createElement("img")
             dice3.className = "dice3"
-            dice3.src = "../../images/dice-" + randomNumber3 + ".png";
+            dice3.src = "../../images/dice-block-" + randomNumber3 + ".svg";
             dice3.alt = `dice face ${randomNumber3}`;
             allDices.appendChild(dice3)
 

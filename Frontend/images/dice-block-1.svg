@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+<title>Blocky wooden die showing 1</title>
+<desc>An isometric 3D block-style die with softly rounded edges, showing 1 on top, 3 on the left face, and 5 on the right face.</desc>
+<defs>
+<linearGradient id="topGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#F0DBB0"/>
+<stop offset="100%" stop-color="#DCC091"/>
+</linearGradient>
+<linearGradient id="leftGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" stop-color="#C09A5E"/>
+<stop offset="100%" stop-color="#9C7A48"/>
+</linearGradient>
+<linearGradient id="rightGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" stop-color="#8C6B3E"/>
+<stop offset="100%" stop-color="#6B4E28"/>
+</linearGradient>
+<radialGradient id="pipGradTop1" cx="35%" cy="35%" r="70%">
+<stop offset="0%" stop-color="#5C4226"/>
+<stop offset="100%" stop-color="#2A1B0C"/>
+</radialGradient>
+<radialGradient id="pipGradLeft1" cx="35%" cy="35%" r="70%">
+<stop offset="0%" stop-color="#4A3620"/>
+<stop offset="100%" stop-color="#241708"/>
+</radialGradient>
+<radialGradient id="pipGradRight1" cx="35%" cy="35%" r="70%">
+<stop offset="0%" stop-color="#3A2A18"/>
+<stop offset="100%" stop-color="#1A1006"/>
+</radialGradient>
+</defs>
+
+<path d="M 20.00 74.00 Q 20.00 65.00 27.84 69.41 L 92.16 105.59 Q 100.00 110.00 100.00 119.00 L 100.00 181.00 Q 100.00 190.00 92.16 185.59 L 27.84 149.41 Q 20.00 145.00 20.00 136.00 Z" fill="url(#leftGrad1)" stroke="#4A3620" stroke-width="2" stroke-linejoin="round"/>
+<path d="M 100.00 119.00 Q 100.00 110.00 107.84 105.59 L 172.16 69.41 Q 180.00 65.00 180.00 74.00 L 180.00 136.00 Q 180.00 145.00 172.16 149.41 L 107.84 185.59 Q 100.00 190.00 100.00 181.00 Z" fill="url(#rightGrad1)" stroke="#4A3620" stroke-width="2" stroke-linejoin="round"/>
+<path d="M 92.16 24.41 Q 100.00 20.00 107.84 24.41 L 172.16 60.59 Q 180.00 65.00 172.16 69.41 L 107.84 105.59 Q 100.00 110.00 92.16 105.59 L 27.84 69.41 Q 20.00 65.00 27.84 60.59 Z" fill="url(#topGrad1)" stroke="#4A3620" stroke-width="2" stroke-linejoin="round"/>
+
+<ellipse cx="41.0" cy="97.2" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(30 40.0 96.2)"/>
+<ellipse cx="40.0" cy="96.2" rx="7" ry="5" fill="url(#pipGradLeft1)" transform="rotate(30 40.0 96.2)"/>
+<ellipse cx="38.2" cy="94.8" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(30 40.0 96.2)"/>
+<ellipse cx="61.0" cy="128.5" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(30 60.0 127.5)"/>
+<ellipse cx="60.0" cy="127.5" rx="7" ry="5" fill="url(#pipGradLeft1)" transform="rotate(30 60.0 127.5)"/>
+<ellipse cx="58.2" cy="126.0" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(30 60.0 127.5)"/>
+<ellipse cx="81.0" cy="159.8" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(30 80.0 158.8)"/>
+<ellipse cx="80.0" cy="158.8" rx="7" ry="5" fill="url(#pipGradLeft1)" transform="rotate(30 80.0 158.8)"/>
+<ellipse cx="78.2" cy="157.2" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(30 80.0 158.8)"/>
+<ellipse cx="121.0" cy="119.8" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(-30 120.0 118.8)"/>
+<ellipse cx="120.0" cy="118.8" rx="7" ry="5" fill="url(#pipGradRight1)" transform="rotate(-30 120.0 118.8)"/>
+<ellipse cx="118.2" cy="117.2" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(-30 120.0 118.8)"/>
+<ellipse cx="161.0" cy="97.2" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(-30 160.0 96.2)"/>
+<ellipse cx="160.0" cy="96.2" rx="7" ry="5" fill="url(#pipGradRight1)" transform="rotate(-30 160.0 96.2)"/>
+<ellipse cx="158.2" cy="94.8" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(-30 160.0 96.2)"/>
+<ellipse cx="141.0" cy="128.5" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(-30 140.0 127.5)"/>
+<ellipse cx="140.0" cy="127.5" rx="7" ry="5" fill="url(#pipGradRight1)" transform="rotate(-30 140.0 127.5)"/>
+<ellipse cx="138.2" cy="126.0" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(-30 140.0 127.5)"/>
+<ellipse cx="121.0" cy="159.8" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(-30 120.0 158.8)"/>
+<ellipse cx="120.0" cy="158.8" rx="7" ry="5" fill="url(#pipGradRight1)" transform="rotate(-30 120.0 158.8)"/>
+<ellipse cx="118.2" cy="157.2" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(-30 120.0 158.8)"/>
+<ellipse cx="161.0" cy="137.2" rx="7" ry="5" fill="#000000" opacity="0.2" transform="rotate(-30 160.0 136.2)"/>
+<ellipse cx="160.0" cy="136.2" rx="7" ry="5" fill="url(#pipGradRight1)" transform="rotate(-30 160.0 136.2)"/>
+<ellipse cx="158.2" cy="134.8" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(-30 160.0 136.2)"/>
+<ellipse cx="101.0" cy="66.0" rx="8.5" ry="6" fill="#000000" opacity="0.2" transform="rotate(-30 100.0 65.0)"/>
+<ellipse cx="100.0" cy="65.0" rx="8.5" ry="6" fill="url(#pipGradTop1)" transform="rotate(-30 100.0 65.0)"/>
+<ellipse cx="98.2" cy="63.5" rx="2" ry="1.4" fill="#FFFFFF" opacity="0.3" transform="rotate(-30 100.0 65.0)"/>
+</svg>
