@@ -14,6 +14,17 @@ export const setAirportName = (airportName, country) => {
     airportNameTitle.innerText = `${airportName}, ${country}`;
 }
 
+export const getFlag = (countryName) => {
+    let flag = document.querySelector('.countryFlag');
+    flag.innerHTML = ""
+
+    let flagImg = document.createElement("img")
+    flagImg.className = "smallFlags"
+    flagImg.src = "../../images/flag-" + countryName + ".svg";
+    flagImg.alt = `flag of ${countryName}`;
+    flag.appendChild(flagImg)
+}
+
 //------------Creating Elements Div, Paragraph, Button, Select, Input--------
 
 export const createDivElement = (divClass) => {
@@ -474,4 +485,6 @@ export const deletePlayerData = async () => {
         console.log(error.message);
     }
 };
+
+
 

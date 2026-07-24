@@ -12,7 +12,7 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName
+    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag
 } from "../../utils/functions.js"
 
 
@@ -39,6 +39,7 @@ const initMap = async () => {
         const {airportName, country, lat, lon} = airport;
 
         setAirportName(airportName, country)
+        getFlag(country)
 
         locations = [{name: airportName, coords: [lat, lon]}];
     } else {
@@ -46,6 +47,7 @@ const initMap = async () => {
         const {airportName, country} = airport;
 
         setAirportName(airportName, country)
+        getFlag(country)
 
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
@@ -169,6 +171,8 @@ nextGameBtn.addEventListener("click", async () => {
 
     airportNameTitle.innerText = `${airportName}, ${country}`;
 
+    getFlag(country)
+
     addLocation({name: name, coords: [lat, lon]}, locations)
 
 
@@ -197,3 +201,16 @@ const onReplay = async () => {
     updatePlayerBoardUI(player);
 
 }
+
+const countries = [
+    {name: "Finland", flag: "flag-finland.svg"},
+    {name: "Estonia", flag: "flag-estonia.svg"},
+    // ...
+];
+
+countries.forEach(c => {
+    const el = document.createElement('span');
+    el.innerHTML = `<img src="${c.flag}" width="24" height="16" style="vertical-align:-3px;"> ${c.name}`;
+    container.appendChild(el);
+});
+

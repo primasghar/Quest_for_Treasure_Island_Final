@@ -364,15 +364,19 @@ option:focus {
 }
 
 .airportName {
+    font-size: 24px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
     color: gold;
-
 }
 
 i.ti-plane {
     font-size: 48px;
     color: white;
+}
+
+.countryFlag{
+    margin-left: 1rem;
 }
 
 
