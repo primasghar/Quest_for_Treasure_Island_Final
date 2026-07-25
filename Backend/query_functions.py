@@ -56,6 +56,15 @@ def fetch_player_progress_query(gamerid):
     # print(result)
     return result
 
+def fetch_player_collectibles_query(gamerid):
+    sql = f"SELECT * FROM player_collectables WHERE player_id = %s;"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql, (gamerid,))
+    result = cursor.fetchone()
+    # print(result)
+    return result
+
 
 def fetch_game_airport_icao_query(current_level):
     sql = f"SELECT airport_id FROM game_airports WHERE id = %s;"
@@ -94,6 +103,24 @@ def update_progress_query(level, score, carbon_fp, player_id):
         print("Player progress updated")
         return "Player progress updated"
 
+def insert_collectibles_query(player_id, collectable):
+    sql = "INSERT INTO player_collectables (player_id, collectable) VALUES (%s, %s);"
+    cursor = connection.cursor()
+    cursor.execute(sql, (player_id, collectable,))
+    connection.commit()
+    if cursor.rowcount == 1:
+        print("Player collectable inserted")
+        return "Player collectable updated"
+
+def fetch_collectibles_query(playerId):
+    sql = f"SELECT collectable FROM player_collectables WHERE player_id = %s"
+    # print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql, (playerId,))
+    rows = cursor.fetchall()
+    collectibles = [row[0] for row in rows]
+
+    return collectibles
 
 def delete_player_and_progress_query():
     sql = "DELETE FROM progress"

@@ -31,7 +31,6 @@ export const unlockCollectibles = (collectibleIds) => {
         const el = document.querySelector(`[data-id="${id}"]`);
         if (el) el.setAttribute('data-unlocked', 'true');
     })
-
 }
 
 //------------Creating Elements Div, Paragraph, Button, Select, Input--------
@@ -230,6 +229,7 @@ export const generateRandomSequence = () => {
 //     }
 // };
 
+
 //Updates the UI using player data ( accessed from local storage)
 export const updatePlayerBoardUI = (player) => {
 
@@ -240,6 +240,7 @@ export const updatePlayerBoardUI = (player) => {
     let playerId = player['playerId']
     let playerGameAttempts = player['attempts']
 // let playerProgressId = player['progressId']
+// let playerCollectibles = player['collectibles']
 
     let sbId = document.querySelector('.id')
     let sbName = document.querySelector('.name')
@@ -268,7 +269,7 @@ export const incrementAttempts = async () => {
 }
 
 //Updates the table in the BACKEND
-export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID, gameAttempts) => {
+export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID, gameAttempts, playerCollectibles) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
             method: "POST",
@@ -280,7 +281,8 @@ export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePl
                 score: gameScore,
                 carbon_fp: gameCFP,
                 player_id: gamePlayerID,
-                attempts: gameAttempts
+                attempts: gameAttempts,
+                collectibles: playerCollectibles
             }),
 
         })
@@ -306,6 +308,15 @@ export const allICAOCodes = async () => {
 export const airportData = async (icao_list) => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao_list}`)
+        return await response.json();
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const playerCollectables = async (playerId) => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/player/collectables/${playerId}`)
         return await response.json();
     } catch (error) {
         console.log(error.message);

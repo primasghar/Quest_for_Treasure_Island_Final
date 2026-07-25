@@ -3,7 +3,7 @@ from http.client import responses
 from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, \
     update_progress_query, fetch_riddle_query, \
     fetch_quiz_questions_query, fetch_game_airports_query, delete_player_and_progress_query, fetch_airport_info_query, \
-    fetch_airport_country_query
+    fetch_airport_country_query, fetch_player_collectibles_query, insert_collectibles_query, fetch_collectibles_query
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 import json
@@ -53,7 +53,9 @@ def player(text):
 def progress(player_id):
     try:
         player_data = fetch_player_progress_query(player_id)
+        player_collection = fetch_player_collectibles_query(player_id)
         print(player_data)
+        print(player_collection)
 
         response = {
             "progressId": player_data[0],
@@ -61,6 +63,7 @@ def progress(player_id):
             "level": player_data[2],
             "score": player_data[3],
             "carbonPrint": player_data[4],
+            "collectibles": player_collection[0]
         }
 
         return response
@@ -74,6 +77,13 @@ def progress(player_id):
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
 
+@app.route('/player/collectables/<playerId>')
+def collectables(playerId):
+    collection = fetch_collectibles_query(playerId)
+    print("fetching all collectibles", collection)
+    return json.dumps(collection)
+
+
 
 @app.route('/update/progress', methods=["POST"])
 def update_progress():
@@ -82,7 +92,7 @@ def update_progress():
     if not data:
         return jsonify({"error": "Request body must be valid JSON"}), 400
 
-    missing = [f for f in ("level", "score", "carbon_fp", "player_id") if f not in data]
+    missing = [f for f in ("level", "score", "carbon_fp", "player_id", "collectibles") if f not in data]
     print("missing", missing)
     if missing:
         return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
@@ -91,9 +101,11 @@ def update_progress():
     score = data["score"]
     carbon_fp = data["carbon_fp"]
     player_id = data["player_id"]
+    player_collectibles = data["collectibles"]
 
     player_progress_update = update_progress_query(level, score, carbon_fp, player_id)
-    print(player_progress_update)
+    insert_collectibles_query(player_id, player_collectibles)
+    print("player_progress/collection_update")
 
     response = player_progress_update
     return response

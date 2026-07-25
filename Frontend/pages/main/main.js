@@ -12,7 +12,8 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles
+    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles,
+    playerCollectables
 } from "../../utils/functions.js"
 
 
@@ -25,7 +26,7 @@ const quitBtn = document.querySelector(".quitBtn");
 
 const gameDiv = document.querySelector('.gameArea')
 
-const collectables  = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map" ]
+const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map"]
 
 // onLoad--------------------------------------------------------
 
@@ -54,8 +55,6 @@ const initMap = async () => {
         locations = await mapVisitedAirportsOnLoad(player.level);
     }
 
-
-    console.log("on reload", player.score, player.attempts)
     // In case player don't choose any option in message modal and reload the modals comes back.
     if (player.score >= 500 && player.attempts === 3) {
         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
@@ -63,6 +62,9 @@ const initMap = async () => {
         showMessageModal("Not enough score to play again. Game Over! ")
     }
 
+    const collectiblesArr = await playerCollectables(player.playerId)
+    console.log("collectablesArr on reload", collectiblesArr)
+    unlockCollectibles(collectiblesArr)
 
     showMapOnLoad(locations); // now called AFTER locations is fully populated
 
@@ -78,7 +80,8 @@ const changeLevel = (levelToShow) => {
     const onWin = async () => {
 
         let player = JSON.parse(localStorage.getItem('playerDetails'));
-         unlockCollectibles([collectables[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
+        unlockCollectibles([collectiblesArray[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
+        player.collectibles = collectiblesArray[player.level - 1]
 
         player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
 
@@ -86,7 +89,7 @@ const changeLevel = (levelToShow) => {
             setTimeout(async () => {
                 player.score += 500;
                 localStorage.setItem("playerDetails", JSON.stringify(player));
-                await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)
+                await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts, player.collectibles)
                 changeLevel(9)
             }, 2000)
         }
@@ -100,10 +103,9 @@ const changeLevel = (levelToShow) => {
 
         player.score += 500;
         player.carbonPrint = player.carbonPrint + carbEmit;
-        console.log(player.carbonPrint)
 
         localStorage.setItem("playerDetails", JSON.stringify(player));
-        await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)
+        await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts, player.collectibles)
     }
 
     const onLose = () => {
@@ -175,7 +177,6 @@ nextGameBtn.addEventListener("click", async () => {
     getFlag(country)
     addLocation({name: name, coords: [lat, lon]}, locations)
 
-    unlockCollectible(collectables[player.level - 1])
 })
 
 quitBtn.addEventListener("click", async () => {
@@ -195,7 +196,7 @@ const onReplay = async () => {
     clearGameAreas()
     changeLevel(player.level)
     localStorage.setItem("playerDetails", JSON.stringify(player));
-    await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId)
+    await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.collectibles)
 
     locations = await mapVisitedAirportsOnLoad(player.level);
     updatePlayerBoardUI(player);

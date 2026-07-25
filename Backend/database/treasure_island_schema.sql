@@ -23,6 +23,13 @@
       FOREIGN KEY (current_level) REFERENCES game_airports(id)
   )
 
+CREATE TABLE IF NOT EXISTS player_collectables (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      player_id INT NOT NULL,
+      collectable VARCHAR(50) NOT NULL,
+      FOREIGN KEY (player_id) REFERENCES player(id)
+);
+
  CREATE TABLE IF NOT EXISTS quizlet(
       id INT NOT NULL auto_increment,
       question text,
@@ -38,4 +45,5 @@
       difficulty_level INT,
 	  PRIMARY KEY (id)
   )
+
   
