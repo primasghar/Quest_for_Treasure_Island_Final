@@ -25,6 +25,15 @@ export const getFlag = (countryName) => {
     flag.appendChild(flagImg)
 }
 
+
+export const unlockCollectibles = (collectibleIds) => {
+    collectibleIds.map(id => {
+        const el = document.querySelector(`[data-id="${id}"]`);
+        if (el) el.setAttribute('data-unlocked', 'true');
+    })
+
+}
+
 //------------Creating Elements Div, Paragraph, Button, Select, Input--------
 
 export const createDivElement = (divClass) => {
@@ -149,7 +158,7 @@ export const warningMessageModal = (message) => {
     overlay.appendChild(box);
     const messageEl = createParagraphElement('modal-message', message);
     box.appendChild(messageEl);
-    
+
     // Close modal helper
     const closeModal = () => {
         overlay.classList.remove('show');
@@ -425,7 +434,7 @@ export const addLocation = (loc, locations) => {
     trailLine.setLatLngs(trailPoints);
 
     // Optionally re-fit the map to include the new point
-    map.fitBounds(trailLine.getBounds(), { padding: [30, 30] });
+    map.fitBounds(trailLine.getBounds(), {padding: [30, 30]});
 }
 
 //gets all data of an airport ( score, level, carbon emission, playerId, attempts )

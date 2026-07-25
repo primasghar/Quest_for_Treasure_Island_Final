@@ -12,7 +12,7 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag
+    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles
 } from "../../utils/functions.js"
 
 
@@ -24,6 +24,8 @@ nextGameBtn.disabled = true
 const quitBtn = document.querySelector(".quitBtn");
 
 const gameDiv = document.querySelector('.gameArea')
+
+const collectables  = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map" ]
 
 // onLoad--------------------------------------------------------
 
@@ -76,6 +78,7 @@ const changeLevel = (levelToShow) => {
     const onWin = async () => {
 
         let player = JSON.parse(localStorage.getItem('playerDetails'));
+         unlockCollectibles([collectables[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
 
         player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
 
@@ -168,14 +171,11 @@ nextGameBtn.addEventListener("click", async () => {
 
     let airport = await getAirportData(player.level)
     const {airportName, country, lat, lon} = airport;
-
     airportNameTitle.innerText = `${airportName}, ${country}`;
-
     getFlag(country)
-
     addLocation({name: name, coords: [lat, lon]}, locations)
 
-
+    unlockCollectible(collectables[player.level - 1])
 })
 
 quitBtn.addEventListener("click", async () => {
@@ -202,15 +202,4 @@ const onReplay = async () => {
 
 }
 
-const countries = [
-    {name: "Finland", flag: "flag-finland.svg"},
-    {name: "Estonia", flag: "flag-estonia.svg"},
-    // ...
-];
-
-countries.forEach(c => {
-    const el = document.createElement('span');
-    el.innerHTML = `<img src="${c.flag}" width="24" height="16" style="vertical-align:-3px;"> ${c.name}`;
-    container.appendChild(el);
-});
 

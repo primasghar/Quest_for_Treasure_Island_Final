@@ -158,7 +158,6 @@ option:focus {
             rgb(157, 69, 25) 100%
     );
     width: 80%;
-    /*height: 40%;*/
     padding: 1rem;
     border-radius: 1rem;
     backdrop-filter: blur(10px);
@@ -193,24 +192,24 @@ option:focus {
     position: relative;
 }
 
-.scoreBoard::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    background-image: repeating-linear-gradient(90deg, rgba(90, 60, 10, 0.03) 0px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(0deg, rgba(90, 60, 10, 0.025) 0px, transparent 1px, transparent 4px);
-    mix-blend-mode: multiply;
-}
+/*.scoreBoard::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    inset: 0;*/
+/*    border-radius: 4px;*/
+/*    background-image: repeating-linear-gradient(90deg, rgba(90, 60, 10, 0.03) 0px, transparent 1px, transparent 3px),*/
+/*    repeating-linear-gradient(0deg, rgba(90, 60, 10, 0.025) 0px, transparent 1px, transparent 4px);*/
+/*    mix-blend-mode: multiply;*/
+/*}*/
 
-.scoreBoard::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    box-shadow: inset 8px 8px 12px -8px rgba(90, 60, 10, 0.4),
-    inset -8px -8px 12px -8px rgba(90, 60, 10, 0.4);
-}
+/*.scoreBoard::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    inset: 0;*/
+/*    border-radius: 4px;*/
+/*    box-shadow: inset 8px 8px 12px -8px rgba(90, 60, 10, 0.4),*/
+/*    inset -8px -8px 12px -8px rgba(90, 60, 10, 0.4);*/
+/*}*/
 
 .board {
     height: 100%;
@@ -222,8 +221,7 @@ option:focus {
 .nameAndLevel {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
     border-bottom: 2px solid rgba(139, 105, 20, 0.15);
 }
 
@@ -243,7 +241,7 @@ option:focus {
 .levelAndAttempts {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .levelBadge, .attemptsBadge {
@@ -264,10 +262,62 @@ option:focus {
     margin: 0;
 }
 
+/*------------------------------------------Collectables---------------------------------------   */
+.collectibles {
+    display: flex;
+    gap: 0.6rem;
+    align-self: center;
+    margin: 0.5rem 0;
+}
+
+.collectibleWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.collectible {
+    position: relative;
+    gap: 1rem;
+    width: 46px;
+    height: 40px;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.outline-icon, .filled-icon {
+    position: absolute;
+    inset: 0;
+    font-size: 40px;
+    text-align: center;
+}
+
+.outline-icon {
+    color: transparent;
+    -webkit-text-stroke: 1px #6B4226; /* outline only */
+}
+
+.filled-icon {
+    color: #0F5C3C;
+    -webkit-text-stroke: 1px ;
+    clip-path: inset(100% 0 0 0); /* hidden by default */
+    transition: clip-path 0.6s ease;
+}
+
+.collectible[data-unlocked="true"] .filled-icon {
+    clip-path: inset(0 0 0 0); /* reveals bottom-to-top */
+}
+
+/*------------------------------------------Carbon Footprint and Score---------------------------------------   */
 .scoreAndCarb {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 0.5rem;
+    grid-column-gap: 0.2rem;
+    padding-top: 0.6rem;
+    border-top: 2px solid rgba(139, 105, 20, 0.15);
 }
 
 .carbonDiv, .scoreDiv {
@@ -277,9 +327,15 @@ option:focus {
     text-align: center;
 }
 
+.carbHeading, .scoreHeading {
+    margin: 0.625rem 0 0 0;
+}
+
 .carbon, .score {
     font-size: var(--font-size24);
+    margin: 0.625rem;
 }
+
 
 /*--------------------------------------MAP and SCOREBOARD-----------------------------------------*/
 
@@ -375,7 +431,7 @@ i.ti-plane {
     color: white;
 }
 
-.countryFlag{
+.countryFlag {
     margin-left: 1rem;
 }
 
@@ -1071,7 +1127,6 @@ i.ti-plane-departure {
     box-shadow: none;
 }
 
-/*------------------------------------------MEDIA QUERIES---------------------------------------   */
 
 
 
