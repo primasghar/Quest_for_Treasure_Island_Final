@@ -68,16 +68,17 @@ h1 {
 }
 
 .playButton {
-    align-self: flex-end;
+    width: 10rem;
+    align-self: center;
     color: var(--white);
     font-size: var(--font-size24);
     text-align: center;
-    padding: 1rem 1.5rem;
+    padding: 0.8rem;
     outline: none;
     background-color: var(--deep-sea);
     border: none;
-    border-radius: 1rem;
-    box-shadow: 0 9px var(--teal);
+    border-radius: 0.6rem;
+    box-shadow: 0 4px var(--teal);
     cursor: pointer;
 }
 
