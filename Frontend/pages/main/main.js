@@ -36,34 +36,22 @@ let locations = [];
 
 const initMap = async () => {
 
-    if (player.level === 1) {
-
-        let airport = await getAirportData(1)
-        const {airportName, country, lat, lon} = airport;
-
-        setAirportName(airportName, country)
-        getFlag(country)
-
-        locations = [{name: airportName, coords: [lat, lon]}];
-    } else {
         let airport = await getAirportData(player.level)
         const {airportName, country} = airport;
-
         setAirportName(airportName, country)
         getFlag(country)
 
         locations = await mapVisitedAirportsOnLoad(player.level);
-    }
+
 
     // In case player don't choose any option in message modal and reload the modals comes back.
     if (player.score >= 500 && player.attempts === 3) {
         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
     } else if (player.score < 500 && player.attempts === 3) {
-        showMessageModal("Not enough score to play again. Game Over! ")
+        showMessageModal("Not enough score to play again.")
     }
 
     const collectiblesArr = await playerCollectables(player.playerId)
-    console.log("collectablesArr on reload", collectiblesArr)
     unlockCollectibles(collectiblesArr)
 
     showMapOnLoad(locations); // now called AFTER locations is fully populated
@@ -115,9 +103,9 @@ const changeLevel = (levelToShow) => {
             if (player.score >= 500 && player.attempts === 3) {
                 showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
             } else if (player.score < 500 && player.attempts === 3) {
-                showMessageModal("You don't have enough score to play. Game Over! ")
+                showMessageModal("You don't have enough score to play.")
             }
-        }, 1500)
+        }, 1000)
 
 
     }
@@ -150,6 +138,10 @@ const changeLevel = (levelToShow) => {
         case 9:
             winnerPage(player.name);
             break;
+        case 10:
+            GameOver(player.name);
+            break;
+
     }
 
 }
