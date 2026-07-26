@@ -36,7 +36,7 @@ const winnerPage = (playerName) => {
     const goingToIsland = createParagraphElement("islandGoer", `You have reached the Treasure Island.`);
     winnerDiv.appendChild(goingToIsland)
 
-    const quitPlayAgain = createButtonElement("winnerPageBtn", "Quit / Play Again")
+    const quitPlayAgain = createButtonElement(".quitAndPlayBtn", "Quit / Play Again")
     winnerDiv.appendChild(quitPlayAgain)
 
     quitPlayAgain.addEventListener("click", async () => {

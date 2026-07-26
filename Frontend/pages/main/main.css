@@ -302,13 +302,13 @@ option:focus {
 
 .filled-icon {
     color: #0F5C3C;
-    -webkit-text-stroke: 1px ;
+    -webkit-text-stroke: 1px;
     clip-path: inset(100% 0 0 0); /* hidden by default */
     transition: clip-path 0.6s ease;
 }
 
 .collectible[data-unlocked="true"] .filled-icon {
-    clip-path: inset(0 0 0 0); /* reveals bottom-to-top */
+    clip-path: inset(0 0 0 0); /* bottom-to-top revel */
 }
 
 /*------------------------------------------Carbon Footprint and Score---------------------------------------   */
@@ -824,6 +824,48 @@ i.ti-plane {
     margin: 1rem;
 }
 
+/*----------------------------------Game Over-------------------------------------------------------*/
+.gameOverDiv {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameOverText {
+    font-size: 60px;
+    margin: 2rem;
+    color: white;
+    font-family: 'Luckiest Guy', cursive;
+    -webkit-text-stroke: 2px #000000;
+    text-shadow: 1px 1px 0 #b5c244,
+    2px 2px 0 #c5ba42,
+    3px 3px 0 #af9622,
+    4px 4px 0 #e4c109,
+    5px 5px 0 #bda22c,
+    6px 6px 0 #f9e94b,
+    7px 7px 6px rgba(0, 0, 0, 0.5);
+    transform: skewY(-2deg);
+    letter-spacing: 2px;
+}
+
+.sorryPlayer, .explainerText {
+    color: white;
+    font-size: var(--font-size20);
+    margin: 0.2rem;
+}
+
+.quitAndPlayBtn {
+    margin: 2rem;
+}
+
+.noMap {
+    font-size: 80px;
+    color: #e4c109;
+}
+
+
 /*----------------------------------MESSAGE MODAL----------------------------------------------------*/
 
 .modal-overlay {
@@ -947,7 +989,7 @@ button {
     font-family: 'Cinzel', serif;
 }
 
-.playBtn, .quitBtn, .playNextBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
+.playBtn, .quitBtn, .playNextBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn, .quitAndPlayBtn {
     width: 10rem;
     height: 2.875rem;
     color: var(--white);
@@ -968,13 +1010,13 @@ button {
     justify-content: center;
 }
 
-.sequenceBtn, .riddleBtn, .questionBtn {
+.sequenceBtn, .riddleBtn, .questionBtn, .quitAndPlayBtn {
     width: 14rem;
 }
 
 /*-----------------PLAY BUTTON----------------*/
 
-.playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn {
+.playBtn, .submitBtn, .sequenceBtn, .riddleBtn, .questionBtn, .quitAndPlayBtn {
     height: 36px;
     color: #2B1800;
     border: 0.125rem solid #B8860B;
@@ -988,7 +1030,7 @@ button {
 
 }
 
-.playBtn::before, .submitBtn::before, .sequenceBtn::before, .riddleBtn::before, .questionBtn::before {
+.playBtn::before, .submitBtn::before, .sequenceBtn::before, .riddleBtn::before, .questionBtn::before, .quitAndPlayBtn::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1000,16 +1042,16 @@ button {
     pointer-events: none;
 }
 
-.playBtn span, .playBtn i, .submitBtn span, .submitBtn i, .sequenceBtn span, .sequenceBtn i, .riddleBtn span, .riddleBtn i, .questionBtn span, .questionBtn i {
+.playBtn span, .playBtn i, .submitBtn span, .submitBtn i, .sequenceBtn span, .sequenceBtn i, .riddleBtn span, .riddleBtn i, .questionBtn span, .questionBtn i, .quitAndPlayBtn span, .quitAndPlayBtn i {
     position: relative;
     z-index: 1;
 }
 
-.playBtn i, .submitBtn i, .sequenceBtn i, .riddleBtn i, .questionBtn i {
+.playBtn i, .submitBtn i, .sequenceBtn i, .riddleBtn i, .questionBtn i, .quitAndPlayBtn i {
     font-size: 20px;
 }
 
-.playBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover, .questionBtn:hover {
+.playBtn:hover, .submitBtn:hover, .sequenceBtn:hover, .riddleBtn:hover, .questionBtn:hover, .quitAndPlayBtn:hover {
     filter: brightness(1.08);
 }
 

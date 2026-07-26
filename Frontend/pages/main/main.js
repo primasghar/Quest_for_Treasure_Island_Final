@@ -7,14 +7,16 @@ import levelSix from "./levels/levelSix.js"
 import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 import winnerPage from "./levels/winnerPage.js";
+import gameOver from "./levels/GameOver.js";
 
 import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
     mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles,
-    playerCollectables
+    playerCollectables, warningMessageModal
 } from "../../utils/functions.js"
+import GameOver from "./levels/GameOver.js";
 
 
 //----------------------Accessing button and other elements------------------------------------
@@ -36,19 +38,19 @@ let locations = [];
 
 const initMap = async () => {
 
-        let airport = await getAirportData(player.level)
-        const {airportName, country} = airport;
-        setAirportName(airportName, country)
-        getFlag(country)
+    let airport = await getAirportData(player.level)
+    const {airportName, country} = airport;
+    setAirportName(airportName, country)
+    getFlag(country)
 
-        locations = await mapVisitedAirportsOnLoad(player.level);
+    locations = await mapVisitedAirportsOnLoad(player.level);
 
 
     // In case player don't choose any option in message modal and reload the modals comes back.
     if (player.score >= 500 && player.attempts === 3) {
         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
     } else if (player.score < 500 && player.attempts === 3) {
-        showMessageModal("Not enough score to play again.")
+        GameOver(player.name)
     }
 
     const collectiblesArr = await playerCollectables(player.playerId)
@@ -103,7 +105,7 @@ const changeLevel = (levelToShow) => {
             if (player.score >= 500 && player.attempts === 3) {
                 showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
             } else if (player.score < 500 && player.attempts === 3) {
-                showMessageModal("You don't have enough score to play.")
+                 GameOver(player.name)
             }
         }, 1000)
 
