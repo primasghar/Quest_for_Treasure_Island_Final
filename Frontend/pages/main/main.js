@@ -12,7 +12,7 @@ import {
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
     mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles,
-    playerCollectables, warningMessageModal, getPlayerProgressData
+    playerCollectables, warningMessageModal, getPlayerProgressData, setPlayerProgress, removePlayerProgressData
 } from "../../utils/functions.js"
 import GameOver from "./levels/GameOver.js";
 
@@ -76,7 +76,7 @@ const changeLevel = (levelToShow) => {
         if (player.level === 8) {
             setTimeout(async () => {
                 player.score += 500;
-                localStorage.setItem("playerDetails", JSON.stringify(player));
+               setPlayerProgress(player);
                 await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts, player.collectibles)
                 changeLevel(9)
             }, 2000)
@@ -92,8 +92,9 @@ const changeLevel = (levelToShow) => {
         player.score += 500;
         player.carbonPrint = player.carbonPrint + carbEmit;
 
-        localStorage.setItem("playerDetails", JSON.stringify(player));
+        setPlayerProgress(player);
         await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts, player.collectibles)
+        updatePlayerBoardUI(player)
     }
 
     const onLose = () => {
@@ -171,7 +172,7 @@ nextGameBtn.addEventListener("click", async () => {
 
 quitBtn.addEventListener("click", async () => {
     await deletePlayerData()
-    localStorage.removeItem('playerDetails');
+    removePlayerProgressData();
     window.location.href = '../playerName/index.html';
 })
 
@@ -185,7 +186,8 @@ const onReplay = async () => {
     console.log("reload carbon", player.carbonPrint)
     clearGameAreas()
     changeLevel(player.level)
-    localStorage.setItem("playerDetails", JSON.stringify(player));
+    setPlayerProgress(player);
+
     await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.collectibles)
 
     locations = await mapVisitedAirportsOnLoad(player.level);

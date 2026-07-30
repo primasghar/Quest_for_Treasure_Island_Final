@@ -2,7 +2,7 @@ import {
     createButtonElement,
     createDivElement,
     createParagraphElement,
-    deletePlayerData
+    deletePlayerData, removePlayerProgressData
 } from "../../../utils/functions.js";
 
 const winnerPage = (playerName) => {
@@ -41,7 +41,7 @@ const winnerPage = (playerName) => {
 
     quitPlayAgain.addEventListener("click", async () => {
     await deletePlayerData()
-    localStorage.removeItem('playerDetails');
+    removePlayerProgressData();
     window.location.href = '../playerName/index.html';
 })
 

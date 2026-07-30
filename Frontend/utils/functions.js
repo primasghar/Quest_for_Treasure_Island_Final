@@ -1,6 +1,8 @@
 //-------------------------Accessing Elements------------
 
 export const getPlayerProgressData = () => JSON.parse(localStorage.getItem('playerDetails'));
+export const setPlayerProgress = (player) =>  localStorage.setItem("playerDetails", JSON.stringify(player));
+export const removePlayerProgressData =  () => localStorage.removeItem('playerDetails');
 
 export const gameTitle = (gameName) => {
     let gameTitle = document.querySelector('.gameNameHeading')
@@ -141,7 +143,7 @@ export const showMessageModal = (message, buttonText = null, onButtonClick = () 
     quitButton.addEventListener('click', async () => {
         closeModal();
         await deletePlayerData()
-        localStorage.removeItem('playerDetails');
+        removePlayerProgressData();
         window.location.href = '../playerName/index.html';
     })
     box.appendChild(quitButton)
@@ -265,9 +267,8 @@ export const incrementAttempts = async () => {
     console.log("attempts updated LS", player.attempts)
     player.attempts += 1;
     await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)//Setting BE with new val
-    localStorage.setItem("playerDetails", JSON.stringify(player));//Setting LS with new value
+    setPlayerProgress(player);//Setting LS with new value
     updatePlayerBoardUI(player)//Setting UI
-
 }
 
 //Updates the table in the BACKEND
