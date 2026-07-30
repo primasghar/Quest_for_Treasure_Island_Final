@@ -228,21 +228,6 @@ export const generateRandomSequence = () => {
     return result;
 }
 
-//Fetches the player data and update local storage that updates the UI
-// const fetchPlayerData = async (playerID) => {
-//
-//     try {
-//         const response = await fetch(`http://127.0.0.1:5000/player/${playerID}`)
-//         const playerData = await response.json();
-//         console.log(playerData)
-//         localStorage.setItem("playerDetails", JSON.stringify(playerData));
-//         return JSON.stringify(playerData);
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// };
-
-
 //Updates the UI using player data ( accessed from local storage)
 export const updatePlayerBoardUI = (player) => {
 
@@ -321,88 +306,6 @@ export const calcCarbonEmission = async (currLevel) => {
     //per km CO2 emissions to be 150g.
     console.log("carbon", 150 * distanceBtwAirports)
     return Math.floor(150 * distanceBtwAirports);
-}
-
-// Creates the map
-let map;
-let markers = []
-let trailPoints = []
-let trailLine;
-
-export const showMapOnLoad = (locations) => {
-
-    console.log(locations)
-
-    map = L.map('map', {
-        center: [60.3184, 24.9633],
-        zoom: 4,
-    });
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Add a circle, marker, and label for each location
-    markers = locations.map((loc, i) => {
-        L.circle(loc.coords, {radius: 500}).addTo(map);
-
-        const marker = L.marker(loc.coords).addTo(map);
-
-        marker.bindTooltip(`${i + 1}. ${loc.name}`, {
-            permanent: true,
-            direction: 'right',
-            offset: [10, 0],
-            className: 'stop-label'
-        });
-
-        marker.bindPopup(`<strong>Stop ${i + 1}</strong><br>${loc.name}`);
-
-        return marker;
-    });
-
-    // Build the trail connecting all locations in order
-    trailPoints = locations.map(loc => loc.coords);
-    trailLine = L.polyline(trailPoints, {
-        color: 'blue',
-        weight: 3,
-        dashArray: '10, 10'
-    }).addTo(map);
-
-    // map.fitBounds(trailLine.getBounds(), {padding: [30, 30]});
-}
-
-// Push a new location and update the map to show it
-export const addLocation = (loc, locations) => {
-    if (!map) {
-        console.warn('Map not initialised — call showMapOnLoad first');
-        return;
-    }
-
-    locations.push(loc);
-    const i = locations.length - 1;
-
-    // Circle + marker for the new location
-    L.circle(loc.coords, {radius: 500}).addTo(map);
-
-    const marker = L.marker(loc.coords).addTo(map);
-
-    marker.bindTooltip(`${i + 1}. ${loc.name}`, {
-        permanent: true,
-        direction: 'right',
-        offset: [10, 0],
-        className: 'stop-label'
-    });
-
-    marker.bindPopup(`<strong>Stop ${i + 1}</strong><br>${loc.name}`);
-
-    markers.push(marker);
-
-    // Extend the trail to include the new point
-    trailPoints.push(loc.coords);
-    trailLine.setLatLngs(trailPoints);
-
-    // Optionally re-fit the map to include the new point
-    map.fitBounds(trailLine.getBounds(), {padding: [30, 30]});
 }
 
 //gets all data of an airport ( score, level, carbon emission, playerId, attempts )
