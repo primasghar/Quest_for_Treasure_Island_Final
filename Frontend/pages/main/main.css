@@ -12,7 +12,7 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 100wv;
+    width: 100vw;
     height: 100vh;
     margin: auto;
     flex: 1; /* takes up all remaining space */
@@ -581,18 +581,18 @@ i.ti-plane {
     font-size: 4rem;
     font-weight: bold;
     box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.5);
-    border: 0.188rem solid #ffd700;
+
 }
 
 .heads {
-    background: #c9aa71;
-    color: #8b4513;
+    background-image: url("../../images/coin_heads.svg");
+    border: 0.188rem solid #c9aa71; /* other options--#ffd700; or  #b8860b*/
     transform: rotateY(0deg);
 }
 
 .tails {
-    background: #b8860b;
-    color: #4a4a4a;
+     background-image: url("../../images/coin_tails.svg");
+    border: 0.188rem solid #54492a;
     transform: rotateY(180deg);
 }
 

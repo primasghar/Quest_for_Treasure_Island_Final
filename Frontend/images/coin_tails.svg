@@ -1,0 +1,37 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="metalT" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#f5f0e0"/>
+      <stop offset="55%" stop-color="#c9bd9a"/>
+      <stop offset="100%" stop-color="#7a6d48"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="98" fill="url(#metalT)"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#54492a" stroke-width="1.5" opacity="0.6"/>
+  <g fill="#54492a" opacity="0.55">
+    <circle cx="100" cy="18" r="2.2"/><circle cx="130" cy="22" r="2.2"/><circle cx="157" cy="35" r="2.2"/>
+    <circle cx="177" cy="57" r="2.2"/><circle cx="188" cy="84" r="2.2"/><circle cx="188" cy="116" r="2.2"/>
+    <circle cx="177" cy="143" r="2.2"/><circle cx="157" cy="165" r="2.2"/><circle cx="130" cy="178" r="2.2"/>
+    <circle cx="100" cy="182" r="2.2"/><circle cx="70" cy="178" r="2.2"/><circle cx="43" cy="165" r="2.2"/>
+    <circle cx="23" cy="143" r="2.2"/><circle cx="12" cy="116" r="2.2"/><circle cx="12" cy="84" r="2.2"/>
+    <circle cx="23" cy="57" r="2.2"/><circle cx="43" cy="35" r="2.2"/><circle cx="70" cy="22" r="2.2"/>
+  </g>
+  <g fill="none" stroke="#54492a" stroke-width="3" opacity="0.8" stroke-linecap="round">
+    <path d="M60 60 Q40 100 60 145 Q68 158 80 162"/>
+    <path d="M140 60 Q160 100 140 145 Q132 158 120 162"/>
+  </g>
+  <g fill="#54492a" opacity="0.7">
+    <ellipse cx="55" cy="70" rx="9" ry="4.5" transform="rotate(-35 55 70)"/>
+    <ellipse cx="46" cy="92" rx="9" ry="4.5" transform="rotate(-12 46 92)"/>
+    <ellipse cx="44" cy="115" rx="9" ry="4.5" transform="rotate(10 44 115)"/>
+    <ellipse cx="52" cy="138" rx="9" ry="4.5" transform="rotate(30 52 138)"/>
+    <ellipse cx="66" cy="155" rx="9" ry="4.5" transform="rotate(50 66 155)"/>
+    <ellipse cx="145" cy="70" rx="9" ry="4.5" transform="rotate(35 145 70)"/>
+    <ellipse cx="154" cy="92" rx="9" ry="4.5" transform="rotate(12 154 92)"/>
+    <ellipse cx="156" cy="115" rx="9" ry="4.5" transform="rotate(-10 156 115)"/>
+    <ellipse cx="148" cy="138" rx="9" ry="4.5" transform="rotate(-30 148 138)"/>
+    <ellipse cx="134" cy="155" rx="9" ry="4.5" transform="rotate(-50 134 155)"/>
+  </g>
+  <text x="100" y="95" text-anchor="middle" font-size="34" fill="#54492a" opacity="0.85" font-family="Georgia, serif" font-weight="700">S P</text>
+  <text x="100" y="128" text-anchor="middle" font-size="34" fill="#54492a" opacity="0.85" font-family="Georgia, serif" font-weight="700">Q R</text>
+</svg>

@@ -33,11 +33,9 @@ const addCoin = () => {
     coinContainer.appendChild(coin)
 
     let heads = createDivElement('heads')
-    heads.innerText = "H"
     coin.appendChild(heads)
 
     let tails = createDivElement('tails')
-    tails.innerText = "T"
     coin.appendChild(tails)
 }
 
