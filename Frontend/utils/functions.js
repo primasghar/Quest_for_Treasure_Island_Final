@@ -4,6 +4,14 @@ export const getPlayerProgressData = () => JSON.parse(localStorage.getItem('play
 export const setPlayerProgress = (player) =>  localStorage.setItem("playerDetails", JSON.stringify(player));
 export const removePlayerProgressData =  () => localStorage.removeItem('playerDetails');
 
+export const showAirportInfo = async () => {
+    let airport = await getAirportData(player.level)
+    const {airportName, country} = airport;
+
+    setAirportName(airportName, country)
+    showCountryFlag(country)
+}
+
 export const gameTitle = (gameName) => {
     let gameTitle = document.querySelector('.gameNameHeading')
 
@@ -18,7 +26,7 @@ export const setAirportName = (airportName, country) => {
     airportNameTitle.innerText = `${airportName}, ${country}`;
 }
 
-export const getFlag = (countryName) => {
+export const showCountryFlag = (countryName) => {
     let flag = document.querySelector('.countryFlag');
     flag.innerHTML = ""
 

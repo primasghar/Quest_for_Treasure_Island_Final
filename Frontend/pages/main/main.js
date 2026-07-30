@@ -11,8 +11,8 @@ import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles,
-    playerCollectables, warningMessageModal, getPlayerProgressData, setPlayerProgress, removePlayerProgressData
+    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, showCountryFlag, unlockCollectibles,
+    playerCollectables, warningMessageModal, getPlayerProgressData, setPlayerProgress, removePlayerProgressData, showAirportInfo
 } from "../../utils/functions.js"
 import GameOver from "./levels/GameOver.js";
 
@@ -31,20 +31,14 @@ const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", 
 // onLoad--------------------------------------------------------
 
 let player = getPlayerProgressData();
-
 let locations = [];
 
-const initMap = async () => {
-
-    let airport = await getAirportData(player.level)
-    const {airportName, country} = airport;
-    setAirportName(airportName, country)
-    getFlag(country)
-
+const initGame = async () => {
+    showAirportInfo();
     locations = await mapVisitedAirportsOnLoad(player.level);
 
-
     // In case player don't choose any option in message modal and reload the modals comes back.
+    // When the player lose the game, and they refresh it without selecting to play again or quit,
     if (player.score >= 500 && player.attempts === 3) {
         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
     } else if (player.score < 500 && player.attempts === 3) {
@@ -59,7 +53,7 @@ const initMap = async () => {
     updatePlayerBoardUI(player);
 }
 
-initMap();
+initGame();
 
 // ----------------------------Game-----------------------------------------------------------
 
@@ -165,7 +159,7 @@ nextGameBtn.addEventListener("click", async () => {
     let airport = await getAirportData(player.level)
     const {airportName, country, lat, lon} = airport;
     airportNameTitle.innerText = `${airportName}, ${country}`;
-    getFlag(country)
+    showCountryFlag(country)
     addLocation({name: name, coords: [lat, lon]}, locations)
 
 })
