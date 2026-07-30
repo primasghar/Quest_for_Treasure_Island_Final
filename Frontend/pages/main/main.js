@@ -10,11 +10,13 @@ import winnerPage from "./levels/winnerPage.js";
 import {
     deletePlayerData,
     updatePlayerBoardUI,
-    updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
-    mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, showCountryFlag, unlockCollectibles,
-    playerCollectables, warningMessageModal, getPlayerProgressData, setPlayerProgress, removePlayerProgressData, showAirportInfo
+    getAirportData, showMapOnLoad, addLocation, clearGameAreas,
+    calcCarbonEmission, showMessageModal, setAirportName, showCountryFlag, unlockCollectibles,
+     warningMessageModal, getPlayerProgressData, setPlayerProgress, removePlayerProgressData, showAirportInfo
 } from "../../utils/functions.js"
 import GameOver from "./levels/GameOver.js";
+import { updatePlayerProgress, playerCollectables} from '../../utils/apis.js'
+import { mapVisitedAirportsOnLoad } from '../../utils/mapUtilityFunctions.js'
 
 
 //----------------------Accessing button and other elements------------------------------------
@@ -34,7 +36,7 @@ let player = getPlayerProgressData();
 let locations = [];
 
 const initGame = async () => {
-    showAirportInfo();
+    showAirportInfo(player);
     locations = await mapVisitedAirportsOnLoad(player.level);
 
     // In case player don't choose any option in message modal and reload the modals comes back.
@@ -71,7 +73,7 @@ const changeLevel = (levelToShow) => {
             setTimeout(async () => {
                 player.score += 500;
                setPlayerProgress(player);
-                await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts, player.collectibles)
+                await updatePlayerProgress(player)
                 changeLevel(9)
             }, 2000)
         }
@@ -87,7 +89,7 @@ const changeLevel = (levelToShow) => {
         player.carbonPrint = player.carbonPrint + carbEmit;
 
         setPlayerProgress(player);
-        await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts, player.collectibles)
+        await updatePlayerProgress(player)
         updatePlayerBoardUI(player)
     }
 
@@ -182,7 +184,7 @@ const onReplay = async () => {
     changeLevel(player.level)
     setPlayerProgress(player);
 
-    await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.collectibles)
+    await updatePlayerProgress(player)
 
     locations = await mapVisitedAirportsOnLoad(player.level);
     updatePlayerBoardUI(player);

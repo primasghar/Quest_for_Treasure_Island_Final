@@ -1,10 +1,11 @@
-//-------------------------Accessing Elements------------
+import { allICAOCodes, airportData, updatePlayerProgress} from './apis.js'
 
+//-------------------------Accessing Elements------------
 export const getPlayerProgressData = () => JSON.parse(localStorage.getItem('playerDetails'));
 export const setPlayerProgress = (player) =>  localStorage.setItem("playerDetails", JSON.stringify(player));
 export const removePlayerProgressData =  () => localStorage.removeItem('playerDetails');
 
-export const showAirportInfo = async () => {
+export const showAirportInfo = async (player) => {
     let airport = await getAirportData(player.level)
     const {airportName, country} = airport;
 
@@ -274,65 +275,10 @@ export const incrementAttempts = async () => {
     let player = getPlayerProgressData() || {};
     console.log("attempts updated LS", player.attempts)
     player.attempts += 1;
-    await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)//Setting BE with new val
+    await updatePlayerProgress(player)//Setting BE with new val
     setPlayerProgress(player);//Setting LS with new value
     updatePlayerBoardUI(player)//Setting UI
 }
-
-//Updates the table in the BACKEND
-export const updatePlayerProgress = async (gameLevel, gameScore, gameCFP, gamePlayerID, gameAttempts, playerCollectibles) => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/update/progress`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                level: gameLevel,
-                score: gameScore,
-                carbon_fp: gameCFP,
-                player_id: gamePlayerID,
-                attempts: gameAttempts,
-                collectibles: playerCollectibles
-            }),
-
-        })
-        return await response.json();
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-
-//Fetches all airports ICAO from BACKEND -- selected to be used in this game.
-export const allICAOCodes = async () => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/airports/icao`)
-        const allAirportsICAO = await response.json();
-        console.log(allAirportsICAO)
-        return allAirportsICAO;
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-
-//Fetches airports data from BACKEND  with ICAO--Returns "list" of airports as objects
-export const airportData = async (icao_list) => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/airportDetail/${icao_list}`)
-        return await response.json();
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-
-export const playerCollectables = async (playerId) => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/player/collectables/${playerId}`)
-        return await response.json();
-    } catch (error) {
-        console.log(error.message);
-    }
-};
 
 //Calculated the distance between current and previous airport (used to calc carbon emission)
 export const getDistance = (lat1, lon1, lat2, lon2) => {
@@ -472,27 +418,6 @@ export const getAirportData = async (level) => {
     return data['airports'][0];
 }
 
-//Gets all the airports visited already to reload them on map, if player reloads the page.
-export const mapVisitedAirportsOnLoad = async (level) => {
-    const airportDataForMap = [];
-
-    let allGameAirportICAO = await allICAOCodes();
-
-    const allVisitedICAO = allGameAirportICAO.slice(0, level).map(pair => pair[1]);
-
-    let allAirportsVisitedData = await airportData(allVisitedICAO)
-
-    //Getting only necessary data for map, name and lat/lon
-    for (const airport of allAirportsVisitedData.airports) {
-        const airportName = airport.airportName;
-        const lat = airport.lat;
-        const lon = airport.lon;
-
-        airportDataForMap.push({name: airportName, coords: [lat, lon]})
-    }
-
-    return airportDataForMap;
-}
 
 //Clears the game areas including result div.
 export const clearGameAreas = () => {
