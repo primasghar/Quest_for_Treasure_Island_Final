@@ -2,7 +2,7 @@ import {
     gameTitle,
     createButtonElement,
     showResultCard,
-    createDivElement, createParagraphElement, incrementAttempts
+    createDivElement, createParagraphElement, incrementAttempts, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelThreeContainer;
@@ -25,7 +25,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
     levelThreeContainer.appendChild(rollBtnEl)
 
     const handleDiceRoll = () => {
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
         let attempts = player.attempts;
 
         document.querySelectorAll('.dices').forEach(el => el.remove());

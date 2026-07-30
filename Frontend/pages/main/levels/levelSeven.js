@@ -1,6 +1,12 @@
 import {
     gameTitle,
-    createButtonElement, createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
+    createButtonElement,
+    createInputElement,
+    showResultCard,
+    createDivElement,
+    createParagraphElement,
+    incrementAttempts,
+    getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelSevenContainer;
@@ -53,7 +59,7 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
 
     // Function to show the riddle
     const handleShowRiddle = () => {
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
         attempts = player.attempts;
 
         let availableRiddles = [...riddlesArray]

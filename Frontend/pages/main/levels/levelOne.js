@@ -3,7 +3,7 @@ import {
     createParagraphElement,
     createSelectElement,
     createButtonElement,
-    showResultCard, createDivElement, incrementAttempts, warningMessageModal
+    showResultCard, createDivElement, incrementAttempts, warningMessageModal, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelOneContainer;
@@ -40,7 +40,7 @@ const addCoin = () => {
 }
 
 const handleFlipCoin = async (onWin, onLose) => {
-    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let player = getPlayerProgressData();
     let attempts = player.attempts;
 
     const chosenOption = selectEl.value;

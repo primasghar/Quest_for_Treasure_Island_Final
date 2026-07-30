@@ -2,7 +2,7 @@ import {
     gameTitle,
     createNumberSelect,
     createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts,
-    warningMessageModal
+    warningMessageModal, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelFiveContainer;
@@ -29,7 +29,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
 
     const handleGuessNo = () => {
 
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
         let attempts = player.attempts;
 
         let computerSelectedNo = Math.floor(Math.random() * 10 + 1)

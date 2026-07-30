@@ -7,14 +7,12 @@ import levelSix from "./levels/levelSix.js"
 import levelSeven from "./levels/levelSeven.js"
 import levelEight from "./levels/levelEight.js"
 import winnerPage from "./levels/winnerPage.js";
-import gameOver from "./levels/GameOver.js";
-
 import {
     deletePlayerData,
     updatePlayerBoardUI,
     updatePlayerProgress, getAirportData, showMapOnLoad, addLocation, clearGameAreas,
     mapVisitedAirportsOnLoad, calcCarbonEmission, showMessageModal, setAirportName, getFlag, unlockCollectibles,
-    playerCollectables, warningMessageModal
+    playerCollectables, warningMessageModal, getPlayerProgressData
 } from "../../utils/functions.js"
 import GameOver from "./levels/GameOver.js";
 
@@ -32,7 +30,7 @@ const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", 
 
 // onLoad--------------------------------------------------------
 
-let player = JSON.parse(localStorage.getItem('playerDetails'));
+let player = getPlayerProgressData();
 
 let locations = [];
 
@@ -69,7 +67,7 @@ const changeLevel = (levelToShow) => {
 
     const onWin = async () => {
 
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
         unlockCollectibles([collectiblesArray[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
         player.collectibles = collectiblesArray[player.level - 1]
 
@@ -99,7 +97,7 @@ const changeLevel = (levelToShow) => {
     }
 
     const onLose = () => {
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
 
         setTimeout(() => {
             if (player.score >= 500 && player.attempts === 3) {
@@ -108,8 +106,6 @@ const changeLevel = (levelToShow) => {
                  GameOver(player.name)
             }
         }, 1000)
-
-
     }
 
     switch (levelToShow) {
@@ -157,7 +153,7 @@ nextGameBtn.addEventListener("click", async () => {
     airportNameTitle.innerText = ""
     clearGameAreas()
 
-    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let player = getPlayerProgressData();
     const {level} = player //level already changed on win which also activate the next button.
     updatePlayerBoardUI(player)
 
@@ -181,7 +177,7 @@ quitBtn.addEventListener("click", async () => {
 
 
 const onReplay = async () => {
-    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let player = getPlayerProgressData();
     console.log("before reload carbon", player.carbonPrint)
     player.score -= 500;
     player.attempts = 0;

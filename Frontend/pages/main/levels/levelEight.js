@@ -1,7 +1,7 @@
 import {
     gameTitle,
     createButtonElement,
-    createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
+    createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelEightContainer;
@@ -49,7 +49,7 @@ const levelEight = async (gameDiv, onWin, onLose) => {
     //Function to display question
     const handleShowQuestion = () => {
 
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
         attempts = player.attempts;
 
         let availableQuestions = [...questionsArray]

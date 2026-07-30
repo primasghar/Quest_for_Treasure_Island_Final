@@ -1,5 +1,7 @@
 //-------------------------Accessing Elements------------
 
+export const getPlayerProgressData = () => JSON.parse(localStorage.getItem('playerDetails'));
+
 export const gameTitle = (gameName) => {
     let gameTitle = document.querySelector('.gameNameHeading')
 
@@ -259,7 +261,7 @@ export const updatePlayerBoardUI = (player) => {
 
 //Updates the attempts in UI and BE
 export const incrementAttempts = async () => {
-    let player = JSON.parse(localStorage.getItem('playerDetails')) || {};
+    let player = getPlayerProgressData() || {};
     console.log("attempts updated LS", player.attempts)
     player.attempts += 1;
     await updatePlayerProgress(player.level, player.score, player.carbonPrint, player.playerId, player.attempts)//Setting BE with new val

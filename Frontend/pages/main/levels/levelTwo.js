@@ -2,7 +2,7 @@ import {
     gameTitle,
     createSelectElement,
     createButtonElement,
-    showResultCard, createDivElement, createParagraphElement, incrementAttempts, warningMessageModal
+    showResultCard, createDivElement, createParagraphElement, incrementAttempts, warningMessageModal, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelTwoContainer;
@@ -21,7 +21,7 @@ let optionsArray = [{value: "", nodeText: "-- Player's choice --"},
     {value: "SCISSORS", nodeText: "SCISSORS"}];
 
 const playGame = async (onWin, onLose) => {
-    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let player = getPlayerProgressData();
     let attempts = player.attempts;
 
     const options_list = ["ROCK", "PAPER", "SCISSORS"]

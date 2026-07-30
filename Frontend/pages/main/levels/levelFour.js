@@ -3,7 +3,7 @@ import {
     createSelectElement,
     createNumberSelect,
     createButtonElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts,
-    warningMessageModal
+    warningMessageModal, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelFourContainer;
@@ -38,7 +38,7 @@ const levelFour = (gameDiv, onWin, onLose) => {
 
     // Handler function
     const handleEvenOdd = () => {
-        let player = JSON.parse(localStorage.getItem('playerDetails'));
+        let player = getPlayerProgressData();
         let attempts = player.attempts;
 
         playButton.disabled = true

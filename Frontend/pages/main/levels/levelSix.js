@@ -2,7 +2,7 @@ import {
     gameTitle,
     createInputElement,
     createButtonElement,
-    generateRandomSequence, showResultCard, createDivElement, createParagraphElement, incrementAttempts
+    generateRandomSequence, showResultCard, createDivElement, createParagraphElement, incrementAttempts, getPlayerProgressData
 } from '../../../utils/functions.js'
 
 let levelSixContainer;
@@ -20,7 +20,7 @@ let attempts;
 
 const handleSubmitSequence = async (onWin, onLose) => {
 
-    let player = JSON.parse(localStorage.getItem('playerDetails'));
+    let player = getPlayerProgressData();
     attempts = player.attempts;
 
     console.log("handle submit", sequenceInputEl.value, seq)
