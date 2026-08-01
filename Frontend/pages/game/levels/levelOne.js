@@ -14,6 +14,7 @@ import { warningMessageModal } from '../utils/modals.js'
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import { Attempts } from "../utils/enums.js";
 
 let levelOneContainer;
 let describeGamePara;
@@ -27,9 +28,14 @@ let resultText = "";
 
 let coinContainer;
 
+const Selection = {
+    HEADS: "HEADS",
+    TAILS: "TAILS"
+}
+
 const optionsArray = [{value: "", nodeText: "-- Player's choice --"},
-    {value: "HEADS", nodeText: "HEADS"},
-    {value: "TAILS", nodeText: "TAILS"}];
+    {value: Selection.HEADS, nodeText: Selection.HEADS},
+    {value: Selection.TAILS, nodeText: Selection.TAILS}];
 
 // Creates the coin
 const addCoin = () => {
@@ -54,7 +60,7 @@ const handleFlipCoin = async (onWin, onLose) => {
 
     const chosenOption = selectEl.value;
 
-    if (chosenOption !== "HEADS" && chosenOption !== "TAILS") {
+    if (chosenOption !== Selection.HEADS && chosenOption !== Selection.TAILS) {
         warningMessageModal("Please select a valid option.")
         return;
     }
@@ -62,7 +68,7 @@ const handleFlipCoin = async (onWin, onLose) => {
     flipButtonEl.disabled = true;
     selectEl.disabled = true;
 
-    if (isFlipping || attempts >= 3) return;
+    if (isFlipping || attempts >= Attempts.THIRD) return;
 
     isFlipping = true;
     await incrementAttempts()
@@ -72,18 +78,18 @@ const handleFlipCoin = async (onWin, onLose) => {
 
     setTimeout(function () {
 
-        resultText = isHeads ? 'HEADS' : 'TAILS';
+        resultText = isHeads ? Selection.HEADS : Selection.TAILS;
         coin.style.transform = isHeads ? 'rotateY(0deg)' : 'rotateY(180deg)';
 
-        if (chosenOption === resultText && attempts < 3) {
+        if (chosenOption === resultText && attempts < Attempts.THIRD) {
             showResultCard("win", `You chose: ${chosenOption}. Coin flipped: ${resultText}.`)
             onWin();
-        } else if (chosenOption !== resultText && attempts >= 2) {
+        } else if (chosenOption !== resultText && attempts >= Attempts.SECOND) {
             showResultCard("lose", `You chose: ${chosenOption}. Coin flipped: ${resultText}. No attempts left!`)
             onLose()
         }
 
-        if (chosenOption !== resultText && attempts < 2) {
+        if (chosenOption !== resultText && attempts < Attempts.SECOND) {
             flipButtonEl.disabled = false;
             selectEl.disabled = false;
             showResultCard("try", `You chose: ${chosenOption}. Coin flipped: ${resultText}. You lose.`)

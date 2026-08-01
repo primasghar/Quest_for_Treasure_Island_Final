@@ -13,16 +13,6 @@ import {
 } from '../utils/localStorageFunctions.js'
 
 const winnerPage = (playerName) => {
-    // window.addEventListener("load", () => {
-    //     let positionList = [
-    //         {x: window.innerWidth * 0.50, y: window.innerHeight * 0.60},
-    //         {x: window.innerWidth * 0.25, y: window.innerHeight * 0.40},
-    //         {x: window.innerWidth * 0.75, y: window.innerHeight * 0.30},
-    //     ];
-    //     for (let i = 0; i < positionList.length; i++) {
-    //         setTimeout(() => confetti({position: positionList[i]}), i * 250);
-    //     }
-    // });
     const gameSection = document.querySelector('.gameAndResultSection');
     gameSection.innerHTML = '';
 

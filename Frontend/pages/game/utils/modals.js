@@ -15,12 +15,14 @@ export const showMessageModal = (message, buttonText = null, onButtonClick = () 
 
     const overlay = createDivElement('modal-overlay');
     document.body.appendChild(overlay);
+
     const box = createDivElement('modal-box');
     overlay.appendChild(box);
+
     const messageEl = createParagraphElement('modal-message', message);
     box.appendChild(messageEl);
-    const quitButton = createButtonElement('modal-quit', "quit");
 
+    const quitButton = createButtonElement('modal-quit', "quit");
 
     // Close modal helper
     const closeModal = () => {
@@ -45,18 +47,18 @@ export const showMessageModal = (message, buttonText = null, onButtonClick = () 
     })
     box.appendChild(quitButton)
 
-
     // Trigger fade-in
     requestAnimationFrame(() => overlay.classList.add('show'));
 }
 
 // Warning msg modal
 export const warningMessageModal = (message) => {
-
     const overlay = createDivElement('modal-overlay');
     document.body.appendChild(overlay);
+
     const box = createDivElement('modal-box');
     overlay.appendChild(box);
+
     const messageEl = createParagraphElement('modal-message', message);
     box.appendChild(messageEl);
 

@@ -36,9 +36,8 @@ const GameOver = (playerName) => {
 
     quitPlayAgain.addEventListener("click", async () => {
         await deletePlayerData()
-       removePlayerProgressData();
+        removePlayerProgressData();
         window.location.href = '../playerName/index.html';
-
     })
 }
 
