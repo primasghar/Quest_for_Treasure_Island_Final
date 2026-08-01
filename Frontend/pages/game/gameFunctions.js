@@ -40,7 +40,7 @@ const quitBtn = document.querySelector(".quitBtn");
 export const onWin = async () => {
     let player = getPlayerProgressData();
     unlockCollectibles([collectiblesArray[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
-    player.collectibles = collectiblesArray[player.level - 1]
+    player.collectibles.push(collectiblesArray[player.level - 1]);
 
     nextGameBtn.disabled =  player.level > Level.EIGHT;
 
@@ -64,7 +64,7 @@ export const onWin = async () => {
     player.carbonPrint = player.carbonPrint + carbonEmission;
 
     setPlayerProgress(player);
-    //  await updatePlayerProgress(player)
+     await updatePlayerProgress(player)
     updatePlayerBoardUI(player)
 }
 
