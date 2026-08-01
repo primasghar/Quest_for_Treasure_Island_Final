@@ -7,9 +7,6 @@ let trailPoints = []
 let trailLine;
 
 export const showMapOnLoad = (locations) => {
-
-    console.log(locations)
-
     map = L.map('map', {
         center: [60.3184, 24.9633],
         zoom: 4,

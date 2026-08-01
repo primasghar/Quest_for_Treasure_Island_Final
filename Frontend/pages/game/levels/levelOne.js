@@ -67,7 +67,9 @@ const handleFlipCoin = async (onWin, onLose) => {
     flipButtonEl.disabled = true;
     selectEl.disabled = true;
 
-    if (isFlipping || attempts >= Attempts.THIRD) return;
+    if (isFlipping || attempts >= Attempts.THIRD) {
+        return;
+    }
 
     isFlipping = true;
     await incrementAttempts()

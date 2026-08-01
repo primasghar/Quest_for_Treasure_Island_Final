@@ -29,9 +29,7 @@ export const updatePlayerProgress = async (player) => {
 export const allICAOCodes = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/airports/icao`)
-        const allAirportsICAO = await response.json();
-        console.log("allAirportsICAO", allAirportsICAO)
-        return allAirportsICAO;
+        return await response.json();
     } catch (error) {
         console.log(error.message);
     }

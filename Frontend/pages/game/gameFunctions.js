@@ -23,7 +23,7 @@ import {
 } from './utils/localStorageFunctions.js'
 
 import {Level, Attempts, Score} from "./utils/enums.js";
-import {playerCollectables, updatePlayerProgress, deletePlayerData} from "./utils/apis.js";
+import {updatePlayerProgress, deletePlayerData} from "./utils/apis.js";
 import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "./utils/mapFunctions.js";
 
 const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map"]
@@ -181,7 +181,7 @@ export const initGame = async () => {
         GameOver(player.name)
     }
 
-    const collectiblesArr = await playerCollectables(player.playerId)
+    const collectiblesArr = player.collectibles
     unlockCollectibles(collectiblesArr)
 
     showMapOnLoad(locations); // now called AFTER locations is fully populated
