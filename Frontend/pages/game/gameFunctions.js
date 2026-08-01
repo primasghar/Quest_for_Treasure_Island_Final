@@ -22,28 +22,12 @@ import {
     removePlayerProgressData
 } from './utils/localStorageFunctions.js'
 
+import { Level, Attempts} from "./utils/enums.js";
 import {playerCollectables, updatePlayerProgress} from "./utils/apis.js";
 import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "./utils/mapFunctions.js";
 
 const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map"]
 
-const Level = Object.freeze({
-    ONE: 1,
-    TWO: 2,
-    THREE: 3,
-    FOURTH: 4,
-    FIVE: 5,
-    SIX: 6,
-    SEVEN: 7,
-    EIGHT: 8,
-    NINE: 9
-})
-
-const Attempts = Object.freeze({
-    FIRST: 1,
-    SECOND: 2,
-    THIRD: 3,
-})
 
 let locations = [];
 
