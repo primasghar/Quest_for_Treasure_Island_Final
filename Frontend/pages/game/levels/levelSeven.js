@@ -5,9 +5,12 @@ import {
     showResultCard,
     createDivElement,
     createParagraphElement,
-    incrementAttempts,
-    getPlayerProgressData
+    incrementAttempts
 } from '../../../utils/functions.js'
+
+import {
+    getPlayerProgressData
+} from '../../../utils/localStorageUtilityFunctions.js'
 
 let levelSevenContainer;
 let describeGame7Para;

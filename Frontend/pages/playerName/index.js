@@ -11,13 +11,12 @@ nameInput.addEventListener("keypress", (e)=>{
 })
 
 const fetchNewPlayerData = async () => {
-
     try {
         const response = await fetch(`http://127.0.0.1:5000/player/${nameInput.value}`)
         const newPlayerData = await response.json();
         console.log("new player", newPlayerData)
         localStorage.setItem("playerDetails", JSON.stringify(newPlayerData) );
-        window.location.href ='../main/main.html';
+        window.location.href ='../game/main.html';
 
     } catch (error) {
         console.log(error.message);

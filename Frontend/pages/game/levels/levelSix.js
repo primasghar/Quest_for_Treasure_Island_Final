@@ -2,8 +2,12 @@ import {
     gameTitle,
     createInputElement,
     createButtonElement,
-    generateRandomSequence, showResultCard, createDivElement, createParagraphElement, incrementAttempts, getPlayerProgressData
+    generateRandomSequence, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
+
+import {
+    getPlayerProgressData
+} from '../../../utils/localStorageUtilityFunctions.js'
 
 let levelSixContainer;
 let describeGame6Para;

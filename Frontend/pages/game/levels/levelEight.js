@@ -1,8 +1,12 @@
 import {
     gameTitle,
     createButtonElement,
-    createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts, getPlayerProgressData
+    createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
 } from '../../../utils/functions.js'
+
+import {
+    getPlayerProgressData
+} from '../../../utils/localStorageUtilityFunctions.js'
 
 let levelEightContainer;
 let describeGame8Para;

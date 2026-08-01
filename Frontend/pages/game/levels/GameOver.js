@@ -2,8 +2,12 @@ import {
     createButtonElement,
     createDivElement,
     createParagraphElement,
-    deletePlayerData, removePlayerProgressData
+    deletePlayerData
 } from "../../../utils/functions.js";
+
+import {
+    removePlayerProgressData
+} from '../../../utils/localStorageUtilityFunctions.js'
 
 const GameOver = (playerName) => {
     const gameSection = document.querySelector('.gameAndResultSection');
