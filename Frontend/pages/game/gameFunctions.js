@@ -11,7 +11,7 @@ import winnerPage from "./levels/winnerPage.js";
 
 import {
     calcCarbonEmission,
-    clearGameAreas, deletePlayerData, getAirportData,
+    clearGameAreas, getAirportData,
     showAirportInfo, showCountryFlag,
     unlockCollectibles, updatePlayerBoardUI
 } from "./utils/utilityFunctions.js";
@@ -22,8 +22,8 @@ import {
     removePlayerProgressData
 } from './utils/localStorageFunctions.js'
 
-import { Level, Attempts} from "./utils/enums.js";
-import {playerCollectables, updatePlayerProgress} from "./utils/apis.js";
+import {Level, Attempts, Score} from "./utils/enums.js";
+import {playerCollectables, updatePlayerProgress, deletePlayerData} from "./utils/apis.js";
 import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "./utils/mapFunctions.js";
 
 const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map"]
@@ -46,10 +46,10 @@ export const onWin = async () => {
 
     if (player.level === Level.EIGHT) {
         setTimeout(async () => {
-            player.score += 500;
+            player.score += Score.FIVE_HUNDRED;
             setPlayerProgress(player);
             await updatePlayerProgress(player)
-            playLevel(9)
+            playLevel(Level.NINE)
         }, 2000)
     }
 
@@ -60,7 +60,7 @@ export const onWin = async () => {
         player.attempts = 0;
     }
 
-    player.score += 500;
+    player.score += Score.FIVE_HUNDRED;
     player.carbonPrint = player.carbonPrint + carbonEmission;
 
     setPlayerProgress(player);
@@ -72,9 +72,9 @@ export const onLose = () => {
     let player = getPlayerProgressData();
 
     setTimeout(() => {
-        if (player.score >= 500 && player.attempts === Attempts.THIRD) {
+        if (player.score >= Score.FIVE_HUNDRED && player.attempts === Attempts.THIRD) {
             showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
-        } else if (player.score < 500 && player.attempts === Attempts.THIRD) {
+        } else if (player.score < Score.FIVE_HUNDRED && player.attempts === Attempts.THIRD) {
             GameOver(player.name)
         }
     }, 1000)
@@ -84,9 +84,9 @@ export const onLose = () => {
 export const onReplay = async () => {
     let player = getPlayerProgressData();
 
-    player.score -= 500;
+    player.score -= Score.FIVE_HUNDRED;
     player.attempts = 0;
-    player.carbonPrint += 1000;
+    player.carbonPrint += Score.ONE_THOUSAND;
 
     clearGameAreas()
     playLevel(player.level)
@@ -132,7 +132,7 @@ quitBtn.addEventListener("click", async () => {
 
 export const playLevel = () => {
     let player = getPlayerProgressData();
-    console.log("playerLevel", player)
+
     switch (player.level) {
         case Level.ONE:
             levelOne(gameDiv, onWin, onLose);
@@ -175,9 +175,9 @@ export const initGame = async () => {
 
     // In case player don't choose any option in message modal and reload the modals comes back.
     // When the player lose the game, and they refresh it without selecting to play again or quit,
-    if (player.score >= 500 && player.attempts === 3) {
+    if (player.score >= Score.FIVE_HUNDRED && player.attempts === 3) {
         showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
-    } else if (player.score < 500 && player.attempts === 3) {
+    } else if (player.score < Score.FIVE_HUNDRED && player.attempts === 3) {
         GameOver(player.name)
     }
 

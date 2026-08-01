@@ -1,4 +1,4 @@
-import { allICAOCodes, airportData, updatePlayerProgress} from './apis.js'
+import {airportData, allICAOCodes, updatePlayerProgress} from './apis.js'
 
 import {getPlayerProgressData, setPlayerProgress} from './localStorageFunctions.js'
 
@@ -37,8 +37,10 @@ export const showCountryFlag = (countryName) => {
 
 export const unlockCollectibles = (collectibleIds) => {
     collectibleIds.map(id => {
-        const el = document.querySelector(`[data-id="${id}"]`);
-        if (el) el.setAttribute('data-unlocked', 'true');
+        const element = document.querySelector(`[data-id="${id}"]`);
+        if (element) {
+            element.setAttribute('data-unlocked', 'true');
+        }
     })
 }
 
@@ -138,11 +140,9 @@ export const getDistance = (lat1, lon1, lat2, lon2) => {
 
 //Getting prev and next airport data with icao codes and extracting lat and lon to get distance and then calc emissions.
 export const calcCarbonEmission = async (currLevel) => {
-
     let allGameAirportICAO = await allICAOCodes()
 
     let currentAirportICAO = allGameAirportICAO[currLevel - 1][1];//Considering icao have 0 index and levels start from 1.
-
     let nextAirportICAO = allGameAirportICAO[currLevel][1];
 
     let currAndNextAirportData = await airportData([currentAirportICAO, nextAirportICAO]);
@@ -154,7 +154,6 @@ export const calcCarbonEmission = async (currLevel) => {
 
     let distanceBtwAirports = getDistance(currentLat, currentLon, nextLat, nextLon)
     //per km CO2 emissions to be 150g.
-    console.log("carbon", 150 * distanceBtwAirports)
     return Math.floor(150 * distanceBtwAirports);
 }
 
@@ -166,7 +165,6 @@ export const getAirportData = async (level) => {
     let airportICAO = [allGameAirportICAO[level - 1][1]]// Considering 0 indexed ICAO array and Pass ICAO in an array
 
     let data = await airportData(airportICAO)
-    console.log("getAirport", data)
 
     return data['airports'][0];
 }
@@ -174,26 +172,12 @@ export const getAirportData = async (level) => {
 
 //Clears the game areas including result div.
 export const clearGameAreas = () => {
-    const title = document.querySelector(".gameNameHeading");
-    const gameDiv = document.querySelector('.gameArea')
-    const resultDiv = document.querySelector('.showResult')
-    title.innerText = ""
-    gameDiv.innerHTML = ""
-    resultDiv.innerHTML = ""
+    document.querySelector(".gameNameHeading").innerHTML = "";
+    document.querySelector('.gameArea').innerHTML = "";
+    document.querySelector('.showResult').innerHTML = "";
 }
 
-//Deletes everything when QUIT button is pressed.
-export const deletePlayerData = async () => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/quit`)
-        const quitConfirmed = await response.json();
-        console.log(await response)
-        return quitConfirmed;
 
-    } catch (error) {
-        console.log(error.message);
-    }
-};
 
 
 

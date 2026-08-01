@@ -55,3 +55,14 @@ export const playerCollectables = async (playerId) => {
         console.log(error.message);
     }
 };
+
+//Deletes everything when QUIT button is pressed.
+export const deletePlayerData = async () => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/quit`)
+        return await response.json();
+
+    } catch (error) {
+        console.log(error.message);
+    }
+};

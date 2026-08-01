@@ -15,3 +15,8 @@ export const Attempts = Object.freeze({
     SECOND: 2,
     THIRD: 3,
 })
+
+export const Score = Object.freeze({
+    FIVE_HUNDRED: 500,
+    ONE_THOUSAND: 1000,
+})

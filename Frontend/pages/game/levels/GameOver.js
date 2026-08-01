@@ -1,6 +1,6 @@
 import {
     deletePlayerData
-} from "../utils/utilityFunctions.js";
+} from "../utils/apis.js";
 import {
     createButtonElement,
     createDivElement,
