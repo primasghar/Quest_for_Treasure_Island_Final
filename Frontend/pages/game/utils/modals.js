@@ -1,11 +1,11 @@
-import {deletePlayerData} from "./functions.js";
+import {deletePlayerData} from "./utilityFunctions.js";
 import {
     createButtonElement,
     createDivElement,
     createParagraphElement,
-} from './domUtilityFunctions.js'
+} from './domFunctions.js'
 
-import {removePlayerProgressData} from "./localStorageUtilityFunctions.js";
+import {removePlayerProgressData} from "./localStorageFunctions.js";
 
 
 export const showMessageModal = (message, buttonText = null, onButtonClick = () => {

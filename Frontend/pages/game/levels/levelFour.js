@@ -2,17 +2,17 @@ import {
     gameTitle,
     showResultCard,
     incrementAttempts
-} from '../utils/functions.js'
+} from '../utils/utilityFunctions.js'
 
 import {
     createButtonElement,
     createDivElement, createNumberSelect,
     createParagraphElement, createSelectElement,
-} from '../utils/domUtilityFunctions.js'
-import { warningMessageModal } from '../utils/modal.js'
+} from '../utils/domFunctions.js'
+import { warningMessageModal } from '../utils/modals.js'
 import {
     getPlayerProgressData
-} from '../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageFunctions.js'
 
 let levelFourContainer;
 let describeGame4Para;

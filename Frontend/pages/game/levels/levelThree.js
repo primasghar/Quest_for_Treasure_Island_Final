@@ -2,16 +2,16 @@ import {
     gameTitle,
     showResultCard,
     incrementAttempts
-} from '../utils/functions.js'
+} from '../utils/utilityFunctions.js'
 
 import {
     createButtonElement,
     createDivElement,
     createParagraphElement,
-} from '../utils/domUtilityFunctions.js'
+} from '../utils/domFunctions.js'
 import {
     getPlayerProgressData
-} from '../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageFunctions.js'
 
 let levelThreeContainer;
 let describeGame3Para;

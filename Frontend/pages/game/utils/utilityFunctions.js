@@ -1,6 +1,6 @@
 import { allICAOCodes, airportData, updatePlayerProgress} from './apis.js'
 
-import {getPlayerProgressData, setPlayerProgress} from './localStorageUtilityFunctions.js'
+import {getPlayerProgressData, setPlayerProgress} from './localStorageFunctions.js'
 
 export const showAirportInfo = async (player) => {
     let airport = await getAirportData(player.level)

@@ -14,16 +14,16 @@ import {
     clearGameAreas, deletePlayerData, getAirportData,
     showAirportInfo, showCountryFlag,
     unlockCollectibles, updatePlayerBoardUI
-} from "./utils/functions.js";
-import { showMessageModal } from './utils/modal.js'
+} from "./utils/utilityFunctions.js";
+import { showMessageModal } from './utils/modals.js'
 import {
     getPlayerProgressData,
     setPlayerProgress,
     removePlayerProgressData
-} from './utils/localStorageUtilityFunctions.js'
+} from './utils/localStorageFunctions.js'
 
 import {playerCollectables, updatePlayerProgress} from "./utils/apis.js";
-import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "./utils/mapUtilityFunctions.js";
+import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "./utils/mapFunctions.js";
 
 const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map"]
 

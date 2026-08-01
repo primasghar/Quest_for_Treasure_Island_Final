@@ -1,14 +1,14 @@
 import {
     deletePlayerData
-} from "../utils/functions.js";
+} from "../utils/utilityFunctions.js";
 import {
     createButtonElement,
     createDivElement,
     createParagraphElement,
-} from '../utils/domUtilityFunctions.js'
+} from '../utils/domFunctions.js'
 import {
     removePlayerProgressData
-} from '../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageFunctions.js'
 
 const GameOver = (playerName) => {
     const gameSection = document.querySelector('.gameAndResultSection');
