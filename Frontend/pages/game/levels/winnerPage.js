@@ -33,12 +33,13 @@ const winnerPage = (playerName) => {
     const goingToIsland = createParagraphElement("islandGoer", `You have reached the Treasure Island.`);
     winnerDiv.appendChild(goingToIsland)
 
-    const quitPlayAgain = createButtonElement(".quitAndPlayBtn", "Quit / Play Again")
+    const quitPlayAgain = createButtonElement("quitAndPlayBtn", "Quit / Play Again")
     winnerDiv.appendChild(quitPlayAgain)
 
     quitPlayAgain.addEventListener("click", async () => {
     await deletePlayerData()
     removePlayerProgressData();
+    window.location.href = '../playerName/index.html';
     window.location.href = '../playerName/index.html';
 })
 
