@@ -53,18 +53,14 @@ export const onWin = async () => {
         }, 2000)
     }
 
-    let carbonEmission = await calcCarbonEmission(player.level)
-
     if (player.level !== Level.NINE) {
-        player.level += 1;
         player.attempts = 0;
     }
 
     player.score += Score.FIVE_HUNDRED;
-    player.carbonPrint = player.carbonPrint + carbonEmission;
 
     setPlayerProgress(player);
-     await updatePlayerProgress(player)
+    await updatePlayerProgress(player)
     updatePlayerBoardUI(player)
 }
 
@@ -107,10 +103,12 @@ nextGameBtn.addEventListener("click", async () => {
     clearGameAreas()
 
     let player = getPlayerProgressData();
-    const {level} = player //level already changed on win which also activate the next button.
+    let carbonEmission = await calcCarbonEmission(player.level)
+    player.level += 1;
+    player.carbonPrint = player.carbonPrint + carbonEmission;
     updatePlayerBoardUI(player)
 
-    playLevel(level);
+    playLevel(player.level);
 
     nextGameBtn.disabled = true
 
