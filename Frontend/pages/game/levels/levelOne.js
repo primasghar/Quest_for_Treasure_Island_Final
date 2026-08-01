@@ -39,7 +39,6 @@ const optionsArray = [{value: "", nodeText: "-- Player's choice --"},
 
 // Creates the coin
 const addCoin = () => {
-
     coinContainer = createDivElement('coinContainer')
     levelOneContainer.appendChild(coinContainer);
 
@@ -77,7 +76,6 @@ const handleFlipCoin = async (onWin, onLose) => {
     let isHeads = Math.random() < 0.5;
 
     setTimeout(function () {
-
         resultText = isHeads ? Selection.HEADS : Selection.TAILS;
         coin.style.transform = isHeads ? 'rotateY(0deg)' : 'rotateY(180deg)';
 

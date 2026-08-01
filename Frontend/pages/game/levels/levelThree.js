@@ -12,6 +12,7 @@ import {
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import {Attempts} from "../utils/enums.js";
 
 let levelThreeContainer;
 let describeGame3Para;
@@ -72,7 +73,7 @@ const levelThree = (gameDiv, onWin, onLose) => {
                 showResultCard("win", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}.`)
                 onWin()
 
-            } else if (attempts >= 2) {
+            } else if (attempts >= Attempts.SECOND) {
                 showResultCard("lose", `The sum of ${randomNumber1}, ${randomNumber2}, and ${randomNumber3} is ${sum}. No attempts left!`)
                 onLose()
 

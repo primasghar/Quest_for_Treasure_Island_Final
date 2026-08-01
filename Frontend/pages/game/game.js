@@ -1,4 +1,4 @@
-import { initGame} from "./gameFunctions.js";
+import { initGame } from "./gameFunctions.js";
 
 initGame();
 

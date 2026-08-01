@@ -66,3 +66,23 @@ export const deletePlayerData = async () => {
         console.log(error.message);
     }
 };
+
+//Fetching all riddles from BE
+export const fetchRiddles = async () => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/riddles`)
+        return await response.json();
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+//fetching all questions from BE
+export const fetchQuizQuestions = async () => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/quiz/questions`)
+        return await response.json();
+    } catch (error) {
+        console.log(error.message);
+    }
+};

@@ -15,6 +15,7 @@ import {
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import {Attempts} from "../utils/enums.js";
 
 let levelSixContainer;
 let describeGame6Para;
@@ -43,14 +44,12 @@ const handleSubmitSequence = async (onWin, onLose) => {
     await incrementAttempts()
 
     if (playerGuess === seq) {
-
         playerWon = true
         showSeqBtnEl.disabled = true
         showResultCard("win", `Your sequence ${playerGuess} matched ${seq}.`)
         onWin()
     } else {
-
-        if (attempts < 2) {
+        if (attempts < Attempts.SECOND) {
             showSeqBtnEl.disabled = false
             sequenceInputEl.value = ""
             showResultCard("try", `Your sequence ${playerGuess} does not match ${seq}.`)

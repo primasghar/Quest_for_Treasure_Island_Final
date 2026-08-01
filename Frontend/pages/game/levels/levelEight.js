@@ -14,6 +14,7 @@ import {
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import { fetchQuizQuestions } from "../utils/apis.js"
 
 let levelEightContainer;
 let describeGame8Para;
@@ -28,19 +29,6 @@ let submitBtnEl;
 
 let attempts;
 let playerWon = false
-
-//fetching all questions from BE
-const fetchQuizQuestions = async () => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/quiz/questions`)
-        return await response.json();
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-
-
-// --------------------------------Main Function------------------------
 
 const levelEight = async (gameDiv, onWin, onLose) => {
 

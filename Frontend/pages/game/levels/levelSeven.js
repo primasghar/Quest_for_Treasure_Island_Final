@@ -14,6 +14,8 @@ import {
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import {Attempts} from "../utils/enums.js";
+import { fetchRiddles } from "../utils/apis.js"
 
 let levelSevenContainer;
 let describeGame7Para;
@@ -28,16 +30,6 @@ let submitBtnEl;
 
 let attempts = 0
 let playerWon = false
-
-//Fetching all riddles from BE
-const fetchRiddles = async () => {
-    try {
-        const response = await fetch(`http://127.0.0.1:5000/riddles`)
-        return await response.json();
-    } catch (error) {
-        console.log(error.message);
-    }
-};
 
 // --------------------------------Main Function------------------------
 
@@ -95,21 +87,19 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
         playerAnsInputEl.disabled = true;
 
         if (playerAnswer === correctAnswer) {
-
             playerWon = true
             showResultCard("win", `"${playerAnswer}" is a correct answer.`)
             onWin()
         } else {
-
             showRiddleBtnEl.disabled = false
             playerAnsInputEl.value = ""
             riddle.innerText = ""
             showResultCard("try", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}.`)
         }
 
-        if (attempts === 2) {
+        if (attempts === Attempts.SECOND) {
             showRiddleBtnEl.disabled = true
-            if (playerWon === false) {
+            if (!playerWon) {
                 showResultCard("lose", `${playerAnswer} is incorrect. The correct answer is ${correctAnswer}. No attempts left.`)
                 onLose()
             }

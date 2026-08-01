@@ -13,6 +13,7 @@ import { warningMessageModal } from '../utils/modals.js'
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import {Attempts} from "../utils/enums.js";
 
 let levelFourContainer;
 let describeGame4Para;
@@ -81,14 +82,15 @@ const levelFour = (gameDiv, onWin, onLose) => {
                     showResultCard("win", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is Odd Number.`)
                     onWin()
                 } else {
-                     playButton.disabled = false
+                    playButton.disabled = false
                     showResultCard("try", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number.`)
-                     setTimeout(() => {
-                    attempts < 3 ? computerChoice.remove() : ""
+
+                    setTimeout(() => {
+                        attempts < Attempts.THIRD && computerChoice.remove();
                 }, 2000)
                 }
 
-                if (attempts === 2) {
+                if (attempts === Attempts.SECOND) {
                     playButton.disabled = true
                     if (playerWon === false) {
                         showResultCard("lose", `The sum of ${playerSelectedNo} and ${computerSelectedNo} is ${sumOfNos}, which is not an ${playerTarget} number. No attempts left!`)

@@ -14,6 +14,7 @@ import { warningMessageModal } from '../utils/modals.js'
 import {
     getPlayerProgressData
 } from '../utils/localStorageFunctions.js'
+import {Attempts} from "../utils/enums.js";
 
 let levelFiveContainer;
 let describeGame5Para;
@@ -46,7 +47,7 @@ const levelFive = (gameDiv, onWin, onLose) => {
 
         let playerSelectedNo = selectNoEl.value
 
-        if (playerSelectedNo === "") {
+        if (!playerSelectedNo) {
             warningMessageModal('Please select a Number')
             return;
         }
@@ -70,18 +71,20 @@ const levelFive = (gameDiv, onWin, onLose) => {
                 selectNoBtnEl.disabled = false
                 showResultCard("try", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}.`)
                 setTimeout(() => {
-                    attempts < 2 ? computerChoiceElement.innerText = "" : ""
+                    if(attempts < Attempts.SECOND){
+                         computerChoiceElement.innerText = ""
+                    }
                 }, 1000)
             }
 
-            if (attempts === 2) {
+            if (attempts === Attempts.SECOND) {
                 selectNoEl.disabled = true
                 selectNoBtnEl.disabled = true
+
                 if (playerWon === false) {
                     showResultCard("lose", `Your selection: ${playerSelectedNo} is not same as computer's selection: ${computerSelectedNo}. No attempts left`)
                     onLose()
                 }
-
             }
 
         }, 500)

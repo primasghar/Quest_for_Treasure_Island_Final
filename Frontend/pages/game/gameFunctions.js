@@ -158,10 +158,10 @@ export const playLevel = () => {
         case Level.EIGHT:
             levelEight(gameDiv, onWin, onLose);
             break;
-        case 9:
+        case Level.NINE:
             winnerPage(player.name);
             break;
-        case 10:
+        case Level.TEN:
             GameOver(player.name);
             break;
 

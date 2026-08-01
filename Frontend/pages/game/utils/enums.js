@@ -7,7 +7,8 @@ export const Level = Object.freeze({
     SIX: 6,
     SEVEN: 7,
     EIGHT: 8,
-    NINE: 9
+    NINE: 9,
+    TEN: 10
 })
 
 export const Attempts = Object.freeze({
