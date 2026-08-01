@@ -1,6 +1,6 @@
 import { allICAOCodes, airportData, updatePlayerProgress} from './apis.js'
 
-import {getPlayerProgressData, removePlayerProgressData, setPlayerProgress} from './localStorageUtilityFunctions.js'
+import {getPlayerProgressData, setPlayerProgress} from './localStorageUtilityFunctions.js'
 
 export const showAirportInfo = async (player) => {
     let airport = await getAirportData(player.level)
@@ -35,7 +35,6 @@ export const showCountryFlag = (countryName) => {
     flag.appendChild(flagImg)
 }
 
-
 export const unlockCollectibles = (collectibleIds) => {
     collectibleIds.map(id => {
         const el = document.querySelector(`[data-id="${id}"]`);
@@ -43,148 +42,10 @@ export const unlockCollectibles = (collectibleIds) => {
     })
 }
 
-//------------Creating Elements Div, Paragraph, Button, Select, Input--------
-
-export const createDivElement = (divClass) => {
-    const divElement = document.createElement("div")
-    divElement.className = divClass
-    return divElement;
-}
-
-
-export const createParagraphElement = (paraClass, paraText) => {
-    const paraElement = document.createElement("p")
-    paraElement.className = paraClass
-    paraElement.innerHTML = paraText
-    return paraElement;
-}
-
-export const createButtonElement = (buttonClass, buttonText) => {
-    const buttonElement = document.createElement("button")
-    buttonElement.className = buttonClass
-    const btnText = document.createElement('span')
-    btnText.innerText = buttonText
-    buttonElement.appendChild(btnText)
-    return buttonElement;
-}
-
-
-export const createSelectElement = (selectId, optionsArray) => {
-    const selectElement = document.createElement('select');
-    selectElement.id = selectId;
-
-    for (let i = 0; i < optionsArray.length; i++) {
-        let valueText = optionsArray[i].value
-        let optionText = optionsArray[i].nodeText
-
-        const option = document.createElement("option");
-        option.className = "opts"
-        option.value = valueText;
-        option.textContent = optionText
-        selectElement.appendChild(option)
-    }
-
-    return selectElement;
-
-};
-
-export const createNumberSelect = (selectId, noArray) => {
-    const selectElement = document.createElement('select');
-    selectElement.id = selectId;
-
-    let opt = document.createElement("option");
-    opt.value = ""
-    opt.textContent = "--Number (1-10)--"
-    selectElement.appendChild(opt)
-
-    for (let i = 1; i <= noArray.length; i++) {
-        let opt = document.createElement("option");
-        opt.className = "opts"
-        opt.value = `${i}`
-        opt.textContent = `${i}`
-        selectElement.appendChild(opt)
-    }
-
-    return selectElement;
-
-}
-
-export const createInputElement = (placeholder) => {
-    let inputElement = document.createElement('input');
-    inputElement.type = 'text';
-    inputElement.id = 'playerInput';
-    inputElement.placeholder = placeholder;
-    return inputElement;
-}
-
-//message Modal
-
-export const showMessageModal = (message, buttonText = null, onButtonClick = () => {
-}) => {
-
-    const overlay = createDivElement('modal-overlay');
-    document.body.appendChild(overlay);
-    const box = createDivElement('modal-box');
-    overlay.appendChild(box);
-    const messageEl = createParagraphElement('modal-message', message);
-    box.appendChild(messageEl);
-    const quitButton = createButtonElement('modal-quit', "quit");
-
-
-    // Close modal helper
-    const closeModal = () => {
-        overlay.classList.remove('show');
-        setTimeout(() => overlay.remove(), 200);
-    }
-
-    if (buttonText) {
-        const button = createButtonElement('modal-button', buttonText);
-        button.addEventListener('click', () => {
-            closeModal();
-            onButtonClick();
-        });
-        box.appendChild(button);
-    }
-
-    quitButton.addEventListener('click', async () => {
-        closeModal();
-        await deletePlayerData()
-        removePlayerProgressData();
-        window.location.href = '../playerName/index.html';
-    })
-    box.appendChild(quitButton)
-
-
-    // Trigger fade-in
-    requestAnimationFrame(() => overlay.classList.add('show'));
-}
-// Warning msg modal
-export const warningMessageModal = (message) => {
-
-    const overlay = createDivElement('modal-overlay');
-    document.body.appendChild(overlay);
-    const box = createDivElement('modal-box');
-    overlay.appendChild(box);
-    const messageEl = createParagraphElement('modal-message', message);
-    box.appendChild(messageEl);
-
-    // Close modal helper
-    const closeModal = () => {
-        overlay.classList.remove('show');
-        setTimeout(() => overlay.remove(), 200);
-    }
-
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeModal();
-    });
-
-    // Trigger fade-in
-    requestAnimationFrame(() => overlay.classList.add('show'));
-}
-
 //-------------------------------Result display-------------------------------
 export const showResultCard = (status, message) => {
     const resultArea = document.querySelector('.showResult');
+
     if (!resultArea) {
         console.error("showResult element not found");
         return;
@@ -227,16 +88,6 @@ export const generateRandomSequence = () => {
 
 //Updates the UI using player data ( accessed from local storage)
 export const updatePlayerBoardUI = (player) => {
-
-    let playerName = player['name']
-    let playerGameLevel = player['level']
-    let playerCarbonFootPrints = player['carbonPrint']
-    let playerScore = player['score']
-    let playerId = player['playerId']
-    let playerGameAttempts = player['attempts']
-// let playerProgressId = player['progressId']
-// let playerCollectibles = player['collectibles']
-
     let sbId = document.querySelector('.id')
     let sbName = document.querySelector('.name')
     let sbLevel = document.querySelector('.level')
@@ -244,20 +95,22 @@ export const updatePlayerBoardUI = (player) => {
     let sbScore = document.querySelector('.score')
     let sbAttempts = document.querySelector('.attempts')
 
-    sbId.innerText = playerId
-    sbName.innerText = playerName;
-    sbLevel.innerText = playerGameLevel;
-    sbAttempts.innerText = playerGameAttempts;
-    sbCarbon.innerText = `${Math.floor(playerCarbonFootPrints / 1000)} kg`;
-    sbScore.innerText = playerScore;
+    sbId.innerText = player.playerId
+    sbName.innerText = player.name;
+    sbLevel.innerText = player.level;
+    sbAttempts.innerText = player.attempts;
+    sbCarbon.innerText = `${Math.floor( player.carbonPrint / 1000)} kg`;
+    sbScore.innerText = player.score;
 }
 
 //Updates the attempts in UI and BE
 export const incrementAttempts = async () => {
     let player = getPlayerProgressData() || {};
-    console.log("attempts updated LS", player.attempts)
+
     player.attempts += 1;
+
     await updatePlayerProgress(player)//Setting BE with new val
+
     setPlayerProgress(player);//Setting LS with new value
     updatePlayerBoardUI(player)//Setting UI
 }

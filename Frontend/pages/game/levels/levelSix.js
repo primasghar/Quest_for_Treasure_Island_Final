@@ -1,13 +1,20 @@
 import {
     gameTitle,
-    createInputElement,
+    generateRandomSequence,
+    showResultCard,
+    incrementAttempts
+} from '../utils/functions.js'
+
+import {
     createButtonElement,
-    generateRandomSequence, showResultCard, createDivElement, createParagraphElement, incrementAttempts
-} from '../../../utils/functions.js'
+    createInputElement,
+    createDivElement,
+    createParagraphElement,
+} from '../utils/domUtilityFunctions.js'
 
 import {
     getPlayerProgressData
-} from '../../../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageUtilityFunctions.js'
 
 let levelSixContainer;
 let describeGame6Para;

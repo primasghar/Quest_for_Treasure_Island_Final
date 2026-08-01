@@ -1,16 +1,19 @@
 import {
     gameTitle,
+    showResultCard,
+    incrementAttempts
+} from '../utils/functions.js'
+
+import {
     createButtonElement,
     createInputElement,
-    showResultCard,
     createDivElement,
     createParagraphElement,
-    incrementAttempts
-} from '../../../utils/functions.js'
+} from '../utils/domUtilityFunctions.js'
 
 import {
     getPlayerProgressData
-} from '../../../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageUtilityFunctions.js'
 
 let levelSevenContainer;
 let describeGame7Para;
@@ -66,13 +69,12 @@ const levelSeven = async (gameDiv, onWin, onLose) => {
         attempts = player.attempts;
 
         let availableRiddles = [...riddlesArray]
-        let riddleText = "";
 
         const randomIndex = Math.floor(Math.random() * availableRiddles.length);
 
         chosenRiddle = availableRiddles.splice(randomIndex, 1)[0];
 
-        riddleText = chosenRiddle[1];
+        let riddleText = chosenRiddle[1];
         riddle = createParagraphElement("riddle", riddleText)
         levelSevenContainer.appendChild(riddle)
 

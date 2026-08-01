@@ -1,13 +1,14 @@
+import { deletePlayerData } from "../utils/functions.js";
+
 import {
     createButtonElement,
     createDivElement,
     createParagraphElement,
-    deletePlayerData
-} from "../../../utils/functions.js";
+} from '../utils/domUtilityFunctions.js'
 
 import {
     removePlayerProgressData
-} from '../../../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageUtilityFunctions.js'
 
 const winnerPage = (playerName) => {
     // window.addEventListener("load", () => {

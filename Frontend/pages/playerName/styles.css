@@ -1,4 +1,4 @@
-@import url("../../utils/constants.css");
+@import url("../game/utils/constants.css");
 
 html, body {
     color: var(--white);

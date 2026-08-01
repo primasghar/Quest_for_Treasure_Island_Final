@@ -1,12 +1,19 @@
 import {
     gameTitle,
+    showResultCard,
+    incrementAttempts
+} from '../utils/functions.js'
+
+import {
     createButtonElement,
-    createInputElement, showResultCard, createDivElement, createParagraphElement, incrementAttempts
-} from '../../../utils/functions.js'
+    createInputElement,
+    createDivElement,
+    createParagraphElement,
+} from '../utils/domUtilityFunctions.js'
 
 import {
     getPlayerProgressData
-} from '../../../utils/localStorageUtilityFunctions.js'
+} from '../utils/localStorageUtilityFunctions.js'
 
 let levelEightContainer;
 let describeGame8Para;

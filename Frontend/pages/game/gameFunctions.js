@@ -12,21 +12,39 @@ import winnerPage from "./levels/winnerPage.js";
 import {
     calcCarbonEmission,
     clearGameAreas, deletePlayerData, getAirportData,
-    showAirportInfo, showCountryFlag, showMessageModal,
-    unlockCollectibles,
-    updatePlayerBoardUI
-} from "../../utils/functions.js";
-
+    showAirportInfo, showCountryFlag,
+    unlockCollectibles, updatePlayerBoardUI
+} from "./utils/functions.js";
+import { showMessageModal } from './utils/modal.js'
 import {
     getPlayerProgressData,
     setPlayerProgress,
     removePlayerProgressData
-} from '../../utils/localStorageUtilityFunctions.js'
+} from './utils/localStorageUtilityFunctions.js'
 
-import {playerCollectables, updatePlayerProgress} from "../../utils/apis.js";
-import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "../../utils/mapUtilityFunctions.js";
+import {playerCollectables, updatePlayerProgress} from "./utils/apis.js";
+import {addLocation, mapVisitedAirportsOnLoad, showMapOnLoad} from "./utils/mapUtilityFunctions.js";
 
 const collectiblesArray = ["compass", "coin", "key", "gem", "anchor", "scroll", "chest", "map"]
+
+const Level = Object.freeze({
+    ONE: 1,
+    TWO: 2,
+    THREE: 3,
+    FOURTH: 4,
+    FIVE: 5,
+    SIX: 6,
+    SEVEN: 7,
+    EIGHT: 8,
+    NINE: 9
+})
+
+const Attempts = Object.freeze({
+    FIRST: 1,
+    SECOND: 2,
+    THIRD: 3,
+})
+
 let locations = [];
 
 //----------------------Accessing button and other elements------------------------------------
@@ -40,9 +58,9 @@ export const onWin = async () => {
     unlockCollectibles([collectiblesArray[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
     player.collectibles = collectiblesArray[player.level - 1]
 
-    player.level < 8 ? nextGameBtn.disabled = false : nextGameBtn.disabled = true
+    nextGameBtn.disabled =  player.level > Level.EIGHT;
 
-    if (player.level === 8) {
+    if (player.level === Level.EIGHT) {
         setTimeout(async () => {
             player.score += 500;
             setPlayerProgress(player);
@@ -51,18 +69,18 @@ export const onWin = async () => {
         }, 2000)
     }
 
-    let carbEmit = await calcCarbonEmission(player.level)
+    let carbonEmission = await calcCarbonEmission(player.level)
 
-    if (player.level !== 9) {
+    if (player.level !== Level.NINE) {
         player.level += 1;
         player.attempts = 0;
     }
 
     player.score += 500;
-    player.carbonPrint = player.carbonPrint + carbEmit;
+    player.carbonPrint = player.carbonPrint + carbonEmission;
 
     setPlayerProgress(player);
-  //  await updatePlayerProgress(player)
+    //  await updatePlayerProgress(player)
     updatePlayerBoardUI(player)
 }
 
@@ -70,9 +88,9 @@ export const onLose = () => {
     let player = getPlayerProgressData();
 
     setTimeout(() => {
-        if (player.score >= 500 && player.attempts === 3) {
+        if (player.score >= 500 && player.attempts === Attempts.THIRD) {
             showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
-        } else if (player.score < 500 && player.attempts === 3) {
+        } else if (player.score < 500 && player.attempts === Attempts.THIRD) {
             GameOver(player.name)
         }
     }, 1000)
@@ -81,11 +99,11 @@ export const onLose = () => {
 
 export const onReplay = async () => {
     let player = getPlayerProgressData();
-    console.log("before reload carbon", player.carbonPrint)
+
     player.score -= 500;
     player.attempts = 0;
     player.carbonPrint += 1000;
-    console.log("reload carbon", player.carbonPrint)
+
     clearGameAreas()
     playLevel(player.level)
     setPlayerProgress(player);
@@ -132,28 +150,28 @@ export const playLevel = () => {
     let player = getPlayerProgressData();
     console.log("playerLevel", player)
     switch (player.level) {
-        case 1:
+        case Level.ONE:
             levelOne(gameDiv, onWin, onLose);
             break;
-        case 2:
+        case Level.TWO:
             levelTwo(gameDiv, onWin, onLose);
             break;
-        case 3:
+        case Level.THREE:
             levelThree(gameDiv, onWin, onLose);
             break;
-        case 4:
+        case Level.FOURTH:
             levelFour(gameDiv, onWin, onLose);
             break;
-        case 5:
+        case Level.FIVE:
             levelFive(gameDiv, onWin, onLose);
             break;
-        case 6:
+        case Level.SIX:
             levelSix(gameDiv, onWin, onLose);
             break;
-        case 7:
+        case Level.SEVEN:
             levelSeven(gameDiv, onWin, onLose);
             break;
-        case 8:
+        case Level.EIGHT:
             levelEight(gameDiv, onWin, onLose);
             break;
         case 9:
