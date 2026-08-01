@@ -117,8 +117,12 @@ def delete_player_and_progress_query():
     cursor = db.get_conn().cursor()
     cursor.execute(sql,)
 
+    sql = "DELETE FROM player_collectables"
+    cursor.execute(sql, )
+
     sql = "DELETE FROM player"
     cursor.execute(sql, )
+
     return f"Player and their progress were deleted successfully."
 
 
