@@ -390,17 +390,16 @@ option:focus {
     align-items: center;
     font-size: 50px;
     margin: 0 1rem;
-    color: var(--white);
+    color: #F4C430;
     font-family: 'Luckiest Guy', cursive;
-    -webkit-text-stroke: 2px #000000;
-    text-shadow: 1px 1px 0 #E8871E,
-    2px 2px 0 #E8871E,
-    3px 3px 0 #E8871E,
-    4px 4px 0 #E8871E,
-    5px 5px 0 #E8871E,
-    6px 6px 0 #E8871E,
-    7px 7px 6px rgba(0, 0, 0, 0.5);
-    transform: skewY(-2deg);
+    -webkit-text-stroke: 2px #2A1408;
+    text-shadow: 1px 1px 0 #E8B84B,
+    2px 2px 0 #FFD873,
+    3px 3px 0 #FFD873,
+    4px 4px 0 #FFD873,
+    5px 5px 0 #FFD873,
+    6px 6px 0 #FFD873;
+    /*7px 7px 6px #FFD873;*/
     letter-spacing: 2px;
 }
 
