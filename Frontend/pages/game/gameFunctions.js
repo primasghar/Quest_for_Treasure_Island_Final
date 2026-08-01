@@ -107,6 +107,7 @@ nextGameBtn.addEventListener("click", async () => {
     player.level += 1;
     player.carbonPrint = player.carbonPrint + carbonEmission;
     updatePlayerBoardUI(player)
+    setPlayerProgress(player);
 
     playLevel(player.level);
 
@@ -117,7 +118,6 @@ nextGameBtn.addEventListener("click", async () => {
     airportNameTitle.innerText = `${airportName}, ${country}`;
     showCountryFlag(country)
     addLocation({name: name, coords: [lat, lon]}, locations)
-
 })
 
 quitBtn.addEventListener("click", async () => {
@@ -131,6 +131,7 @@ quitBtn.addEventListener("click", async () => {
 export const playLevel = () => {
     let player = getPlayerProgressData();
 
+    console.log('playLevel', player)
     switch (player.level) {
         case Level.ONE:
             levelOne(gameDiv, onWin, onLose);
