@@ -1,4 +1,5 @@
 from database import Database
+import json
 
 db = Database()
 
@@ -46,15 +47,6 @@ def fetch_player_progress_query(gamerid):
     # print(result)
     return result
 
-def fetch_player_collectibles_query(gamerid):
-    sql = f"SELECT * FROM player_collectables WHERE player_id = %s;"
-    # print(sql)
-    cursor = db.get_conn().cursor()
-    cursor.execute(sql, (gamerid,))
-    result = cursor.fetchone()
-    # print(result)
-    return result
-
 
 def fetch_game_airport_icao_query(current_level):
     sql = f"SELECT airport_id FROM game_airports WHERE id = %s;"
@@ -83,42 +75,34 @@ def fetch_airport_country_query(iso_country):
     return result
 
 
-def update_progress_query(level, score, carbon_fp, player_id):
-    sql = f"UPDATE progress SET current_level = %s, game_score = %s, carbon_footprint = %s WHERE player_id = %s"
-    # print(sql)
-    print(player_id)
+def update_progress_query(level, score, carbon_fp, player_id, attempts, player_collectibles):
+    sql = """
+        UPDATE progress
+        SET current_level = ?,
+            game_score = ?,
+            carbon_footprint = ?,
+            attempts = ?,
+            collectibles = ?
+        WHERE player_id = ?
+    """
     cursor = db.get_conn().cursor()
-    cursor.execute(sql, (level, score, carbon_fp, player_id,))
-    if cursor.rowcount==1:
+    cursor.execute(sql, (level, score, carbon_fp, attempts, json.dumps(player_collectibles), player_id))
+
+    updated = cursor.rowcount == 1
+    cursor.close()
+
+    if updated:
         print("Player progress updated")
         return "Player progress updated"
 
-def insert_collectibles_query(player_id, collectable):
-    sql = "INSERT INTO player_collectables (player_id, collectable) VALUES (%s, %s);"
-    cursor = db.get_conn().cursor()
-    cursor.execute(sql, (player_id, collectable,))
-    db.get_conn().commit()
-    if cursor.rowcount == 1:
-        print("Player collectable inserted")
-        return "Player collectable updated"
+    print("No matching player found")
+    return "No matching player found"
 
-def fetch_collectibles_query(playerId):
-    sql = f"SELECT collectable FROM player_collectables WHERE player_id = %s"
-    # print(sql)
-    cursor = db.get_conn().cursor()
-    cursor.execute(sql, (playerId,))
-    rows = cursor.fetchall()
-    collectibles = [row[0] for row in rows]
-
-    return collectibles
 
 def delete_player_and_progress_query():
     sql = "DELETE FROM progress"
     cursor = db.get_conn().cursor()
     cursor.execute(sql,)
-
-    sql = "DELETE FROM player_collectables"
-    cursor.execute(sql, )
 
     sql = "DELETE FROM player"
     cursor.execute(sql, )

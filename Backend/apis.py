@@ -1,9 +1,7 @@
-from http.client import responses
-
 from query_functions import add_player_query, player_progress_id_query, fetch_player_progress_query, \
     update_progress_query, fetch_riddle_query, \
     fetch_quiz_questions_query, fetch_game_airports_query, delete_player_and_progress_query, fetch_airport_info_query, \
-    fetch_airport_country_query, fetch_player_collectibles_query, insert_collectibles_query, fetch_collectibles_query
+    fetch_airport_country_query
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 import json
@@ -27,14 +25,17 @@ def player(text):
         player_progress_data = fetch_player_progress_query(player_id)
         print(player_progress_data)
 
+        collectibles = json.loads(player_progress_data[6]) if player_progress_data and player_progress_data[6] else []
+
         response = {
             "name": player_name,
             "progressId": player_progress_data[0],
             "playerId": player_progress_data[1],
             "level": player_progress_data[2],
-            "attempts": player_progress_data[5],
             "score": player_progress_data[3],
-            "carbonPrint": player_progress_data[4]
+            "carbonPrint": player_progress_data[4],
+            "attempts": player_progress_data[5],
+            "collectibles": collectibles
         }
 
         return response
@@ -53,17 +54,18 @@ def player(text):
 def progress(player_id):
     try:
         player_data = fetch_player_progress_query(player_id)
-        player_collection = fetch_player_collectibles_query(player_id)
-        print(player_data)
-        print(player_collection)
 
+        print(player_data)
+
+        collectibles = json.loads(player_data[6]) if player_data and player_data[6] else []
         response = {
             "progressId": player_data[0],
             "playerId": player_data[1],
             "level": player_data[2],
             "score": player_data[3],
             "carbonPrint": player_data[4],
-            "collectibles": player_collection[0]
+            "attempts": player_data[5],
+            "collectibles": collectibles
         }
 
         return response
@@ -77,14 +79,6 @@ def progress(player_id):
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
 
-@app.route('/player/collectables/<playerId>')
-def collectables(playerId):
-    collection = fetch_collectibles_query(playerId)
-    print("fetching all collectibles", collection)
-    return json.dumps(collection)
-
-
-
 @app.route('/update/progress', methods=["POST"])
 def update_progress():
     data = request.get_json(silent=True)
@@ -97,14 +91,14 @@ def update_progress():
     if missing:
         return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
 
-    level = data["level"]
-    score = data["score"]
-    carbon_fp = data["carbon_fp"]
-    player_id = data["player_id"]
-    player_collectibles = data["collectibles"]
-
-    player_progress_update = update_progress_query(level, score, carbon_fp, player_id)
-    insert_collectibles_query(player_id, player_collectibles)
+    player_progress_update =  update_progress_query(
+            data["level"],
+            data["score"],
+            data["carbon_fp"],
+            data["player_id"],
+            data["attempts"],
+            data["collectibles"]
+    )
     print("player_progress/collection_update")
 
     response = player_progress_update

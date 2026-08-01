@@ -1,4 +1,3 @@
-
   CREATE TABLE IF NOT EXISTS game_airports(
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
       airport_id VARCHAR(40) NOT NULL,
@@ -9,7 +8,7 @@
       id INT NOT NULL auto_increment,
       name varchar(40) NULL,
 	  PRIMARY KEY (id)
-  )
+  );
 
   CREATE TABLE IF NOT EXISTS progress(
       id INT NOT NULL auto_increment,
@@ -18,17 +17,11 @@
       game_score INT default 1000,
       carbon_footprint INT default 0,
       attempts INT default 0,
+      collectibles JSON default ('[]'),
 	  PRIMARY KEY (id),
       FOREIGN KEY (player_id) REFERENCES player(id),
       FOREIGN KEY (current_level) REFERENCES game_airports(id)
-  )
-
-CREATE TABLE IF NOT EXISTS player_collectables (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      player_id INT NOT NULL,
-      collectable VARCHAR(50) NOT NULL,
-      FOREIGN KEY (player_id) REFERENCES player(id)
-);
+  );
 
  CREATE TABLE IF NOT EXISTS quizlet(
       id INT NOT NULL auto_increment,
@@ -36,7 +29,7 @@ CREATE TABLE IF NOT EXISTS player_collectables (
       correct_answer text,
       difficulty_level INT,
 	  PRIMARY KEY (id)
-  )
+  );
 
   CREATE TABLE IF NOT EXISTS riddle(
       id INT NOT NULL auto_increment,
@@ -44,6 +37,6 @@ CREATE TABLE IF NOT EXISTS player_collectables (
       correct_answer varchar(250),
       difficulty_level INT,
 	  PRIMARY KEY (id)
-  )
+  );
 
   
