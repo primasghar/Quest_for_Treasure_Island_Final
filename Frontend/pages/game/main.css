@@ -227,9 +227,14 @@ option:focus {
 
 .nameAndId {
     padding-left: 1rem;
+    width: 18.75rem;
 }
 
 .name {
+    max-width: 18.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
     margin: 0;
     font-size: var(--font-size30);
 }
@@ -590,7 +595,7 @@ i.ti-plane {
 }
 
 .tails {
-     background-image: url("../../images/coin_tails.svg");
+    background-image: url("../../images/coin_tails.svg");
     border: 0.188rem solid #54492a;
     transform: rotateY(180deg);
 }
