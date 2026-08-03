@@ -71,7 +71,7 @@ const levelSix = (gameDiv, onWin, onLose) => {
     levelSixContainer = createDivElement("game6Container")
     gameDiv.appendChild(levelSixContainer)
 
-    describeGame6Para = createParagraphElement("game6Description", "A random sequence of 8 capital alphabets will be displayed for 8 seconds, after that you will have to type the sequence.")
+    describeGame6Para = createParagraphElement("game6Description", "A random sequence of 8 capital alphabets will be displayed for 8 seconds. To win, type correct sequence.")
     levelSixContainer.appendChild(describeGame6Para)
 
     showSeqBtnEl = createButtonElement("sequenceBtn", "Sequence")

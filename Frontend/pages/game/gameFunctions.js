@@ -15,7 +15,7 @@ import {
     showAirportInfo, showCountryFlag,
     unlockCollectibles, updatePlayerBoardUI
 } from "./utils/utilityFunctions.js";
-import { showMessageModal } from './utils/modals.js'
+import {showMessageModal} from './utils/modals.js'
 import {
     getPlayerProgressData,
     setPlayerProgress,
@@ -42,19 +42,19 @@ export const onWin = async () => {
     unlockCollectibles([collectiblesArray[player.level - 1]])//passing the name of the collectible from array using level completed, considering 0 indexed array.
     player.collectibles.push(collectiblesArray[player.level - 1]);
 
-    nextGameBtn.disabled =  player.level > Level.EIGHT;
+    nextGameBtn.disabled = player.level >= Level.EIGHT;
 
     if (player.level === Level.EIGHT) {
+
         setTimeout(async () => {
             player.score += Score.FIVE_HUNDRED;
-            setPlayerProgress(player);
+            player.level = Level.NINE;
+
             await updatePlayerProgress(player)
+            setPlayerProgress(player);
+
             playLevel(Level.NINE)
         }, 2000)
-    }
-
-    if (player.level !== Level.NINE) {
-        player.attempts = 0;
     }
 
     player.score += Score.FIVE_HUNDRED;
@@ -105,7 +105,11 @@ nextGameBtn.addEventListener("click", async () => {
     let player = getPlayerProgressData();
     let carbonEmission = await calcCarbonEmission(player.level)
     player.level += 1;
+    if (player.level !== Level.NINE) {
+        player.attempts = 0;
+    }
     player.carbonPrint = player.carbonPrint + carbonEmission;
+    console.log("CE", player.carbonPrint)
     updatePlayerBoardUI(player)
     setPlayerProgress(player);
 
