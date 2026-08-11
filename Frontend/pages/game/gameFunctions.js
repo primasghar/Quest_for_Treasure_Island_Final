@@ -109,7 +109,7 @@ nextGameBtn.addEventListener("click", async () => {
         player.attempts = 0;
     }
     player.carbonPrint = player.carbonPrint + carbonEmission;
-    console.log("CE", player.carbonPrint)
+
     updatePlayerBoardUI(player)
     setPlayerProgress(player);
 
@@ -135,7 +135,6 @@ quitBtn.addEventListener("click", async () => {
 export const playLevel = () => {
     let player = getPlayerProgressData();
 
-    console.log('playLevel', player)
     switch (player.level) {
         case Level.ONE:
             levelOne(gameDiv, onWin, onLose);

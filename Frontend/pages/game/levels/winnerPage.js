@@ -30,7 +30,7 @@ const winnerPage = (playerName) => {
     winnerTitle.innerText = `Congratulations! ${playerName}.`;
     winnerDiv.appendChild(winnerTitle)
 
-    const goingToIsland = createParagraphElement("islandGoer", `You have reached the Treasure Island.`);
+    const goingToIsland = createParagraphElement("islandGoer", `Your quest has ended. You will be taken to the Treasure Island by our associate.`);
     winnerDiv.appendChild(goingToIsland)
 
     const quitPlayAgain = createButtonElement("quitAndPlayBtn", "Quit / Play Again")
