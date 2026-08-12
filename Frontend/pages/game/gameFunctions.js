@@ -69,7 +69,7 @@ export const onLose = () => {
 
     setTimeout(() => {
         if (player.score >= Score.FIVE_HUNDRED && player.attempts === Attempts.THIRD) {
-            showMessageModal(`Want to Play again ? \n-500 scores & +1 kg Carbon Footprints`, "Yes", onReplay)
+            showMessageModal(`Want to Play again ? \n-500 scores & +100 kg Carbon Footprints`, "Yes", onReplay)
         } else if (player.score < Score.FIVE_HUNDRED && player.attempts === Attempts.THIRD) {
             GameOver(player.name)
         }
@@ -82,7 +82,8 @@ export const onReplay = async () => {
 
     player.score -= Score.FIVE_HUNDRED;
     player.attempts = 0;
-    player.carbonPrint += Score.ONE_THOUSAND;
+    console.log("CP", player.carbonPrint)
+    player.carbonPrint += Score.ONE_HUNDRED_THOUSAND;
 
     clearGameAreas()
     playLevel(player.level)
@@ -161,7 +162,7 @@ export const playLevel = () => {
             levelEight(gameDiv, onWin, onLose);
             break;
         case Level.NINE:
-            winnerPage(player.name);
+            winnerPage();
             break;
         case Level.TEN:
             GameOver(player.name);
